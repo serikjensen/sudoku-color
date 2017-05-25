@@ -1,0 +1,3 @@
+# SudokuColor
+
+Colorized Sudoku app
