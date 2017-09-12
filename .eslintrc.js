@@ -16,6 +16,8 @@ module.exports = {
     'react/no-unused-prop-types': 0,
     'react/prefer-stateless-function': 0,
     'import/prefer-default-export': 0,
+    'import/no-named-as-default': 0,
+    'import/no-named-as-default-member': 0,
 
     'prefer-rest-params': 0,
     'arrow-parens': 0,

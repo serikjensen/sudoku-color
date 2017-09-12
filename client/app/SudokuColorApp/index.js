@@ -1,16 +1,3 @@
-<<<<<<< 0db80fc99374981b16886fd427de58c550432204
-import React from 'react'
-
-export default class SudokuColorApp extends React.Component {
-	render() {
-		return (
-			<div>
-				Hello from sudoku
-			</div>
-		)
-	}
-}
-=======
 import React, { Component } from 'react'
 import getSudokuPuzzle from '../../util/getSudokuPuzzle'
 
@@ -40,4 +27,3 @@ export default class SudokuColorApp extends Component {
     /* eslint-enable react/no-array-index-key */
   }
 }
->>>>>>> Setup eslint
