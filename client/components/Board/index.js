@@ -38,6 +38,4 @@ class Board extends Component {
 
 const mapStateToProps = state => state.puzzle
 
-export default connect(
-  mapStateToProps
-)(Board)
+export default connect(mapStateToProps)(Board)

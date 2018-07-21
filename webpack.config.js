@@ -14,7 +14,7 @@ module.exports = {
     filename: 'index_bundle.js'
   },
   module: {
-    loaders: [
+    rules: [
       { test: /\.js$/, loader: 'babel-loader', exclude: /node_modules/ },
       { test: /\.jsx$/, loader: 'babel-loader', exclude: /node_modules/ },
       { enforce: 'pre',
@@ -32,5 +32,8 @@ module.exports = {
       },
     ]
   },
-  plugins: [HtmlWebpackPluginConfig]
+  plugins: [HtmlWebpackPluginConfig],
+  performance: {
+    hints: process.env.NODE_ENV === 'production' ? "warning" : false
+  },
 }
