@@ -2,7 +2,7 @@ import React, { Component } from 'react'
 import PropTypes from 'prop-types'
 import { connect } from 'react-redux'
 
-import Tile from '../Tile'
+import Cell from '../Cell'
 
 class Board extends Component {
   static propTypes = {
@@ -20,7 +20,7 @@ class Board extends Component {
             <tr key={`${i}`}>
               {row.map((value, j) => (
                 <td key={`${j}`}>
-                  <Tile value={value} coords={{ i, j }} />
+                  <Cell coords={{ i, j }} value={value} puzzle={puzzle} />
                 </td>))
               }
             </tr>

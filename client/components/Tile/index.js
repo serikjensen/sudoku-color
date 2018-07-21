@@ -1,39 +1,34 @@
 import React, { Component } from 'react'
 import PropTypes from 'prop-types'
-import { connect } from 'react-redux'
-import { setTile } from '../../actions/puzzleActions'
 
 class Tile extends Component {
   static propTypes = {
     value: PropTypes.number.isRequired,
-    coords: PropTypes.shape({
-      i: PropTypes.number.isRequired,
-      j: PropTypes.number.isRequired
-    }).isRequired,
-    setTile: PropTypes.func
+    onClick: PropTypes.func
   }
 
   static defaultProps = {
-    setTile: () => {}
+    onClick: () => {}
+  }
+
+  handleClick = (event) => {
+    const { onClick, value } = this.props
+    onClick(event, value)
   }
 
   render () {
-    const { value, coords } = this.props
-    const handleSetTile = () => { this.props.setTile(coords, 5) }
+    const { value } = this.props
 
     let tile
     if (value < 0) {
       tile = <span>preset value: {value * -1}</span>
     } else if (value === 0) {
-      tile = <button onClick={handleSetTile}>add tile</button>
+      tile = <button onClick={this.handleClick}>add tile</button>
     } else {
-      tile = <button onClick={handleSetTile}>{value} (edit)</button>
+      tile = <button onClick={this.handleClick}>{value}</button>
     }
     return tile
   }
 }
 
-export default connect(
-  null,
-  { setTile }
-)(Tile)
+export default Tile

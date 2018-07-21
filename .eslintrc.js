@@ -15,6 +15,8 @@ module.exports = {
     'react/jsx-filename-extension': [1, { extensions: ['.js'] }],
     'no-use-before-define': 0,
     'no-underscore-dangle': 0,
-    'jsx-a11y/href-no-hash': 0
+    'jsx-a11y/href-no-hash': 0,
+    'react/prefer-stateless-function': 0,
+    'arrow-parens': 0
   }
 }

@@ -1,5 +1,5 @@
 import getSudokuPuzzle from '../util/getSudokuPuzzle'
-import { setTile } from '../util/sudokuOps'
+import setTile from '../util/setTile'
 import { SET_TILE } from '../constants/actionTypes'
 
 const defaultState = {
