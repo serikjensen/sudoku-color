@@ -10,7 +10,7 @@ import Tile from '../Tile'
 
 class Cell extends Component {
   static propTypes = {
-    value: PropTypes.number.isRequired,
+    value: PropTypes.number,
     coords: PropTypes.shape({
       i: PropTypes.number.isRequired,
       j: PropTypes.number.isRequired
@@ -19,6 +19,7 @@ class Cell extends Component {
   }
 
   static defaultProps = {
+    value: null,
     setTile: () => {}
   }
 

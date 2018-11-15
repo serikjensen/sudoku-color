@@ -10,13 +10,14 @@
     "start": "webpack-dev-server --mode=production",
     "develop": "webpack-dev-server --mode=development",
     "tableflip": "rm -rf node_modules/ && yarn cache clean && yarn install",
-    "test": "mocha -w setupTests.js client/**/__test__/*.test.js"
+    "test": "mocha -R spec -w test/setupTests.js ./client/**/*.test.js"
   },
   "dependencies": {
     "@instructure/ui-overlays": "^5.20.1",
     "@instructure/ui-themes": "^5.20.1",
     "babel-register": "^6.26.0",
     "chai": "^4.1.2",
+    "deep-equal": "^1.0.1",
     "enzyme": "^3.3.0",
     "enzyme-adapter-react-15": "^1.0.6",
     "html-webpack-plugin": "^3.2.0",
@@ -33,6 +34,7 @@
     "redux-logger": "^3.0.6",
     "redux-promise-middleware": "^5.1.1",
     "redux-thunk": "^2.3.0",
+    "sinon": "^6.1.4",
     "sudoku": "^0.0.2",
     "webpack": "^4.16.1",
     "webpack-cli": "^3.1.0",

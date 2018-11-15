@@ -3,11 +3,12 @@ import PropTypes from 'prop-types'
 
 class Tile extends Component {
   static propTypes = {
-    value: PropTypes.number.isRequired,
+    value: PropTypes.number,
     onClick: PropTypes.func
   }
 
   static defaultProps = {
+    value: null,
     onClick: () => {}
   }
 

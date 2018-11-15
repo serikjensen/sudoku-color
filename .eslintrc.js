@@ -14,6 +14,7 @@ module.exports = {
     'space-before-function-paren': ['error', 'always'],
     'spaced-comment': ['error', 'always', { markers: ['*'] }],
     'react/jsx-filename-extension': [1, { extensions: ['.js'] }],
+    'no-unused-expressions': 0,
     'no-use-before-define': 0,
     'no-underscore-dangle': 0,
     'jsx-a11y/href-no-hash': 0,
