@@ -9,13 +9,13 @@ export default function generatePuzzle () {
   return formatRawPuzzle(rawPuzzle)
 }
 
-function generateRawPuzzle (rawPuzzle) {
+export function generateRawPuzzle (rawPuzzle) {
   // For initial puzzle values we convert them to negatives for identification
   // For null values we set them to zero
   return rawPuzzle.map(value => (value ? value * -1 : 0))
 }
 
-function formatRawPuzzle (puzzle) {
+export function formatRawPuzzle (puzzle) {
   const formattedPuzzle = []
   for (let i = 0; i < PUZZLE_LENGTH; i += PUZZLE_WIDTH) {
     formattedPuzzle.push(puzzle.slice(i, i + PUZZLE_WIDTH))
