@@ -5,6 +5,7 @@ import { connect } from 'react-redux'
 import '@instructure/ui-themes/lib/canvas'
 
 import Board from '../Board'
+import AppMenu from '../AppMenu'
 import { requestPuzzle } from '../../actions/puzzleActions'
 
 class SudokuColorApp extends Component {
@@ -25,6 +26,7 @@ class SudokuColorApp extends Component {
   render () {
     return (
       <span>
+        <AppMenu onRequestNewPuzzle={this.props.requestPuzzle} />
         {!this.props.requestingPuzzle
           ? <Board />
           : 'Loading'
