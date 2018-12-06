@@ -1,15 +1,18 @@
 import React, { Component } from 'react'
 import PropTypes from 'prop-types'
+import { connect } from 'react-redux'
 
 import Tray from '@instructure/ui-overlays/lib/components/Tray'
 
+import { requestPuzzle } from '../../actions/puzzleActions'
+
 class AppMenu extends Component {
   static propTypes = {
-    onRequestNewPuzzle: PropTypes.func
+    requestPuzzle: PropTypes.func
   }
 
   static defaultProps = {
-    onRequestNewPuzzle: () => {}
+    requestPuzzle: () => {}
   }
 
   state = {
@@ -29,7 +32,7 @@ class AppMenu extends Component {
   }
 
   handleNewPuzzle = () => {
-    this.props.onRequestNewPuzzle()
+    this.props.requestPuzzle()
     this.setTrayStatus(false)
   }
 
@@ -38,6 +41,7 @@ class AppMenu extends Component {
       <div>
         <button onClick={this.handleMenuTriggerClick}>Open menu</button>
         <Tray
+          label="Menu"
           open={this.state.open}
           placement="end"
         >
@@ -52,4 +56,4 @@ class AppMenu extends Component {
   }
 }
 
-export default AppMenu
+export default connect(null, { requestPuzzle })(AppMenu)

@@ -26,11 +26,12 @@ class SudokuColorApp extends Component {
   render () {
     return (
       <span>
-        <AppMenu onRequestNewPuzzle={this.props.requestPuzzle} />
+        <AppMenu />
         {!this.props.requestingPuzzle
           ? <Board />
           : 'Loading'
         }
+        <button>foo</button>
       </span>
     )
   }

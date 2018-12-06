@@ -26,7 +26,7 @@ describe('puzzleReducer', () => {
       const state = reducer(defaultState, {
         type: RECEIVED_PUZZLE,
         payload: {
-          puzzle 
+          puzzle
         },
         error: false
       })
@@ -67,7 +67,7 @@ describe('puzzleReducer', () => {
           }
         })
 
-        if(!deepEqual(puzzle, state.puzzle)) {
+        if (!deepEqual(puzzle, state.puzzle)) {
           result = false
         }
       })

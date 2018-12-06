@@ -33,12 +33,14 @@ class CellMenu extends Component {
             key={i}
             value={availableValue}
             onClick={this.handleTileClick}
+            selected
           />
         ))}
         {value > 0 && (
           <Tile
             value={0}
             onClick={this.handleTileClick}
+            selected
           />
         )}
       </div>

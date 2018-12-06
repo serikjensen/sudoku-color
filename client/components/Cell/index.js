@@ -15,12 +15,18 @@ class Cell extends Component {
       i: PropTypes.number.isRequired,
       j: PropTypes.number.isRequired
     }).isRequired,
-    setTile: PropTypes.func
+    setTile: PropTypes.func,
+    onKeyDown: PropTypes.func,
+    onClick: PropTypes.func,
+    selected: PropTypes.bool
   }
 
   static defaultProps = {
     value: null,
-    setTile: () => {}
+    setTile: () => {},
+    onKeyDown: () => {},
+    onClick: () => {},
+    selected: false
   }
 
   state = {
@@ -35,8 +41,15 @@ class Cell extends Component {
     this.setState({ show: true })
   }
 
-  handleCellClick = () => {
+  handleClick = (e) => {
+    const { coords, onClick } = this.props
+    onClick(e, coords)
     this.showMenu()
+  }
+
+  handleKeyDown = (e) => {
+    const { coords, onKeyDown } = this.props
+    onKeyDown(e, coords)
   }
 
   handlePopoverDismiss = () => {
@@ -50,19 +63,21 @@ class Cell extends Component {
   }
 
   render () {
-    const { value } = this.props
+    const { value, selected } = this.props
 
     /* eslint-disable react/no-array-index-key */
     return (
       <Popover
         show={this.state.show}
         onDismiss={this.handlePopoverDismiss}
-        shouldContainFocus
+        shouldContainFocus={false}
       >
         <PopoverTrigger>
           <Tile
             value={value}
-            onClick={this.handleCellClick}
+            selected={selected}
+            onKeyDown={this.handleKeyDown}
+            onClick={this.handleClick}
           />
         </PopoverTrigger>
         <PopoverContent>

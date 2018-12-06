@@ -1,4 +1,9 @@
-import { REQUEST_PUZZLE, RECEIVED_PUZZLE, SET_TILE } from '../constants/actionTypes'
+import {
+  REQUEST_PUZZLE,
+  RECEIVED_PUZZLE,
+  SET_TILE
+} from '../constants/actionTypes'
+
 import loadPuzzle from '../util/loadPuzzle'
 
 export const requestPuzzle = () => (dispatch) => {
