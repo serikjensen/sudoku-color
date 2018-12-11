@@ -13,8 +13,9 @@
     "test": "mocha -R spec -w test/setupTests.js ./client/**/*.test.js"
   },
   "dependencies": {
-    "@instructure/ui-overlays": "^5.33.0",
-    "@instructure/ui-themes": "^5.33.0",
+    "@instructure/ui-overlays": "^5.35.0",
+    "@instructure/ui-themes": "^5.35.0",
+    "@instructure/ui-utils": "^5.35.0",
     "chai": "^4.2.0",
     "deep-equal": "^1.0.1",
     "enzyme": "^3.7.0",

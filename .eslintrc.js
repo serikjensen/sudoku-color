@@ -20,6 +20,7 @@ module.exports = {
     'jsx-a11y/href-no-hash': 0,
     'react/prefer-stateless-function': 0,
     'arrow-parens': 0,
+    'prefer-destructuring': 0,
     'object-curly-newline': ['error', { consistent: true }]
   }
 }

@@ -18,7 +18,7 @@ class Cell extends Component {
     setTile: PropTypes.func,
     onKeyDown: PropTypes.func,
     onClick: PropTypes.func,
-    selected: PropTypes.bool
+    tabIndex: PropTypes.number
   }
 
   static defaultProps = {
@@ -26,7 +26,7 @@ class Cell extends Component {
     setTile: () => {},
     onKeyDown: () => {},
     onClick: () => {},
-    selected: false
+    tabIndex: -1
   }
 
   state = {
@@ -41,15 +41,10 @@ class Cell extends Component {
     this.setState({ show: true })
   }
 
-  handleClick = (e) => {
-    const { coords, onClick } = this.props
-    onClick(e, coords)
+  handleClick = (e, coords, value) => {
+    const { onClick } = this.props
+    onClick(e, coords, value)
     this.showMenu()
-  }
-
-  handleKeyDown = (e) => {
-    const { coords, onKeyDown } = this.props
-    onKeyDown(e, coords)
   }
 
   handlePopoverDismiss = () => {
@@ -63,22 +58,32 @@ class Cell extends Component {
   }
 
   render () {
-    const { value, selected } = this.props
+    const {
+      value,
+      tabIndex,
+      coords,
+      onKeyDown
+    } = this.props
+
+    const tile = (
+      <Tile
+        value={value}
+        onKeyDown={onKeyDown}
+        onClick={this.handleClick}
+        tabIndex={tabIndex}
+        coords={coords}
+      />
+    )
 
     /* eslint-disable react/no-array-index-key */
-    return (
+    return value < 0 ? tile : (
       <Popover
         show={this.state.show}
         onDismiss={this.handlePopoverDismiss}
         shouldContainFocus={false}
       >
         <PopoverTrigger>
-          <Tile
-            value={value}
-            selected={selected}
-            onKeyDown={this.handleKeyDown}
-            onClick={this.handleClick}
-          />
+          {tile}
         </PopoverTrigger>
         <PopoverContent>
           <CellMenu

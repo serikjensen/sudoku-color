@@ -5,19 +5,23 @@ class Tile extends Component {
   static propTypes = {
     value: PropTypes.number,
     onClick: PropTypes.func,
-    selected: PropTypes.bool,
-    onKeyDown: PropTypes.func
+    onKeyDown: PropTypes.func,
+    tabIndex: PropTypes.number,
+    coords: PropTypes.shape({
+      i: PropTypes.number.isRequired,
+      j: PropTypes.number.isRequired
+    }).isRequired
   }
 
   static defaultProps = {
     value: null,
-    selected: false,
     onClick: () => {},
-    onKeyDown: () => {}
+    onKeyDown: () => {},
+    tabIndex: -1
   }
 
   componentWillUpdate (nextProps) {
-    if (!this.props.selected && nextProps.selected) {
+    if (this.props.tabIndex === -1 && nextProps.tabIndex === 0) {
       this._content.focus()
     }
   }
@@ -25,43 +29,38 @@ class Tile extends Component {
   _content = null
 
   handleClick = (event) => {
-    const { onClick, value } = this.props
-    onClick(event, value)
+    const { onClick, value, coords } = this.props
+    onClick(event, coords, value)
+  }
+
+  handleKeyDown = (event) => {
+    const { onKeyDown, value, coords } = this.props
+    onKeyDown(event, coords, value)
   }
 
   render () {
     const {
       value,
-      selected,
-      onKeyDown
+      tabIndex
     } = this.props
 
     const props = {
-      tabIndex: selected ? 0 : -1,
-      onKeyDown,
+      tabIndex,
+      onKeyDown: this.handleKeyDown,
+      onClick: this.handleClick,
       ref: (el) => { this._content = el }
     }
 
     let tile
     if (value < 0) {
-      tile = <span {...props}>{`preset value: ${value * -1} ${selected}`}</span>
+      tile = <span {...props}>{`preset value: ${value * -1} ${tabIndex === 0}`}</span>
     } else if (value === 0) {
       tile = (
-        <button
-          onClick={this.handleClick}
-          {...props}
-        >
-          {`add tile ${selected}`}
-        </button>
+        <button {...props}>{`add tile ${tabIndex === 0}`}</button>
       )
     } else {
       tile = (
-        <button
-          onClick={this.handleClick}
-          {...props}
-        >
-          {`${value} ${selected}`}
-        </button>
+        <button {...props}>{`${value} ${tabIndex === 0}`}</button>
       )
     }
     return tile

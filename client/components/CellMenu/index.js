@@ -3,6 +3,7 @@ import PropTypes from 'prop-types'
 import { connect } from 'react-redux'
 
 import getAvailableValues from '../../util/getAvailableValues'
+import DataGrid from '../util/DataGrid'
 import Tile from '../Tile'
 
 class CellMenu extends Component {
@@ -16,7 +17,7 @@ class CellMenu extends Component {
     onSelect: () => {}
   }
 
-  handleTileClick = (event, value) => {
+  handleTileClick = (event, coords, value) => {
     const { onSelect } = this.props
     onSelect(event, value)
   }
@@ -26,26 +27,48 @@ class CellMenu extends Component {
     const availableValues = getAvailableValues([value], puzzle)
 
     /* eslint-disable react/no-array-index-key */
-    return (
-      <div>
-        {availableValues.map((availableValue, i) => (
-          <Tile
-            key={i}
-            value={availableValue}
-            onClick={this.handleTileClick}
-            selected
-          />
-        ))}
-        {value > 0 && (
-          <Tile
-            value={0}
-            onClick={this.handleTileClick}
-            selected
-          />
-        )}
-      </div>
+    const tableBody = ({ getTableProps, getCellProps }) => (
+      <table {...getTableProps()}>
+        <tbody>
+          {
+            // Given a single array of available values, format such that it fits on a max 3x3 grid
+            availableValues.reduce((collection, availableValue, i) => {
+              const index = Math.floor(i / 3)
+
+              if (Array.isArray(collection)) {
+                collection[index] ? collection[index].push(availableValue) : collection.push([availableValue])
+              }
+
+              return Array.isArray(collection) ? collection : [[collection, availableValue]]
+            }).map((row, i) => (
+              <tr key={`${i}`}>
+                {row.map((availableValue, j) => (
+                  <td key={`${j}`}>
+                    <Tile
+                      debug
+                      coords={{ i, j }}
+                      value={availableValue}
+                      {...getCellProps({
+                        onClick: this.handleTileClick,
+                        coords: { i, j }
+                      })}
+                    />
+                  </td>))
+                }
+              </tr>
+            ))
+          }
+        </tbody>
+      </table>
     )
     /* eslint-enable react/no-array-index-key */
+
+    return (
+      <DataGrid
+        label="Available Tiles"
+        render={tableBody}
+      />
+    )
   }
 }
 
