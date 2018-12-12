@@ -1,9 +1,15 @@
 import React, { Component } from 'react'
 import PropTypes from 'prop-types'
 
+import { omitProps } from '@instructure/ui-utils/lib/react/passthroughProps'
+
+import ScreenReaderContent from '@instructure/ui-a11y/lib/components/ScreenReaderContent'
+import PresentationContent from '@instructure/ui-a11y/lib/components/PresentationContent'
+
 class Tile extends Component {
   static propTypes = {
     value: PropTypes.number,
+    label: PropTypes.node,
     onClick: PropTypes.func,
     onKeyDown: PropTypes.func,
     tabIndex: PropTypes.number,
@@ -15,6 +21,7 @@ class Tile extends Component {
 
   static defaultProps = {
     value: null,
+    label: null,
     onClick: () => {},
     onKeyDown: () => {},
     tabIndex: -1
@@ -38,32 +45,33 @@ class Tile extends Component {
     onKeyDown(event, coords, value)
   }
 
+  handleContentRef = (el) => {
+    this._content = el
+  }
+
   render () {
     const {
       value,
-      tabIndex
+      label,
+      tabIndex,
+      ...props
     } = this.props
 
-    const props = {
-      tabIndex,
-      onKeyDown: this.handleKeyDown,
-      onClick: this.handleClick,
-      ref: (el) => { this._content = el }
-    }
+    const ElementType = value < 0 ? 'span' : 'button'
+    const presentationValue = value < 0 ? value * -1 : value
 
-    let tile
-    if (value < 0) {
-      tile = <span {...props}>{`preset value: ${value * -1} ${tabIndex === 0}`}</span>
-    } else if (value === 0) {
-      tile = (
-        <button {...props}>{`add tile ${tabIndex === 0}`}</button>
-      )
-    } else {
-      tile = (
-        <button {...props}>{`${value} ${tabIndex === 0}`}</button>
-      )
-    }
-    return tile
+    return (
+      <ElementType
+        tabIndex={tabIndex}
+        onKeyDown={this.handleKeyDown}
+        onClick={this.handleClick}
+        ref={this.handleContentRef}
+        {...omitProps(props, Tile.propTypes)}
+      >
+        <ScreenReaderContent>{label || presentationValue}</ScreenReaderContent>
+        <PresentationContent>{presentationValue}</PresentationContent>
+      </ElementType>
+    )
   }
 }
 

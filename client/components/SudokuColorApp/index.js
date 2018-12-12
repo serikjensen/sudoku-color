@@ -23,12 +23,22 @@ class SudokuColorApp extends Component {
     this.props.requestPuzzle()
   }
 
+  _board = null
+
+  handleBoardRef = (el) => {
+    this._board = el.getWrappedInstance()
+  }
+
+  handleRequestPuzzle = () => {
+    this._board.reset()
+  }
+
   render () {
     return (
       <span>
-        <AppMenu />
+        <AppMenu onRequestPuzzle={this.handleRequestPuzzle} />
         {!this.props.requestingPuzzle
-          ? <Board />
+          ? <Board ref={this.handleBoardRef} />
           : 'Loading'
         }
         <button>foo</button>

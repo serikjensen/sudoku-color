@@ -26,6 +26,10 @@ class CellMenu extends Component {
     const { value, puzzle } = this.props
     const availableValues = getAvailableValues([value], puzzle)
 
+    if (value) {
+      availableValues.push(0) // Add null value which generates the tile remove button
+    }
+
     /* eslint-disable react/no-array-index-key */
     const tableBody = ({ getTableProps, getCellProps }) => (
       <table {...getTableProps()}>
@@ -45,9 +49,9 @@ class CellMenu extends Component {
                 {row.map((availableValue, j) => (
                   <td key={`${j}`}>
                     <Tile
-                      debug
                       coords={{ i, j }}
                       value={availableValue}
+                      label={availableValue === 0 && 'Delete value'}
                       {...getCellProps({
                         onClick: this.handleTileClick,
                         coords: { i, j }
@@ -65,7 +69,7 @@ class CellMenu extends Component {
 
     return (
       <DataGrid
-        label="Available Tiles"
+        label="Select value"
         render={tableBody}
       />
     )

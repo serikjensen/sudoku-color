@@ -794,158 +794,165 @@
     lodash "^4.17.10"
     to-fast-properties "^2.0.0"
 
-"@instructure/ui-a11y@^5.33.0":
-  version "5.33.0"
-  resolved "https://registry.yarnpkg.com/@instructure/ui-a11y/-/ui-a11y-5.33.0.tgz#71bd753600ea07c4590a9e47d2604be301735afe"
-  integrity sha512-I0ckyHdadQzwP0oRaMidr/o2hH1+pN6TTAUDVpGCJ45VL4H8VJNTTCNK5I2/H1t1Up+62l87W4aloTdodmQwcQ==
+"@instructure/debounce@^5.35.0":
+  version "5.35.0"
+  resolved "https://registry.yarnpkg.com/@instructure/debounce/-/debounce-5.35.0.tgz#57d6286e3db48c6e8157cbf1c28c8f517e894af9"
+  integrity sha512-XnPGmoOpOxV7zfXoSfYV2Ju0+GXEUuO31Ipc4XBJNOq+MguXVSJCjOwxeZ3QaaCPnjAejB8/6VK1GnHcGaLNhQ==
+
+"@instructure/ui-a11y@^5.35.0":
+  version "5.35.0"
+  resolved "https://registry.yarnpkg.com/@instructure/ui-a11y/-/ui-a11y-5.35.0.tgz#3294405fc63467a63490bd9485ae59266e311a99"
+  integrity sha512-aG69ZRhqcyFVBN3ILq3jDuriii+eiMfXot5NqTMVF8Jq+lNiGh9PegUy9JBchpi6C5Z1zDYX1UOv7TWuG7dUMg==
   dependencies:
-    "@instructure/ui-themeable" "^5.33.0"
-    "@instructure/ui-utils" "^5.33.0"
+    "@instructure/ui-themeable" "^5.35.0"
+    "@instructure/ui-utils" "^5.35.0"
     babel-runtime "^6"
     keycode "^2"
     prop-types "^15"
 
-"@instructure/ui-buttons@^5.33.0":
-  version "5.33.0"
-  resolved "https://registry.yarnpkg.com/@instructure/ui-buttons/-/ui-buttons-5.33.0.tgz#15b8faa769bef6de50dd09133163113728656d42"
-  integrity sha512-Z/sZFnW8XoP5aPM8xPIfJxyWJR4463QhvhDphGHPCaF5Gtzs/QKXMvRqJgkvnf2ZK3HVPSZsTlZCR+kGLUcyYw==
+"@instructure/ui-buttons@^5.35.0":
+  version "5.35.0"
+  resolved "https://registry.yarnpkg.com/@instructure/ui-buttons/-/ui-buttons-5.35.0.tgz#d2f0cb62323b218166ce3c204114f03a69d44d7b"
+  integrity sha512-47YR2DWcFPNqKRd2MO/Om8LDwVpAk0i4nZUIhYf1BIbsgw68RFgfLCfKZzQLxUXZbu+hSUKTXa4rBxvYlG/2EQ==
   dependencies:
-    "@instructure/ui-a11y" "^5.33.0"
-    "@instructure/ui-icons" "^5.33.0"
-    "@instructure/ui-layout" "^5.33.0"
-    "@instructure/ui-testable" "^5.33.0"
-    "@instructure/ui-themeable" "^5.33.0"
-    "@instructure/ui-utils" "^5.33.0"
+    "@instructure/ui-a11y" "^5.35.0"
+    "@instructure/ui-icons" "^5.35.0"
+    "@instructure/ui-layout" "^5.35.0"
+    "@instructure/ui-testable" "^5.35.0"
+    "@instructure/ui-themeable" "^5.35.0"
+    "@instructure/ui-utils" "^5.35.0"
     babel-runtime "^6"
     classnames "^2"
     keycode "^2"
     prop-types "^15"
 
-"@instructure/ui-i18n@^5.33.0":
-  version "5.33.0"
-  resolved "https://registry.yarnpkg.com/@instructure/ui-i18n/-/ui-i18n-5.33.0.tgz#9beba1de8a661f1829dc205156fd926130cf654d"
-  integrity sha512-Dx7prtyiyEzYsf6ZMjt8hgldGD+3XsNaWs95+OhQe9gwexNyV6aX4HfPIqzsaETSpTh5UOu3z7R/1PzIJUXyWQ==
+"@instructure/ui-i18n@^5.35.0":
+  version "5.35.0"
+  resolved "https://registry.yarnpkg.com/@instructure/ui-i18n/-/ui-i18n-5.35.0.tgz#a7abecdbfb77f8c5a0593ce965e5cd5745d090a8"
+  integrity sha512-BOlDwlGD5It/ffjZj3ZTEbNlgEWxhTwJE5eSQwNZdvfl5Wp+5d7e6yV294lG+ZQwW6oRZ4kS5kvw8o573oicgQ==
   dependencies:
-    "@instructure/ui-utils" "^5.33.0"
+    "@instructure/ui-utils" "^5.35.0"
     babel-runtime "^6"
     decimal.js "^10"
     moment-timezone "^0.5"
     prop-types "^15"
 
-"@instructure/ui-icons@^5.33.0":
-  version "5.33.0"
-  resolved "https://registry.yarnpkg.com/@instructure/ui-icons/-/ui-icons-5.33.0.tgz#47f7987bfd23c9632c215fea90f07aab5b463ee6"
-  integrity sha512-/7UItzbh2ZVqnk4mJqeE6++JME7h3uW65R0RwD35mduhpV8JLMaDw8pcw+Zdv3W4GMVrWSUJhUahsEp4D+qguA==
+"@instructure/ui-icons@^5.35.0":
+  version "5.35.0"
+  resolved "https://registry.yarnpkg.com/@instructure/ui-icons/-/ui-icons-5.35.0.tgz#8d3f44efb324861b2edef13e0575caf86a9a875d"
+  integrity sha512-2HZaZVLnlD+Fb3vp5zyE+lsuzscdRPwvYMazOfph33MjnHEXVRNDol36CT6oXAByYaw3bZkYTDWiTU7TfHk38A==
   dependencies:
-    "@instructure/ui-svg-images" "^5.33.0"
+    "@instructure/ui-svg-images" "^5.35.0"
     babel-runtime "^6"
     prop-types "^15"
 
-"@instructure/ui-layout@^5.33.0":
-  version "5.33.0"
-  resolved "https://registry.yarnpkg.com/@instructure/ui-layout/-/ui-layout-5.33.0.tgz#8bb165c595d02f2f1a30895c5636587d5c652518"
-  integrity sha512-owgCtVjq9C+0sJWhudvZ1dZuB0TJCRCVoYLmaH2luwjr14HILvHJ9E6SWvaEy/74wX9+VZumQbq1Ao+Qu2sluQ==
+"@instructure/ui-layout@^5.35.0":
+  version "5.35.0"
+  resolved "https://registry.yarnpkg.com/@instructure/ui-layout/-/ui-layout-5.35.0.tgz#81b0740d52cf2a4603138ca7cd22375da969f53b"
+  integrity sha512-95ooel16RG8mX70VYtuQeDA+1sSE8lLMUtYOw6KjRm/EPCBeRVQGXfryXXhG6spWjTvZm1tWOjf0OXq/UsCbpA==
   dependencies:
-    "@instructure/ui-a11y" "^5.33.0"
-    "@instructure/ui-i18n" "^5.33.0"
-    "@instructure/ui-motion" "^5.33.0"
-    "@instructure/ui-portal" "^5.33.0"
-    "@instructure/ui-testable" "^5.33.0"
-    "@instructure/ui-themeable" "^5.33.0"
-    "@instructure/ui-utils" "^5.33.0"
+    "@instructure/debounce" "^5.35.0"
+    "@instructure/ui-a11y" "^5.35.0"
+    "@instructure/ui-i18n" "^5.35.0"
+    "@instructure/ui-motion" "^5.35.0"
+    "@instructure/ui-portal" "^5.35.0"
+    "@instructure/ui-testable" "^5.35.0"
+    "@instructure/ui-themeable" "^5.35.0"
+    "@instructure/ui-utils" "^5.35.0"
     babel-runtime "^6"
     classnames "^2"
     prop-types "^15"
 
-"@instructure/ui-motion@^5.33.0":
-  version "5.33.0"
-  resolved "https://registry.yarnpkg.com/@instructure/ui-motion/-/ui-motion-5.33.0.tgz#7b02960afb6e780caa534cd18fe2f5771d7bfd66"
-  integrity sha512-l2eRU5ZlPj+A7yjosU02TXD5jOGhY66SU2jGjHdTj3Gwv2lEV2KrE6NOeWbZMCowdERbC8rfnfu54jAyw6aQOg==
+"@instructure/ui-motion@^5.35.0":
+  version "5.35.0"
+  resolved "https://registry.yarnpkg.com/@instructure/ui-motion/-/ui-motion-5.35.0.tgz#a7044bbe59d8f8ae05a4531c0c8b8fab39edd90e"
+  integrity sha512-9NRkX0tZD72sSCBkW9ftCKZUpgJZ6H/9U0UsUqOFCfmKQ5diTsYz4R3jMdYodMc3wo6HLHsA2zvcdgqwSybb3g==
   dependencies:
-    "@instructure/ui-testable" "^5.33.0"
-    "@instructure/ui-themeable" "^5.33.0"
-    "@instructure/ui-utils" "^5.33.0"
+    "@instructure/ui-testable" "^5.35.0"
+    "@instructure/ui-themeable" "^5.35.0"
+    "@instructure/ui-utils" "^5.35.0"
     babel-runtime "^6"
     prop-types "^15"
 
-"@instructure/ui-overlays@^5.33.0":
-  version "5.33.0"
-  resolved "https://registry.yarnpkg.com/@instructure/ui-overlays/-/ui-overlays-5.33.0.tgz#810a5eca54ce33f6a7eac9186dfe32c00f921f55"
-  integrity sha512-ZGwGBGKAHucvQGmONYQvePtwfHBHAYnXlUBKGcipWRG0vrXax4RiRqXh6Daiay2yqpKzu5pK7zHPpyVReCaMuw==
+"@instructure/ui-overlays@^5.35.0":
+  version "5.35.0"
+  resolved "https://registry.yarnpkg.com/@instructure/ui-overlays/-/ui-overlays-5.35.0.tgz#7cd6311527c21a4797353b7f8decf0927acf8b65"
+  integrity sha512-jhfCD5OL2HeyhOlfzQP7ux2YwfdplmRA7eAXgXTTTzCMq+XWKx0FkLTBQTCTsLpeKNdaVIUXhi+KymPHaWNoHA==
   dependencies:
-    "@instructure/ui-a11y" "^5.33.0"
-    "@instructure/ui-buttons" "^5.33.0"
-    "@instructure/ui-i18n" "^5.33.0"
-    "@instructure/ui-layout" "^5.33.0"
-    "@instructure/ui-motion" "^5.33.0"
-    "@instructure/ui-portal" "^5.33.0"
-    "@instructure/ui-testable" "^5.33.0"
-    "@instructure/ui-themeable" "^5.33.0"
-    "@instructure/ui-utils" "^5.33.0"
+    "@instructure/ui-a11y" "^5.35.0"
+    "@instructure/ui-buttons" "^5.35.0"
+    "@instructure/ui-i18n" "^5.35.0"
+    "@instructure/ui-layout" "^5.35.0"
+    "@instructure/ui-motion" "^5.35.0"
+    "@instructure/ui-portal" "^5.35.0"
+    "@instructure/ui-testable" "^5.35.0"
+    "@instructure/ui-themeable" "^5.35.0"
+    "@instructure/ui-utils" "^5.35.0"
     babel-runtime "^6"
     classnames "^2"
     no-scroll "^2.1.0"
     prop-types "^15"
 
-"@instructure/ui-portal@^5.33.0":
-  version "5.33.0"
-  resolved "https://registry.yarnpkg.com/@instructure/ui-portal/-/ui-portal-5.33.0.tgz#fe304084424548abf294337d01b3acc176ed3306"
-  integrity sha512-X3pt2hlyPMqg803Ay06ijY+sHsmiRX8Aqk0Fny2EOlI1fwiKXWVIBEvlYqcQgdgBOSYBwtaVZMEI5bJADSZ/YQ==
+"@instructure/ui-portal@^5.35.0":
+  version "5.35.0"
+  resolved "https://registry.yarnpkg.com/@instructure/ui-portal/-/ui-portal-5.35.0.tgz#236ea7452ffb87b3675549f3344684250586d700"
+  integrity sha512-NL+JiJpH01ziYVpVKEzlhPQfcJCuO298ZShwVoTyOPrzKW+WxmO/Y/0AiMkTh8RMIs88T+PvtbfZcKgKkh9rwA==
   dependencies:
-    "@instructure/ui-i18n" "^5.33.0"
-    "@instructure/ui-testable" "^5.33.0"
-    "@instructure/ui-utils" "^5.33.0"
+    "@instructure/ui-i18n" "^5.35.0"
+    "@instructure/ui-testable" "^5.35.0"
+    "@instructure/ui-utils" "^5.35.0"
     babel-runtime "^6"
     prop-types "^15"
 
-"@instructure/ui-stylesheet@^5.33.0":
-  version "5.33.0"
-  resolved "https://registry.yarnpkg.com/@instructure/ui-stylesheet/-/ui-stylesheet-5.33.0.tgz#98350fbecb94f3df94933ee6b177dae3194cdf95"
-  integrity sha512-yeqa15kuyq3nVo9PA+b8SBUUxmVs/vNAVgF4GTLQ5ST+TtNq8jqJCAL7cRB+GmkFWNDIqMRLoofa4V6DA8p15g==
+"@instructure/ui-stylesheet@^5.35.0":
+  version "5.35.0"
+  resolved "https://registry.yarnpkg.com/@instructure/ui-stylesheet/-/ui-stylesheet-5.35.0.tgz#36bcf311ebd507520cd67a1ee451ad69ac216171"
+  integrity sha512-gepKdkruJXdTxMb7W9BJS6A3/gi0Xe9z5yL8L0vbs7fbQx/ZkrLP3ISQ0pXPJ+oPkciDTJAymsl3vTCWsTCzlg==
   dependencies:
     glamor "^2.20.40"
 
-"@instructure/ui-svg-images@^5.33.0":
-  version "5.33.0"
-  resolved "https://registry.yarnpkg.com/@instructure/ui-svg-images/-/ui-svg-images-5.33.0.tgz#d4abcaf4d10b82d84304ae99beae3d548c4308c4"
-  integrity sha512-WLVfR6HNrVc0JMgosxeHpvzetOCxJbzIHX51m4fqasnSaTI/1qjpyoBeSJ+SvXSbJhiTilPNWMTGbk4k2Nwa1Q==
+"@instructure/ui-svg-images@^5.35.0":
+  version "5.35.0"
+  resolved "https://registry.yarnpkg.com/@instructure/ui-svg-images/-/ui-svg-images-5.35.0.tgz#0c3fd36223d48ec266f661e78793072f67a4e7ab"
+  integrity sha512-uY7FflI4iVP8EX+Xwq37md1fiy6OkBvNzxvrXlafrfMcv46XI3+hVapV/DsPg5Y8twXIKFh/GJyPLprz7IIU1A==
   dependencies:
-    "@instructure/ui-testable" "^5.33.0"
-    "@instructure/ui-themeable" "^5.33.0"
-    "@instructure/ui-utils" "^5.33.0"
+    "@instructure/ui-testable" "^5.35.0"
+    "@instructure/ui-themeable" "^5.35.0"
+    "@instructure/ui-utils" "^5.35.0"
     babel-runtime "^6"
     classnames "^2"
     prop-types "^15"
 
-"@instructure/ui-testable@^5.33.0":
-  version "5.33.0"
-  resolved "https://registry.yarnpkg.com/@instructure/ui-testable/-/ui-testable-5.33.0.tgz#5b30cb2d2b227c9a0f9c3f1a46ae895fdca4cfbc"
-  integrity sha512-kPiO6xmrfEqCA/5SijlyA/HsGEuscBVnm5YlWzFF/+MQWtFuvN+F+WCeAXjR/QXe+R0pfLCrUWeyMyc50KCfIQ==
+"@instructure/ui-testable@^5.35.0":
+  version "5.35.0"
+  resolved "https://registry.yarnpkg.com/@instructure/ui-testable/-/ui-testable-5.35.0.tgz#43de7dcce6acf5d6153a6ea8aed04808ea2769f8"
+  integrity sha512-gkj40tsLh2VNcHo46/lV7oxBp8SQGt5vQ+1eemmXx9O3XeAWpZviAsJccp/JFKXS1zuuGdoTuh9bCVy34LZ3Tw==
 
-"@instructure/ui-themeable@^5.33.0":
-  version "5.33.0"
-  resolved "https://registry.yarnpkg.com/@instructure/ui-themeable/-/ui-themeable-5.33.0.tgz#6144f4e4d8b84cf75f68aab2c2d7aa5f8f28646b"
-  integrity sha512-546QvBnarbscQmzMAljAWFEJ9hsDG7jeYutpsIdhp4X55WoyC82u/VZ4AvDUKqXykFFpRJVejMUVZ0qE0RqZ1Q==
+"@instructure/ui-themeable@^5.35.0":
+  version "5.35.0"
+  resolved "https://registry.yarnpkg.com/@instructure/ui-themeable/-/ui-themeable-5.35.0.tgz#9401f24d8f90ceedb55f1d02076d67386c62efbe"
+  integrity sha512-sccky9jIlNNl6qlQ+vGRh/smTMGzIyAnBcneqnkXaXvLPB+vNmm7ys9Fk0fq74dgS1geA9xIYHwlQNwx696SjQ==
   dependencies:
-    "@instructure/ui-stylesheet" "^5.33.0"
-    "@instructure/ui-utils" "^5.33.0"
+    "@instructure/ui-stylesheet" "^5.35.0"
+    "@instructure/ui-utils" "^5.35.0"
     babel-runtime "^6"
     prop-types "^15"
     tinycolor2 "^1.4.1"
 
-"@instructure/ui-themes@^5.33.0":
-  version "5.33.0"
-  resolved "https://registry.yarnpkg.com/@instructure/ui-themes/-/ui-themes-5.33.0.tgz#f64c09271b808076c1493b969f3ecb3a173f2ed4"
-  integrity sha512-9GYzZLsh7qr8dUAuoQgKxUI02PoQmoN6TAK4cRndse6gUmK/gTTuVQbvNdO/gQZ7PS5f7yhAkGKkMBVvo3XhmA==
+"@instructure/ui-themes@^5.35.0":
+  version "5.35.0"
+  resolved "https://registry.yarnpkg.com/@instructure/ui-themes/-/ui-themes-5.35.0.tgz#a0448b3b011bfed53c51a8c7c5aab4952bc54e14"
+  integrity sha512-VDDIUSH3arFG6NpkuMuNFvH7GlFkF2+Cq+uA3E+UFEBO8Vd6/dE0GhU1h35AWcC4cLv6a+r5eOaIb0YG5GfxwQ==
   dependencies:
-    "@instructure/ui-themeable" "^5.33.0"
+    "@instructure/ui-themeable" "^5.35.0"
     babel-runtime "^6"
 
-"@instructure/ui-utils@^5.33.0":
-  version "5.33.0"
-  resolved "https://registry.yarnpkg.com/@instructure/ui-utils/-/ui-utils-5.33.0.tgz#522a18c8b2a86d267e9357ee0ffeab9241d8bb68"
-  integrity sha512-PX9IyrxY8z+f2c+YLh9v6rWi1dzex3nSOvDPmCracpH0UzEp9FJB1TpJDSBT91R2g0ZV25YHho+GW/n6Ad2yBw==
+"@instructure/ui-utils@^5.35.0":
+  version "5.35.0"
+  resolved "https://registry.yarnpkg.com/@instructure/ui-utils/-/ui-utils-5.35.0.tgz#dc2ef60b3213bc5d710374f5ad56ce547bd2d344"
+  integrity sha512-LRpYmgZ3pQapPeovxnU266Kw/2dZr2Ja/4gUutCuuYK4i50zXy42wAJlF6/odSdB6uo0rtP66FWd3xJ28t4wTg==
   dependencies:
+    "@instructure/debounce" "^5.35.0"
     babel-runtime "^6"
     bowser "^1.9.4"
     decimal.js "^10"

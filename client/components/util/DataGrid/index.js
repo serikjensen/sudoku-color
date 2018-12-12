@@ -34,6 +34,10 @@ class DataGrid extends Component {
     return (this.table && this.table[0] && this.table[0].length) || 0
   }
 
+  reset () {
+    this.setState({ selectedCoords: { i: 0, j: 0 } })
+  }
+
   _table = null
 
   handleClick = (e, coords) => {

@@ -68,10 +68,12 @@ class Cell extends Component {
     const tile = (
       <Tile
         value={value}
+        label={value === 0 && 'Choose tile'}
         onKeyDown={onKeyDown}
         onClick={this.handleClick}
         tabIndex={tabIndex}
         coords={coords}
+        aria-haspopup={value >= 0 ? 'true' : null}
       />
     )
 

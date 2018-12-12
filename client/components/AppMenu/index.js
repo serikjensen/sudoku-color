@@ -8,11 +8,13 @@ import { requestPuzzle } from '../../actions/puzzleActions'
 
 class AppMenu extends Component {
   static propTypes = {
-    requestPuzzle: PropTypes.func
+    requestPuzzle: PropTypes.func,
+    onRequestPuzzle: PropTypes.func
   }
 
   static defaultProps = {
-    requestPuzzle: () => {}
+    requestPuzzle: () => {},
+    onRequestPuzzle: () => {}
   }
 
   state = {
@@ -33,6 +35,7 @@ class AppMenu extends Component {
 
   handleNewPuzzle = () => {
     this.props.requestPuzzle()
+    this.props.onRequestPuzzle()
     this.setTrayStatus(false)
   }
 

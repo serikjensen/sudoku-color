@@ -10,6 +10,16 @@ class Board extends Component {
     puzzle: PropTypes.arrayOf(PropTypes.arrayOf(PropTypes.number)).isRequired
   }
 
+  _dataGrid = null
+
+  reset () {
+    this._dataGrid.reset()
+  }
+
+  handleDataGridRef = (el) => {
+    this._dataGrid = el
+  }
+
   renderGrid () {
     const { puzzle } = this.props
 
@@ -40,6 +50,7 @@ class Board extends Component {
       <DataGrid
         label="Sudoku Board"
         render={tableBody}
+        ref={this.handleDataGridRef}
       />
     )
   }
@@ -51,4 +62,4 @@ class Board extends Component {
 
 const mapStateToProps = state => state.puzzle
 
-export default connect(mapStateToProps)(Board)
+export default connect(mapStateToProps, null, null, { withRef: true })(Board)
