@@ -13,6 +13,7 @@ class Tile extends Component {
     onClick: PropTypes.func,
     onKeyDown: PropTypes.func,
     tabIndex: PropTypes.number,
+    active: PropTypes.bool,
     coords: PropTypes.shape({
       i: PropTypes.number.isRequired,
       j: PropTypes.number.isRequired
@@ -24,11 +25,13 @@ class Tile extends Component {
     label: null,
     onClick: () => {},
     onKeyDown: () => {},
-    tabIndex: -1
+    tabIndex: -1,
+    active: false
   }
 
   componentWillUpdate (nextProps) {
-    if (this.props.tabIndex === -1 && nextProps.tabIndex === 0) {
+    const { tabIndex, active } = this.props
+    if (tabIndex === -1 && nextProps.tabIndex === 0 && active) {
       this._content.focus()
     }
   }

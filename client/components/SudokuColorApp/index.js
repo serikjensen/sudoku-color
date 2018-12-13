@@ -29,14 +29,17 @@ class SudokuColorApp extends Component {
     this._board = el.getWrappedInstance()
   }
 
-  handleRequestPuzzle = () => {
+  handleResetPuzzle = () => {
     this._board.reset()
   }
 
   render () {
     return (
       <span>
-        <AppMenu onRequestPuzzle={this.handleRequestPuzzle} />
+        <AppMenu
+          onRequestPuzzle={this.handleResetPuzzle}
+          onResetPuzzle={this.handleResetPuzzle}
+        />
         {!this.props.requestingPuzzle
           ? <Board ref={this.handleBoardRef} />
           : 'Loading'

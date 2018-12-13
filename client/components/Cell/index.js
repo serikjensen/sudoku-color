@@ -18,6 +18,7 @@ class Cell extends Component {
     setTile: PropTypes.func,
     onKeyDown: PropTypes.func,
     onClick: PropTypes.func,
+    active: PropTypes.bool,
     tabIndex: PropTypes.number
   }
 
@@ -26,6 +27,7 @@ class Cell extends Component {
     setTile: () => {},
     onKeyDown: () => {},
     onClick: () => {},
+    active: false,
     tabIndex: -1
   }
 
@@ -61,6 +63,7 @@ class Cell extends Component {
     const {
       value,
       tabIndex,
+      active,
       coords,
       onKeyDown
     } = this.props
@@ -71,6 +74,7 @@ class Cell extends Component {
         label={value === 0 && 'Choose tile'}
         onKeyDown={onKeyDown}
         onClick={this.handleClick}
+        active={active}
         tabIndex={tabIndex}
         coords={coords}
         aria-haspopup={value >= 0 ? 'true' : null}
@@ -80,6 +84,7 @@ class Cell extends Component {
     /* eslint-disable react/no-array-index-key */
     return value < 0 ? tile : (
       <Popover
+        on="click"
         show={this.state.show}
         onDismiss={this.handlePopoverDismiss}
         shouldContainFocus={false}

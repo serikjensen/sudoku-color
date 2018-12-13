@@ -12,7 +12,6 @@ describe('<Tile/>', () => {
     const button = wrapper.find('button')
     button.simulate('click')
 
-    expect(lastCall(onClick)[0].type).to.equal('click')
-    expect(lastCall(onClick)[1]).to.equal(0)
+    expect(onClick.callCount).to.equal(1)
   })
 })

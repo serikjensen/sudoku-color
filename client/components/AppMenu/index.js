@@ -4,17 +4,21 @@ import { connect } from 'react-redux'
 
 import Tray from '@instructure/ui-overlays/lib/components/Tray'
 
-import { requestPuzzle } from '../../actions/puzzleActions'
+import { requestPuzzle, resetPuzzle } from '../../actions/puzzleActions'
 
 class AppMenu extends Component {
   static propTypes = {
     requestPuzzle: PropTypes.func,
-    onRequestPuzzle: PropTypes.func
+    onRequestPuzzle: PropTypes.func,
+    resetPuzzle: PropTypes.func,
+    onResetPuzzle: PropTypes.func
   }
 
   static defaultProps = {
     requestPuzzle: () => {},
-    onRequestPuzzle: () => {}
+    onRequestPuzzle: () => {},
+    resetPuzzle: () => {},
+    onResetPuzzle: () => {}
   }
 
   state = {
@@ -39,6 +43,12 @@ class AppMenu extends Component {
     this.setTrayStatus(false)
   }
 
+  handleResetPuzzle = () => {
+    this.props.resetPuzzle()
+    this.props.onResetPuzzle()
+    this.setTrayStatus(false)
+  }
+
   render () {
     return (
       <div>
@@ -51,6 +61,7 @@ class AppMenu extends Component {
           <div>
             <button onClick={this.handleTrayCloseClick}>Close menu</button>
             <h2>Sudoku Color</h2>
+            <button onClick={this.handleResetPuzzle}>Reset</button>
             <button onClick={this.handleNewPuzzle}>New puzzle</button>
           </div>
         </Tray>
@@ -59,4 +70,4 @@ class AppMenu extends Component {
   }
 }
 
-export default connect(null, { requestPuzzle })(AppMenu)
+export default connect(null, { requestPuzzle, resetPuzzle })(AppMenu)

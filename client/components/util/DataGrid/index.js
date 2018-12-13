@@ -89,14 +89,19 @@ class DataGrid extends Component {
     const { label, children, render = children } = this.props
     const { selectedCoords } = this.state
 
-    const getTableProps = (props) => ({
+    const getTableProps = ({ ref, ...props } = {}) => ({
       role: 'grid',
       'aria-label': label,
-      ref: (el) => { this._table = el },
+      ref: (el) => {
+        this._table = el
+        if (typeof ref === 'function') {
+          ref(el)
+        }
+      },
       ...props
     })
 
-    const getCellProps = ({ onKeyDown, onClick, coords, ...props }) => ({
+    const getCellProps = ({ onKeyDown, onClick, coords, ...props } = {}) => ({
       onKeyDown: createChainedFunction(onKeyDown, this.handleKeyDown),
       onClick: createChainedFunction(onClick, this.handleClick),
       tabIndex: (coords.i === selectedCoords.i && coords.j === selectedCoords.j) ? 0 : -1,

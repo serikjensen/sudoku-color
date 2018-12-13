@@ -1,6 +1,13 @@
 import { generateEmptyPuzzle } from '../util/generatePuzzle'
 import setTile from '../util/setTile'
-import { REQUEST_PUZZLE, RECEIVED_PUZZLE, SET_TILE } from '../constants/actionTypes'
+import resetPuzzle from '../util/resetPuzzle'
+
+import {
+  RECEIVED_PUZZLE,
+  REQUEST_PUZZLE,
+  RESET_PUZZLE,
+  SET_TILE
+} from '../constants/actionTypes'
 
 export const defaultState = {
   puzzle: generateEmptyPuzzle(),
@@ -29,6 +36,14 @@ export default function reducer (state = defaultState, action = { type: null }) 
       return {
         ...defaultState,
         failedPuzzleRequest: action.payload
+      }
+    }
+    case RESET_PUZZLE: {
+      const { puzzle } = action.payload
+
+      return {
+        ...defaultState,
+        puzzle: resetPuzzle(puzzle)
       }
     }
     case SET_TILE: {
