@@ -10,11 +10,13 @@ import { requestPuzzle } from '../../actions/puzzleActions'
 
 class SudokuColorApp extends Component {
   static propTypes = {
+    filledPuzzle: PropTypes.bool,
     requestingPuzzle: PropTypes.bool,
     requestPuzzle: PropTypes.func
   }
 
   static defaultProps = {
+    filledPuzzle: false,
     requestingPuzzle: true,
     requestPuzzle: () => {}
   }
@@ -36,6 +38,7 @@ class SudokuColorApp extends Component {
   render () {
     return (
       <span>
+        {this.props.filledPuzzle && <span>puzzle full</span>}
         <AppMenu
           onRequestPuzzle={this.handleResetPuzzle}
           onResetPuzzle={this.handleResetPuzzle}

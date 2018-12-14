@@ -17,51 +17,57 @@ class CellMenu extends Component {
     onSelect: () => {}
   }
 
+  get availableValues () {
+    const { value, puzzle } = this.props
+    const availableValues = (getAvailableValues([value], puzzle) || [])
+
+    if (value) {
+      availableValues.push(0) // Add null value which generates the tile remove button
+    }
+
+    if (availableValues.length === 1) {
+      return [[availableValues[0]]]
+    }
+
+    // Given a single array of available values, format such that it fits on a max 3x3 grid
+    return availableValues.reduce((collection, availableValue, i) => {
+      const index = Math.floor(i / 3)
+
+      if (Array.isArray(collection)) {
+        collection[index] ? collection[index].push(availableValue) : collection.push([availableValue])
+      }
+
+      return Array.isArray(collection) ? collection : [[collection, availableValue]]
+    })
+  }
+
   handleTileClick = (event, coords, value) => {
     const { onSelect } = this.props
     onSelect(event, value)
   }
 
   render () {
-    const { value, puzzle } = this.props
-    const availableValues = getAvailableValues([value], puzzle)
-
-    if (value) {
-      availableValues.push(0) // Add null value which generates the tile remove button
-    }
-
     /* eslint-disable react/no-array-index-key */
     const tableBody = ({ getTableProps, getCellProps }) => (
       <table {...getTableProps()}>
         <tbody>
-          {
-            // Given a single array of available values, format such that it fits on a max 3x3 grid
-            availableValues.reduce((collection, availableValue, i) => {
-              const index = Math.floor(i / 3)
-
-              if (Array.isArray(collection)) {
-                collection[index] ? collection[index].push(availableValue) : collection.push([availableValue])
+          {this.availableValues.map((row, i) => (
+            <tr key={`${i}`}>
+              {row.map((availableValue, j) => (
+                <td key={`${j}`}>
+                  <Tile
+                    coords={{ i, j }}
+                    value={availableValue}
+                    label={availableValue === 0 && 'Delete value'}
+                    {...getCellProps({
+                      onClick: this.handleTileClick,
+                      coords: { i, j }
+                    })}
+                  />
+                </td>))
               }
-
-              return Array.isArray(collection) ? collection : [[collection, availableValue]]
-            }).map((row, i) => (
-              <tr key={`${i}`}>
-                {row.map((availableValue, j) => (
-                  <td key={`${j}`}>
-                    <Tile
-                      coords={{ i, j }}
-                      value={availableValue}
-                      label={availableValue === 0 && 'Delete value'}
-                      {...getCellProps({
-                        onClick: this.handleTileClick,
-                        coords: { i, j }
-                      })}
-                    />
-                  </td>))
-                }
-              </tr>
-            ))
-          }
+            </tr>
+          ))}
         </tbody>
       </table>
     )
