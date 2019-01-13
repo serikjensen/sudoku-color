@@ -11,23 +11,35 @@ class AppMenu extends Component {
     requestPuzzle: PropTypes.func,
     onRequestPuzzle: PropTypes.func,
     resetPuzzle: PropTypes.func,
-    onResetPuzzle: PropTypes.func
+    onResetPuzzle: PropTypes.func,
+    submittedPuzzle: PropTypes.bool,
+    filledPuzzle: PropTypes.bool
   }
 
   static defaultProps = {
     requestPuzzle: () => {},
     onRequestPuzzle: () => {},
     resetPuzzle: () => {},
-    onResetPuzzle: () => {}
+    onResetPuzzle: () => {},
+    submittedPuzzle: false,
+    filledPuzzle: false
   }
 
   state = {
     open: false
   }
 
+  componentWillReceiveProps (nextProps) {
+    if (this.props.submittedPuzzle && !nextProps.submittedPuzzle && !nextProps.filledPuzzle) {
+      this._trigger.focus()
+    }
+  }
+
   setTrayStatus (open) {
     this.setState({ open })
   }
+
+  _trigger = null
 
   handleMenuTriggerClick = () => {
     this.setTrayStatus(true)
@@ -49,10 +61,19 @@ class AppMenu extends Component {
     this.setTrayStatus(false)
   }
 
+  handleTriggerRef = el => {
+    this._trigger = el
+  }
+
   render () {
     return (
       <div>
-        <button onClick={this.handleMenuTriggerClick}>Open menu</button>
+        <button
+          ref={this.handleTriggerRef}
+          onClick={this.handleMenuTriggerClick}
+        >
+          Open menu
+        </button>
         <Tray
           label="Menu"
           open={this.state.open}
@@ -70,4 +91,6 @@ class AppMenu extends Component {
   }
 }
 
-export default connect(null, { requestPuzzle, resetPuzzle })(AppMenu)
+const mapStateToProps = state => state.puzzle
+
+export default connect(mapStateToProps, { requestPuzzle, resetPuzzle })(AppMenu)

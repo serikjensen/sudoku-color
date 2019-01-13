@@ -52,6 +52,10 @@ class Board extends PureComponent {
     this._table = el
   }
 
+  handleCellMenuDismiss = () => {
+    this.setState({ active: true })
+  }
+
   renderGrid () {
     const { puzzle } = this.props
 
@@ -74,6 +78,7 @@ class Board extends PureComponent {
                     value={value}
                     puzzle={puzzle}
                     active={this.state.active}
+                    onMenuDismiss={this.handleCellMenuDismiss}
                     {...getCellProps({ coords: { i, j } })}
                   />
                 </td>))

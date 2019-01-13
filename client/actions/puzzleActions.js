@@ -1,8 +1,10 @@
 import {
+  CONTINUE_PUZZLE,
   RECEIVED_PUZZLE,
   REQUEST_PUZZLE,
   RESET_PUZZLE,
-  SET_TILE
+  SET_TILE,
+  SUBMIT_PUZZLE
 } from '../constants/actionTypes'
 
 import loadPuzzle from '../util/loadPuzzle'
@@ -36,5 +38,17 @@ export const setTile = (coords, value) => (dispatch) => {
       coords,
       value
     }
+  })
+}
+
+export const submitPuzzle = () => (dispatch) => {
+  dispatch({
+    type: SUBMIT_PUZZLE
+  })
+}
+
+export const continuePuzzle = () => (dispatch) => {
+  dispatch({
+    type: CONTINUE_PUZZLE
   })
 }

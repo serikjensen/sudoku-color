@@ -2,11 +2,15 @@ import deepEqual from 'deep-equal'
 import reducer, { defaultState } from '../puzzleReducer'
 
 import {
+  CONTINUE_PUZZLE,
   RESET_PUZZLE,
   REQUEST_PUZZLE,
   RECEIVED_PUZZLE,
-  SET_TILE
+  SET_TILE,
+  SUBMIT_PUZZLE
 } from '../../constants/actionTypes'
+
+import { puzzle3, puzzle4 } from '../../util/__tests__/testPuzzles'
 
 import { generateEmptyPuzzle } from '../../util/generatePuzzle'
 
@@ -20,7 +24,11 @@ describe('puzzleReducer', () => {
     const state = reducer(defaultState, {
       type: REQUEST_PUZZLE
     })
-    expect(state.requestingPuzzle).to.be.true
+
+    expect(deepEqual(state, {
+      ...defaultState,
+      requestingPuzzle: true
+    })).to.be.true
   })
 
   describe('should handle RECEIVE_PUZZLE', () => {
@@ -38,8 +46,10 @@ describe('puzzleReducer', () => {
         error: false
       })
 
-      expect(deepEqual(puzzle, state.puzzle)).to.be.true
-      expect(state.failedPuzzleRequest).to.equal(null)
+      expect(deepEqual(state, {
+        ...defaultState,
+        puzzle
+      })).to.be.true
     })
 
     it('handles error', () => {
@@ -51,7 +61,10 @@ describe('puzzleReducer', () => {
         error: true
       })
 
-      expect(state.failedPuzzleRequest).to.equal(error)
+      expect(deepEqual(state, {
+        ...defaultState,
+        failedPuzzleRequest: error
+      })).to.be.true
     })
   })
 
@@ -69,27 +82,26 @@ describe('puzzleReducer', () => {
     puzzle[6][6] = 6
 
 
-    const state = reducer(state, {
-      type: RESET_PUZZLE,
-      payload: {
-        puzzle
-      }
+    const state = reducer({
+      ...defaultState,
+      puzzle
+    }, {
+      type: RESET_PUZZLE
     })
 
-    expect(state.puzzle[1][1]).to.equal(-1)
-    expect(state.puzzle[3][3]).to.equal(-3)
-    expect(state.puzzle[5][5]).to.equal(-5)
-    expect(state.puzzle[7][7]).to.equal(-7)
+    puzzle[2][2] = 0
+    puzzle[4][4] = 0
+    puzzle[6][6] = 0
 
-    expect(state.puzzle[2][2]).to.equal(0)
-    expect(state.puzzle[4][4]).to.equal(0)
-    expect(state.puzzle[6][6]).to.equal(0)
+    expect(deepEqual(state, {
+      ...defaultState,
+      puzzle
+    })).to.be.true
   })
 
   it('should handle SET_TILE', () => {
     const puzzle = generateEmptyPuzzle()
 
-    let result = true
     let state = defaultState
 
     puzzle.forEach((row, i, newRow) => {
@@ -107,12 +119,79 @@ describe('puzzleReducer', () => {
           }
         })
 
-        if (!deepEqual(puzzle, state.puzzle)) {
-          result = false
-        }
+        expect(deepEqual(state, {
+          ...defaultState,
+          filledPuzzle: (i === puzzle.length - 1 && j === row.length - 1),
+          puzzle
+        })).to.be.true
       })
     })
+  })
 
-    expect(result).to.be.true
+  describe('should handle SUBMIT_PUZZLE', () => {
+    it('submitting a valid puzzle', () => {
+      const state = reducer({
+        ...defaultState,
+        puzzle: puzzle3
+      }, {
+        type: SUBMIT_PUZZLE
+      })
+
+      expect(deepEqual(state, {
+        ...defaultState,
+        submittedPuzzle: true,
+        validPuzzle: true,
+        puzzle: puzzle3
+      })).to.be.true
+    })
+
+    it('submitting an invalid puzzle', () => {
+      const state = reducer({
+        ...defaultState,
+        puzzle: puzzle4
+      }, {
+        type: SUBMIT_PUZZLE
+      })
+      expect(deepEqual(state, {
+        ...defaultState,
+        submittedPuzzle: true,
+        validPuzzle: false,
+        puzzle: puzzle4
+      })).to.be.true
+    })
+  })
+
+  describe('should handle SUBMIT_PUZZLE', () => {
+    it('continuing a valid puzzle', () => {
+      const state = reducer({
+        ...defaultState,
+        submittedPuzzle: true,
+        validPuzzle: true
+      }, {
+        type: CONTINUE_PUZZLE
+      })
+
+      expect(deepEqual(state, {
+        ...defaultState,
+        submittedPuzzle: false,
+        validPuzzle: true
+      })).to.be.true
+    })
+
+    it('continuing an invalid puzzle', () => {
+      const state = reducer({
+        ...defaultState,
+        submittedPuzzle: true,
+        validPuzzle: false
+      }, {
+        type: CONTINUE_PUZZLE
+      })
+
+      expect(deepEqual(state, {
+        ...defaultState,
+        submittedPuzzle: false,
+        validPuzzle: false
+      })).to.be.true
+    })
   })
 })

@@ -2,26 +2,31 @@ import { generateEmptyPuzzle } from '../util/generatePuzzle'
 import setTile from '../util/setTile'
 import resetPuzzle from '../util/resetPuzzle'
 import filledPuzzle from '../util/filledPuzzle'
+import validatePuzzle from '../util/validatePuzzle'
 
 import {
+  CONTINUE_PUZZLE,
   RECEIVED_PUZZLE,
   REQUEST_PUZZLE,
   RESET_PUZZLE,
-  SET_TILE
+  SET_TILE,
+  SUBMIT_PUZZLE
 } from '../constants/actionTypes'
 
 export const defaultState = {
   puzzle: generateEmptyPuzzle(),
   filledPuzzle: false,
   requestingPuzzle: false,
-  failedPuzzleRequest: null
+  failedPuzzleRequest: null,
+  validPuzzle: false,
+  submittedPuzzle: false
 }
 
 export default function reducer (state = defaultState, action = { type: null }) {
   switch (action.type) {
     case REQUEST_PUZZLE: {
       return {
-        ...state,
+        ...defaultState,
         requestingPuzzle: true
       }
     }
@@ -45,11 +50,12 @@ export default function reducer (state = defaultState, action = { type: null }) 
       }
     }
     case RESET_PUZZLE: {
-      const { puzzle } = action.payload
+      const puzzle = resetPuzzle(state.puzzle)
 
       return {
-        ...state,
-        puzzle: resetPuzzle(puzzle)
+        ...defaultState,
+        filledPuzzle: filledPuzzle(puzzle),
+        puzzle
       }
     }
     case SET_TILE: {
@@ -60,7 +66,21 @@ export default function reducer (state = defaultState, action = { type: null }) 
       return {
         ...state,
         filledPuzzle: filledPuzzle(puzzle),
+        validPuzzle: false,
         puzzle
+      }
+    }
+    case SUBMIT_PUZZLE: {
+      return {
+        ...state,
+        validPuzzle: validatePuzzle(state.puzzle),
+        submittedPuzzle: true
+      }
+    }
+    case CONTINUE_PUZZLE: {
+      return {
+        ...state,
+        submittedPuzzle: false
       }
     }
     default: {

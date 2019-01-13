@@ -31,6 +31,7 @@ class Tile extends Component {
 
   componentWillUpdate (nextProps) {
     const { tabIndex, active } = this.props
+
     if (tabIndex === -1 && nextProps.tabIndex === 0 && active) {
       this._content.focus()
     }

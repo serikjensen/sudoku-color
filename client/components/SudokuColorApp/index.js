@@ -6,17 +6,16 @@ import '@instructure/ui-themes/lib/canvas'
 
 import Board from '../Board'
 import AppMenu from '../AppMenu'
+import SubmitModal from '../SubmitModal'
 import { requestPuzzle } from '../../actions/puzzleActions'
 
 class SudokuColorApp extends Component {
   static propTypes = {
-    filledPuzzle: PropTypes.bool,
     requestingPuzzle: PropTypes.bool,
     requestPuzzle: PropTypes.func
   }
 
   static defaultProps = {
-    filledPuzzle: false,
     requestingPuzzle: true,
     requestPuzzle: () => {}
   }
@@ -38,7 +37,11 @@ class SudokuColorApp extends Component {
   render () {
     return (
       <span>
-        {this.props.filledPuzzle && <span>puzzle full</span>}
+        <SubmitModal
+          onRequestPuzzle={this.handleResetPuzzle}
+          onResetPuzzle={this.handleResetPuzzle}
+          onModalClose={this.handleModalClose}
+        />
         <AppMenu
           onRequestPuzzle={this.handleResetPuzzle}
           onResetPuzzle={this.handleResetPuzzle}

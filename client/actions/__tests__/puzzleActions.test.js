@@ -1,13 +1,21 @@
 import configureStore from 'redux-mock-store'
 
 import {
+  CONTINUE_PUZZLE,
   RECEIVED_PUZZLE,
   REQUEST_PUZZLE,
   RESET_PUZZLE,
-  SET_TILE
+  SET_TILE,
+  SUBMIT_PUZZLE
 } from '../../constants/actionTypes'
 
-import { requestPuzzle, resetPuzzle, setTile } from '../puzzleActions'
+import {
+  continuePuzzle,
+  requestPuzzle,
+  resetPuzzle,
+  setTile,
+  submitPuzzle
+} from '../puzzleActions'
 
 const mockStore = configureStore()
 const store = mockStore()
@@ -88,6 +96,26 @@ describe('puzzleActions', () => {
     }
 
     setTile(coords, value)(store.dispatch)
+    const actions = store.getActions()
+    expect(actions[0]).to.deep.equal(expectedAction)
+  })
+
+  it('should dispatch SUBMIT_PUZZLE', () => {
+    const expectedAction = {
+      type: SUBMIT_PUZZLE
+    }
+
+    submitPuzzle()(store.dispatch)
+    const actions = store.getActions()
+    expect(actions[0]).to.deep.equal(expectedAction)
+  })
+
+  it('should dispatch CONTINUE_PUZZLE', () => {
+    const expectedAction = {
+      type: CONTINUE_PUZZLE
+    }
+
+    continuePuzzle()(store.dispatch)
     const actions = store.getActions()
     expect(actions[0]).to.deep.equal(expectedAction)
   })

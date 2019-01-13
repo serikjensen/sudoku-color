@@ -2,6 +2,9 @@ import React, { Component } from 'react'
 import PropTypes from 'prop-types'
 import { connect } from 'react-redux'
 
+import containsActiveElement from '@instructure/ui-utils/lib/dom/containsActiveElement'
+import requestAnimationFrame from '@instructure/ui-utils/lib/dom/requestAnimationFrame'
+
 import getAvailableValues from '../../util/getAvailableValues'
 import DataGrid from '../util/DataGrid'
 import Tile from '../Tile'
@@ -15,6 +18,17 @@ class CellMenu extends Component {
 
   static defaultProps = {
     onSelect: () => {}
+  }
+
+  state = {
+    active: false
+  }
+
+  componentWillUnmount () {
+    this._raf.forEach(request => {
+      request.cancel()
+    })
+    this._raf = []
   }
 
   get availableValues () {
@@ -41,15 +55,39 @@ class CellMenu extends Component {
     })
   }
 
+  _raf = []
+
   handleTileClick = (event, coords, value) => {
     const { onSelect } = this.props
     onSelect(event, value)
   }
 
+  handleFocus = () => {
+    this.setState({ active: true })
+  }
+
+  handleBlur = () => {
+    this._raf.push(requestAnimationFrame(() => {
+      if (!containsActiveElement(this._table)) {
+        this.setState({ active: false })
+      }
+    }))
+  }
+
+  handleTableRef = (el) => {
+    this._table = el
+  }
+
   render () {
     /* eslint-disable react/no-array-index-key */
     const tableBody = ({ getTableProps, getCellProps }) => (
-      <table {...getTableProps()}>
+      <table
+        onFocus={this.handleFocus}
+        onBlur={this.handleBlur}
+        {...getTableProps({
+          ref: this.handleTableRef
+        })}
+      >
         <tbody>
           {this.availableValues.map((row, i) => (
             <tr key={`${i}`}>
@@ -59,6 +97,7 @@ class CellMenu extends Component {
                     coords={{ i, j }}
                     value={availableValue}
                     label={availableValue === 0 && 'Delete value'}
+                    active={this.state.active}
                     {...getCellProps({
                       onClick: this.handleTileClick,
                       coords: { i, j }

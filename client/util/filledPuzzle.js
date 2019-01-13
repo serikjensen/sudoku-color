@@ -1,5 +1,3 @@
-import getAvailableValues from './getAvailableValues'
-
 export default function filledPuzzle (puzzle) {
-  return getAvailableValues([0], puzzle).length === 0
+  return puzzle.filter(row => row.filter(value => value && value !== 0).length === 9).length === 9
 }

@@ -19,7 +19,8 @@ class Cell extends Component {
     onKeyDown: PropTypes.func,
     onClick: PropTypes.func,
     active: PropTypes.bool,
-    tabIndex: PropTypes.number
+    tabIndex: PropTypes.number,
+    onMenuDismiss: PropTypes.func
   }
 
   static defaultProps = {
@@ -28,7 +29,8 @@ class Cell extends Component {
     onKeyDown: () => {},
     onClick: () => {},
     active: false,
-    tabIndex: -1
+    tabIndex: -1,
+    onMenuDismiss: () => {}
   }
 
   state = {
@@ -51,12 +53,14 @@ class Cell extends Component {
 
   handlePopoverDismiss = () => {
     this.hideMenu()
+    this.props.onMenuDismiss()
   }
 
   handleSelect = (event, value) => {
     const { coords } = this.props
     this.props.setTile(coords, value)
     this.hideMenu()
+    this.props.onMenuDismiss()
   }
 
   render () {
