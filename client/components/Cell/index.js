@@ -8,6 +8,8 @@ import { setTile } from '../../actions/puzzleActions'
 import CellMenu from '../CellMenu'
 import Tile from '../Tile'
 
+import { CellStyles } from './styles'
+
 class Cell extends Component {
   static propTypes = {
     value: PropTypes.number,
@@ -72,21 +74,23 @@ class Cell extends Component {
       onKeyDown
     } = this.props
 
-    const tile = (
-      <Tile
-        value={value}
-        label={value === 0 && 'Choose tile'}
-        onKeyDown={onKeyDown}
-        onClick={this.handleClick}
-        active={active}
-        tabIndex={tabIndex}
-        coords={coords}
-        aria-haspopup={value >= 0 ? 'true' : null}
-      />
+    const children = (
+      <CellStyles coords={coords}>
+        <Tile
+          value={value}
+          label={value === 0 && 'Choose tile'}
+          onKeyDown={onKeyDown}
+          onClick={this.handleClick}
+          active={active}
+          tabIndex={tabIndex}
+          coords={coords}
+          aria-haspopup={value >= 0 ? 'true' : null}
+        />
+      </CellStyles>
     )
 
     /* eslint-disable react/no-array-index-key */
-    return value < 0 ? tile : (
+    return value < 0 ? children : (
       <Popover
         on="click"
         show={this.state.show}
@@ -94,7 +98,7 @@ class Cell extends Component {
         shouldContainFocus={false}
       >
         <PopoverTrigger>
-          {tile}
+          {children}
         </PopoverTrigger>
         <PopoverContent>
           <CellMenu

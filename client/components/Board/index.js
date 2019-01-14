@@ -8,6 +8,8 @@ import requestAnimationFrame from '@instructure/ui-utils/lib/dom/requestAnimatio
 import DataGrid from '../util/DataGrid'
 import Cell from '../Cell'
 
+import { TableStyles, TdStyles } from './styles'
+
 class Board extends PureComponent {
   static propTypes = {
     puzzle: PropTypes.arrayOf(PropTypes.arrayOf(PropTypes.number)).isRequired
@@ -61,7 +63,7 @@ class Board extends PureComponent {
 
     /* eslint-disable react/no-array-index-key */
     const tableBody = ({ getTableProps, getCellProps }) => (
-      <table
+      <TableStyles
         onFocus={this.handleFocus}
         onBlur={this.handleBlur}
         {...getTableProps({
@@ -72,7 +74,7 @@ class Board extends PureComponent {
           {puzzle.map((row, i) => (
             <tr key={`${i}`}>
               {row.map((value, j) => (
-                <td key={`${j}`}>
+                <TdStyles key={`${j}`}>
                   <Cell
                     coords={{ i, j }}
                     value={value}
@@ -81,12 +83,12 @@ class Board extends PureComponent {
                     onMenuDismiss={this.handleCellMenuDismiss}
                     {...getCellProps({ coords: { i, j } })}
                   />
-                </td>))
+                </TdStyles>))
               }
             </tr>
           ))}
         </tbody>
-      </table>
+      </TableStyles>
     )
     /* eslint-enable react/no-array-index-key */
 

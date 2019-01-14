@@ -50,7 +50,6 @@ class SudokuColorApp extends Component {
           ? <Board ref={this.handleBoardRef} />
           : 'Loading'
         }
-        <button>foo</button>
       </span>
     )
   }
