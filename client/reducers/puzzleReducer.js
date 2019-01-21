@@ -45,7 +45,6 @@ export default function reducer (state = defaultState, action = { type: null }) 
       return {
         ...state,
         requestingPuzzle: false,
-        filledPuzzle: false,
         failedPuzzleRequest: action.payload
       }
     }

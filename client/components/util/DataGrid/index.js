@@ -108,9 +108,8 @@ class DataGrid extends Component {
       ...props
     })
 
-    return render({ getTableProps, getCellProps })
+    return render({ getTableProps, getCellProps, selectedCoords })
   }
 }
 
 export default DataGrid
-export { default as DataGridItem } from './DataGridItem'

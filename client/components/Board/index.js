@@ -16,7 +16,8 @@ class Board extends PureComponent {
   }
 
   state = {
-    active: false
+    active: false,
+    hoveredCoords: null
   }
 
   componentWillUnmount () {
@@ -58,17 +59,41 @@ class Board extends PureComponent {
     this.setState({ active: true })
   }
 
+  handleCellMouseEnter = (event, { i, j }) => {
+    this.setState({ hoveredCoords: { i, j } })
+  }
+
+  handleCellMouseLeave = () => {
+    this.setState({ hoveredCoords: null })
+  }
+
+  cellHighlighted = (coords, selectedCoords) => {
+    const { puzzle } = this.props
+    const { hoveredCoords, active } = this.state
+
+    const value = puzzle[coords.i][coords.j]
+
+    if (value === 0) return false
+
+    const compareValues = ({ i, j }) => Math.abs(value) === Math.abs(puzzle[i][j])
+
+    // Give preference to mouse hover
+    return hoveredCoords ? compareValues(hoveredCoords) : active && compareValues(selectedCoords)
+  }
+
   renderGrid () {
     const { puzzle } = this.props
 
     /* eslint-disable react/no-array-index-key */
-    const tableBody = ({ getTableProps, getCellProps }) => (
+    /* eslint-disable jsx-a11y/mouse-events-have-key-events */
+    const tableBody = ({ getTableProps, getCellProps, selectedCoords }) => (
       <TableStyles
         onFocus={this.handleFocus}
         onBlur={this.handleBlur}
         {...getTableProps({
           ref: this.handleTableRef
         })}
+        onMouseOut={this.handleBoardMouseOut}
       >
         <tbody>
           {puzzle.map((row, i) => (
@@ -81,6 +106,9 @@ class Board extends PureComponent {
                     puzzle={puzzle}
                     active={this.state.active}
                     onMenuDismiss={this.handleCellMenuDismiss}
+                    onMouseEnter={this.handleCellMouseEnter}
+                    onMouseLeave={this.handleCellMouseLeave}
+                    highlighted={this.cellHighlighted({ i, j }, selectedCoords)}
                     {...getCellProps({ coords: { i, j } })}
                   />
                 </TdStyles>))
@@ -91,6 +119,7 @@ class Board extends PureComponent {
       </TableStyles>
     )
     /* eslint-enable react/no-array-index-key */
+    /* eslint-enable jsx-a11y/mouse-events-have-key-events */
 
     return (
       <DataGrid
