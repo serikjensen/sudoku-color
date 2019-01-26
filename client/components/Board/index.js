@@ -8,6 +8,8 @@ import requestAnimationFrame from '@instructure/ui-utils/lib/dom/requestAnimatio
 import DataGrid from '../util/DataGrid'
 import Cell from '../Cell'
 
+import composeTheme from './theme'
+import themeable from '../theming/themeable'
 import { TableStyles, TdStyles } from './styles'
 
 class Board extends PureComponent {
@@ -137,4 +139,4 @@ class Board extends PureComponent {
 
 const mapStateToProps = state => state.puzzle
 
-export default connect(mapStateToProps, null, null, { withRef: true })(Board)
+export default connect(mapStateToProps, null, null, { withRef: true })(themeable(Board, composeTheme))

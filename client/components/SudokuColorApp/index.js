@@ -1,9 +1,10 @@
 import React, { Component } from 'react'
 import PropTypes from 'prop-types'
 import { connect } from 'react-redux'
-import { ThemeProvider } from 'styled-components'
 
 import '@instructure/ui-themes/lib/canvas'
+
+import AppThemeProvider from '../theming/AppThemeProvider'
 
 import Board from '../Board'
 import AppMenu from '../AppMenu'
@@ -13,7 +14,6 @@ import { requestPuzzle } from '../../actions/puzzleActions'
 import {
   GlobalStyles,
   AppContentStyles,
-  AppMainStyles,
   AppHeaderStyles,
   AppBodyStyles
 } from './styles'
@@ -49,9 +49,9 @@ class SudokuColorApp extends Component {
     return (
       <div>
         <GlobalStyles />
-        <ThemeProvider theme={baseTheme}>
+        <AppThemeProvider theme={baseTheme}>
           <AppContentStyles>
-            <AppMainStyles>
+            <div>
               <AppHeaderStyles>
                 <SubmitModal
                   onRequestPuzzle={this.handleResetPuzzle}
@@ -69,9 +69,9 @@ class SudokuColorApp extends Component {
                   : 'Loading'
                 }
               </AppBodyStyles>
-            </AppMainStyles>
+            </div>
           </AppContentStyles>
-        </ThemeProvider>
+        </AppThemeProvider>
       </div>
     )
   }

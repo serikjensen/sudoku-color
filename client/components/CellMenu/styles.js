@@ -9,6 +9,6 @@ export const CellStyles = styled.span`
   display: flex;
   align-items: center;
   justify-content: center;
-  width: 3.5rem;
-  height: 3.5rem;
+  width: ${({ theme }) => theme.width};
+  height: ${({ theme }) => theme.height};
 `

@@ -2,8 +2,6 @@ import React, { Component } from 'react'
 import PropTypes from 'prop-types'
 import { connect } from 'react-redux'
 
-import { ThemeProvider } from 'styled-components'
-
 import containsActiveElement from '@instructure/ui-utils/lib/dom/containsActiveElement'
 import requestAnimationFrame from '@instructure/ui-utils/lib/dom/requestAnimationFrame'
 
@@ -11,6 +9,8 @@ import getAvailableValues from '../../util/getAvailableValues'
 import DataGrid from '../util/DataGrid'
 import Tile from '../Tile'
 
+import themeable from '../theming/themeable'
+import composeTheme from './theme'
 import {
   TableStyles,
   CellStyles
@@ -113,7 +113,6 @@ class CellMenu extends Component {
                       value={availableValue}
                       facade={availableValue > 0 ? 'default' : 'remove'}
                       label={this.generateLabel(availableValue)}
-                      labelVisible={availableValue !== 0}
                       active={this.state.active}
                       {...getCellProps({
                         onClick: this.handleTileClick,
@@ -131,16 +130,14 @@ class CellMenu extends Component {
     /* eslint-enable react/no-array-index-key */
 
     return (
-      <ThemeProvider theme={this.props.theme}>
-        <DataGrid
-          label="Select value"
-          render={tableBody}
-        />
-      </ThemeProvider>
+      <DataGrid
+        label="Select value"
+        render={tableBody}
+      />
     )
   }
 }
 
 const mapStateToProps = state => state.puzzle
 
-export default connect(mapStateToProps)(CellMenu)
+export default connect(mapStateToProps)(themeable(CellMenu, composeTheme))

@@ -2,16 +2,18 @@ import React, { Component } from 'react'
 import PropTypes from 'prop-types'
 import { connect } from 'react-redux'
 
-import { withTheme } from 'styled-components'
-
 import Popover, { PopoverTrigger, PopoverContent } from '@instructure/ui-overlays/lib/components/Popover'
 import ApplyTheme from '@instructure/ui-themeable/lib/components/ApplyTheme'
 import View from '@instructure/ui-layout/lib/components/View'
 import { setTile } from '../../actions/puzzleActions'
 
+import AppThemeProvider from '../theming/AppThemeProvider'
+
 import CellMenu from '../CellMenu'
 import Tile from '../Tile'
 
+import themeable from '../theming/themeable'
+import composeTheme from './theme'
 import { CellStyles } from './styles'
 
 class Cell extends Component {
@@ -29,9 +31,7 @@ class Cell extends Component {
     active: PropTypes.bool,
     tabIndex: PropTypes.number,
     onMenuDismiss: PropTypes.func,
-    highlighted: PropTypes.bool,
-    // eslint-disable-next-line react/forbid-prop-types
-    theme: PropTypes.object
+    highlighted: PropTypes.bool
   }
 
   static defaultProps = {
@@ -44,8 +44,7 @@ class Cell extends Component {
     active: false,
     tabIndex: -1,
     onMenuDismiss: () => {},
-    highlighted: false,
-    theme: null
+    highlighted: false
   }
 
   state = {
@@ -135,7 +134,6 @@ class Cell extends Component {
           value={value}
           facade={this.facade}
           label={this.label}
-          labelVisible={value !== 0}
           onKeyDown={onKeyDown}
           onClick={this.handleClick}
           active={active}
@@ -149,6 +147,19 @@ class Cell extends Component {
       </CellStyles>
     )
     /* eslint-enable jsx-a11y/mouse-events-have-key-events */
+
+    // Rendering within the Popover is somehow interfering with the context. Recreate the
+    // app theme context within the Popover content
+    /* eslint-disable react/prop-types */
+    const menuContent = (
+      <AppThemeProvider theme={this.props.appTheme}>
+        <CellMenu
+          value={value}
+          onSelect={this.handleSelect}
+        />
+      </AppThemeProvider>
+    )
+    /* eslint-enable react/prop-types */
 
     /* eslint-disable react/no-array-index-key */
     return value < 0 ? children : (
@@ -170,11 +181,7 @@ class Cell extends Component {
             {children}
           </PopoverTrigger>
           <PopoverContent>
-            <CellMenu
-              value={value}
-              onSelect={this.handleSelect}
-              theme={this.props.theme}
-            />
+            {menuContent}
           </PopoverContent>
         </Popover>
       </ApplyTheme>
@@ -183,4 +190,4 @@ class Cell extends Component {
   }
 }
 
-export default connect(null, { setTile })(withTheme(Cell))
+export default connect(null, { setTile })(themeable(Cell, composeTheme))

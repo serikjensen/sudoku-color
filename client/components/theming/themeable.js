@@ -1,5 +1,5 @@
 import React from 'react'
-import { ThemeProvider, withTheme } from 'styled-components'
+import { ThemeProvider } from 'styled-components'
 
 import AppThemeContext from './AppThemeContext'
 
@@ -8,11 +8,16 @@ export default (Component, composeTheme) => {
     static contextType = AppThemeContext
 
     render () {
-      const ThemedComponent = withTheme(Component)
+      const theme = composeTheme(this.context)
+      const props = {
+        theme,
+        appTheme: this.context,
+        ...this.props
+      }
 
       return (
-        <ThemeProvider theme={() => composeTheme(this.context)}>
-          <ThemedComponent {...this.props} />
+        <ThemeProvider theme={() => theme}>
+          <Component {...props} />
         </ThemeProvider>
       )
     }

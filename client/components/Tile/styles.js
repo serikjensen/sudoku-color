@@ -2,27 +2,29 @@ import styled from 'styled-components'
 
 export const DefaultFacadeStyles = styled.button`
   position: absolute;
-  width: ${props => props.theme.cellSize - (props.theme.tileFocusOffset * 2)}rem;
-  height: ${props => props.theme.cellSize - (props.theme.tileFocusOffset * 2)}rem;
   display: flex;
   align-items: center;
   justify-content: center;
-  color: ${props => props.theme.colorLightest};
-  background: ${props => generateTileColor(props)};
-  font-size: ${props => props.theme.tileFontSize}rem;
+  width: ${({ theme }) => theme.width};
+  height: ${({ theme }) => theme.height};
+  color: ${({ theme }) => theme.defaultColor};
+  background: ${props => generateTileColor(props) || props.theme.defaultBackground};
+  font-size: ${({ theme }) => theme.fontSize};
   border: none;
-  border-radius: 50%;
+  border-radius: ${({ theme }) => theme.borderRadius};
   cursor: pointer;
 
   &:before {
     content: "";
     position: absolute;
-    top: -${props => props.theme.tileFocusOffset}rem;
-    left: -${props => props.theme.tileFocusOffset}rem;
-    bottom: -${props => props.theme.tileFocusOffset}rem;
-    right: -${props => props.theme.tileFocusOffset}rem;
-    border: ${props => props.theme.tileBorderWidth}rem solid ${props => props.theme.colorFocus};
-    border-radius: ${props => props.theme.tileFocusBorderRadius}rem;
+    top: -${({ theme }) => theme.focusOffset};
+    left: -${({ theme }) => theme.focusOffset};
+    bottom: -${({ theme }) => theme.focusOffset};
+    right: -${({ theme }) => theme.focusOffset};
+    border-width: ${({ theme }) => theme.focusBorderWidth};
+    border-style: ${({ theme }) => theme.focusBorderStyle};
+    border-color: ${({ theme }) => theme.focusBorderColor};
+    border-radius: ${({ theme }) => theme.focusBorderRadius};
     opacity: 0;
   }
 
@@ -40,24 +42,24 @@ export const PresentationFacadeStyles = styled(DefaultFacadeStyles)`
 `
 
 export const EditFacadeStyles = styled(DefaultFacadeStyles)`
-  color: ${props => props.theme.colorFocus};
+  color: ${({ theme }) => theme.editColor};
   border-radius: 0;
 `
 
 export const RemoveFacadeStyles = styled(DefaultFacadeStyles)`
   border-style: solid;
-  border-width: ${props => props.theme.tileBorderWidth};
-  border-color: ${props => props.theme.colorNeutral};
-  color: ${props => props.theme.colorNeutral};
+  border-width: ${({ theme }) => theme.removeBorderWidth};
+  border-color: ${({ theme }) => theme.removeBorderColor};
+  color: ${({ theme }) => theme.removeColor};
 
   &:focus {
     border-color: transparent;
-    color: ${props => props.theme.colorFocus};
+    color: ${({ theme }) => theme.removeFocusColor};
   }
 
   &:hover {
-    border-color: ${props => props.theme.colorFocus};
-    color: ${props => props.theme.colorFocus};
+    border-color: ${({ theme }) => theme.removeHoverBorderColor};
+    color: ${({ theme }) => theme.removeHoverColor};
   }
 `
 
@@ -80,23 +82,10 @@ export const HighlightStyles = styled.span`
   border-radius: 50%;
   border-style: solid;
   border-width: 0.15rem;
-  border-color: ${props => props.theme.colorLightest};
+  border-color: ${({ theme }) => theme.highlightColor};
 `
 
 const generateTileColor = (props) => {
   const { label, theme } = props
-
-  const map = {
-    1: 'colorOne',
-    2: 'colorTwo',
-    3: 'colorThree',
-    4: 'colorFour',
-    5: 'colorFive',
-    6: 'colorSix',
-    7: 'colorSeven',
-    8: 'colorEight',
-    9: 'colorNine'
-  }
-
-  return theme[map[label]]
+  return theme.swatches[label]
 }

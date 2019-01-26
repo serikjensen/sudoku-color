@@ -8,22 +8,22 @@ export const CellStyles = styled.span`
   display: flex;
   align-items: center;
   justify-content: center;
-  width: ${props => props.theme.cellSize}rem;
-  height: ${props => props.theme.cellSize}rem;
-  border-bottom: ${props => (
-    props.coords.i === 8 ? 'none' : `${props.theme.borderWidthSmall} solid ${props.theme.colorNeutral}`
+  width: ${({ theme }) => theme.width};
+  height: ${({ theme }) => theme.height};
+  border-bottom: ${({ theme, ...props }) => (
+    props.coords.i === 8 ? 'none' : `${theme.borderWidthSmall} ${theme.borderStyle} ${theme.borderColor}`
   )};
-  border-right: ${props => (
-    props.coords.j === 8 ? 'none' : `${props.theme.borderWidthSmall} solid ${props.theme.colorNeutral}`
+  border-right: ${({ theme, ...props }) => (
+    props.coords.j === 8 ? 'none' : `${theme.borderWidthSmall} ${theme.borderStyle} ${theme.borderColor}`
   )};
-  border-left: ${props => (
+  border-left: ${({ theme, ...props }) => (
     props.coords.j === 3 || props.coords.j === 6
-      ? `${props.theme.borderWidthMedium} solid ${props.theme.colorNeutral}`
+      ? `${theme.borderWidthMedium} ${theme.borderStyle} ${theme.borderColor}`
       : 'none'
   )};
-  border-top: ${props => (
+  border-top: ${({ theme, ...props }) => (
     props.coords.i === 3 || props.coords.i === 6
-      ? `${props.theme.borderWidthMedium} solid ${props.theme.colorNeutral}`
+      ? `${theme.borderWidthMedium} ${theme.borderStyle} ${theme.borderColor}`
       : 'none'
   )};
 `

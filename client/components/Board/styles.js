@@ -2,9 +2,9 @@ import styled from 'styled-components'
 
 export const TableStyles = styled.table`
   display: inline-block;
-  padding: ${props => props.theme.cellSize}rem;
+  padding: ${({ theme }) => theme.padding};
   border-collapse: collapse;
-  box-shadow: ${props => props.theme.shadow};
+  box-shadow: ${({ theme }) => theme.shadow};
 `
 
 export const TdStyles = styled.td`

@@ -15,10 +15,6 @@ export const AppContentStyles = styled.div`
   justify-content: center;
 `
 
-export const AppMainStyles = styled.div`
-  width: calc(${props => props.theme.cellSize * 11}rem + ${props => (props.theme.cellSize * 9) / 2}px);
-`
-
 export const AppHeaderStyles = styled.div`
   display: flex;
   justify-content: flex-end;

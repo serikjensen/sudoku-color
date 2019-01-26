@@ -6,17 +6,17 @@ import AppThemeContext from '../AppThemeContext'
 export default class ThemeProvider extends Component {
   static propTypes = {
     // eslint-disable-next-line react/forbid-prop-types
-    appTheme: PropTypes.object,
+    theme: PropTypes.object,
     children: PropTypes.node
   }
 
   static defaultProps = {
-    appTheme: {},
+    theme: {},
     children: null
   }
 
   render () {
-    const { appTheme, children } = this.props
-    return <AppThemeContext.Provider value={appTheme}>{children}</AppThemeContext.Provider>
+    const { theme, children } = this.props
+    return <AppThemeContext.Provider value={theme}>{children}</AppThemeContext.Provider>
   }
 }

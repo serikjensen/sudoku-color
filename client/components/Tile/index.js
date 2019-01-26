@@ -9,6 +9,8 @@ import PresentationContent from '@instructure/ui-a11y/lib/components/Presentatio
 import IconEdit from '@instructure/ui-icons/lib/Line/IconEdit'
 import IconTrash from '@instructure/ui-icons/lib/Solid/IconTrash'
 
+import themeable from '../theming/themeable'
+import composeTheme from './theme'
 import {
   DefaultFacadeStyles,
   PresentationFacadeStyles,
@@ -22,7 +24,6 @@ class Tile extends Component {
   static propTypes = {
     value: PropTypes.number,
     label: PropTypes.node,
-    labelVisible: PropTypes.bool,
     facade: PropTypes.oneOf(['default', 'presentation', 'edit', 'remove']),
     onClick: PropTypes.func,
     onKeyDown: PropTypes.func,
@@ -40,7 +41,6 @@ class Tile extends Component {
   static defaultProps = {
     value: null,
     label: null,
-    labelVisible: true,
     facade: 'default',
     onClick: () => {},
     onKeyDown: () => {},
@@ -90,7 +90,6 @@ class Tile extends Component {
     const {
       value,
       label,
-      labelVisible,
       tabIndex,
       facade,
       editing,
@@ -100,28 +99,49 @@ class Tile extends Component {
 
     const Facade = this.facade
 
-    return (
-      <Facade
-        tabIndex={tabIndex}
-        onKeyDown={this.handleKeyDown}
-        onClick={this.handleClick}
-        ref={this.handleElementRef}
-        label={label}
-        as={facade === 'presentation' ? 'span' : 'button'}
-        {...omitProps(props, Tile.propTypes)}
-      >
-        <ScreenReaderContent>{label}</ScreenReaderContent>
-        {labelVisible && <PresentationContent>{label}</PresentationContent>}
-        {facade === 'edit' && (
-          <EditLabelStyles editing={editing}>
-            <IconEdit size="small" />
-          </EditLabelStyles>
-        )}
-        {facade === 'remove' && <IconTrash size="x-small" />}
+    const facadeProps = {
+      tabIndex,
+      label,
+      onKeyDown: this.handleKeyDown,
+      onClick: this.handleClick,
+      ref: this.handleElementRef,
+      as: facade === 'presentation' ? 'span' : 'button',
+      ...omitProps(props, Tile.propTypes)
+    }
+
+    let children = (
+      <React.Fragment>
+        {label}
         {highlighted && <HighlightStyles />}
-      </Facade>
+      </React.Fragment>
     )
+
+    if (facade === 'edit') {
+      children = (
+        <React.Fragment>
+          <ScreenReaderContent>{label}</ScreenReaderContent>
+          <PresentationContent>
+            <EditLabelStyles editing={editing}>
+              <IconEdit size="small" />
+            </EditLabelStyles>
+          </PresentationContent>
+        </React.Fragment>
+      )
+    }
+
+    if (facade === 'remove') {
+      children = (
+        <React.Fragment>
+          <ScreenReaderContent>{label}</ScreenReaderContent>
+          <PresentationContent>
+            <IconTrash size="x-small" />
+          </PresentationContent>
+        </React.Fragment>
+      )
+    }
+
+    return <Facade {...facadeProps}>{children}</Facade>
   }
 }
 
-export default Tile
+export default themeable(Tile, composeTheme)

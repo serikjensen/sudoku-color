@@ -1,35 +1,54 @@
 export default Object.freeze({
-  // Colors
-  colorLightest: '#FFFFFF',
-  colorNeutral: '#9B9B9B',
-  colorDark: '#4A4A4A',
-  colorPrimary: '#4990E2',
-  colorSecondary: '#7ED321',
-  colorFocus: '#50E3C2',
+  colors: {
+    lightest: '#FFFFFF',
+    neutral: '#9B9B9B',
+    dark: '#4A4A4A',
+    primary: '#4990E2',
+    secondary: '#7ED321',
+    focus: '#50E3C2',
 
-  // Tiles
-  colorOne: '#BD0000',
-  colorTwo: '#FF8100',
-  colorThree: '#72D27B',
-  colorFour: '#03913B',
-  colorFive: '#840CC4',
-  colorSix: '#E35094',
-  colorSeven: '#D19DFF',
-  colorEight: '#80B5F4',
-  colorNine: '#0F52FA',
+    swatches: {
+      1: '#BD0000',
+      2: '#FF8100',
+      3: '#72D27B',
+      4: '#03913B',
+      5: '#840CC4',
+      6: '#E35094',
+      7: '#D19DFF',
+      8: '#80B5F4',
+      9: '#0F52FA'
+    }
+  },
 
-  // Borders
-  borderWidthSmall: '1px',
-  borderWidthMedium: '1.5px',
+  borders: {
+    width: {
+      small: '0.0625rem',
+      medium: '0.125rem',
+      large: '0.2rem'
+    },
+    style: {
+      default: 'solid'
+    },
+    radii: {
+      rectangular: '0.75rem',
+      circular: '999rem'
+    }
+  },
 
-  // Cell
-  cellSize: 3.5,
+  typography: {
+    fontSize: {
+      medium: '1rem'
+    }
+  },
 
-  // Tile
-  tileFontSize: 1,
-  tileFocusOffset: 0.4,
-  tileFocusBorderRadius: 0.75,
-  tileBorderWidth: 0.2,
+  spacing: {
+    focusOffset: '0.4rem',
+    cellSize: '3.5rem'
+  },
 
-  shadow: '0 0 1.5rem 0 #9B9B9B'
+  shadows: {
+    resting: '0 0 0.5rem 0.025rem #9B9B9B',
+    above: '0 0 1rem 0.025rem #9B9B9B',
+    topmost: '0 0 1.5rem 0.025rem #9B9B9B'
+  }
 })
