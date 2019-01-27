@@ -38,7 +38,7 @@ class SudokuColorApp extends Component {
   _board = null
 
   handleBoardRef = (el) => {
-    this._board = el.getWrappedInstance()
+    this._board = el
   }
 
   handleResetPuzzle = () => {
@@ -65,7 +65,7 @@ class SudokuColorApp extends Component {
               </AppHeaderStyles>
               <AppBodyStyles>
                 {!this.props.requestingPuzzle
-                  ? <Board ref={this.handleBoardRef} />
+                  ? <Board componentRef={this.handleBoardRef} />
                   : 'Loading'
                 }
               </AppBodyStyles>

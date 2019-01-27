@@ -9,6 +9,8 @@ import PresentationContent from '@instructure/ui-a11y/lib/components/Presentatio
 import IconEdit from '@instructure/ui-icons/lib/Line/IconEdit'
 import IconTrash from '@instructure/ui-icons/lib/Solid/IconTrash'
 
+import FocusRing from '../FocusRing'
+
 import themeable from '../theming/themeable'
 import composeTheme from './theme'
 import {
@@ -104,6 +106,8 @@ class Tile extends Component {
       label,
       onKeyDown: this.handleKeyDown,
       onClick: this.handleClick,
+      onFocus: this.handleFocus,
+      onBlur: this.handleBlur,
       ref: this.handleElementRef,
       as: facade === 'presentation' ? 'span' : 'button',
       ...omitProps(props, Tile.propTypes)
@@ -140,7 +144,12 @@ class Tile extends Component {
       )
     }
 
-    return <Facade {...facadeProps}>{children}</Facade>
+    return (
+      <Facade {...facadeProps}>
+        {children}
+        <FocusRing />
+      </Facade>
+    )
   }
 }
 

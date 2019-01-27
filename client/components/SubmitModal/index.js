@@ -2,9 +2,15 @@ import React, { Component } from 'react'
 import PropTypes from 'prop-types'
 import { connect } from 'react-redux'
 
-import Modal, { ModalHeader, ModalBody } from '@instructure/ui-overlays/lib/components/Modal'
+import Modal from '../util/Modal'
+import Button from '../Button'
 
-import { requestPuzzle, resetPuzzle, submitPuzzle, continuePuzzle } from '../../actions/puzzleActions'
+import {
+  requestPuzzle,
+  resetPuzzle,
+  submitPuzzle,
+  continuePuzzle
+} from '../../actions/puzzleActions'
 
 class SubmitModal extends Component {
   static propTypes = {
@@ -52,21 +58,17 @@ class SubmitModal extends Component {
   render () {
     return (
       <span>
-        {this.props.filledPuzzle && <button onClick={this.handleSubmitPuzzle}>Submit puzzle</button>}
+        {this.props.filledPuzzle && <Button color="secondary" onClick={this.handleSubmitPuzzle}>Submit puzzle</Button>}
         <Modal
           open={this.props.submittedPuzzle}
           onDismiss={this.handleModalDismiss}
           label="Submitting puzzle"
           shouldCloseOnDocumentClick
         >
-          <ModalHeader>
-            {this.props.validPuzzle ? <h1>Puzzle is correct</h1> : <h1>Puzzle is incorrect</h1>}
-          </ModalHeader>
-          <ModalBody>
-            <button onClick={this.handleNewPuzzle}>new puzzle</button>
-            <button onClick={this.handleResetPuzzle}>reset this puzzle</button>
-            <button onClick={this.handleModalDismiss}>keep working and close this</button>
-          </ModalBody>
+          {this.props.validPuzzle ? <div>Puzzle is correct</div> : <div>Puzzle is incorrect</div>}
+          <button onClick={this.handleModalDismiss}>close</button>
+          <Button onClick={this.handleResetPuzzle}>Reset</Button>
+          <Button color="secondary" onClick={this.handleNewPuzzle}>New Puzzle</Button>
         </Modal>
       </span>
     )

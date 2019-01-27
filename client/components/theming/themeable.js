@@ -7,17 +7,32 @@ export default (Component, composeTheme = () => ({})) => {
   class Themeable extends React.Component {
     static contextType = AppThemeContext
 
+    handleComponentRef = (el) => {
+      const { componentRef } = this.props
+
+      if (typeof componentRef === 'function') {
+        componentRef(el)
+      }
+    }
+
     render () {
       const theme = composeTheme(this.context)
-      const props = {
+
+      const {
+        componentRef,
+        ...props
+      } = this.props
+
+      const componentProps = {
         theme,
         appTheme: this.context,
-        ...this.props
+        ref: this.handleComponentRef,
+        ...props
       }
 
       return (
         <ThemeProvider theme={() => theme}>
-          <Component {...props} />
+          <Component {...componentProps} />
         </ThemeProvider>
       )
     }

@@ -2,7 +2,9 @@ import React, { Component } from 'react'
 import PropTypes from 'prop-types'
 import { connect } from 'react-redux'
 
-import Tray from '@instructure/ui-overlays/lib/components/Tray'
+import Tray from '../util/Tray'
+
+import Button from '../Button'
 
 import { requestPuzzle, resetPuzzle } from '../../actions/puzzleActions'
 
@@ -82,8 +84,22 @@ class AppMenu extends Component {
           <div>
             <button onClick={this.handleTrayCloseClick}>Close menu</button>
             <h2>Sudoku Color</h2>
-            <button onClick={this.handleResetPuzzle}>Reset</button>
-            <button onClick={this.handleNewPuzzle}>New puzzle</button>
+            <Button
+              color="primary"
+              display="block"
+              onClick={this.handleResetPuzzle}
+              margin="0.5rem 0 0 0"
+            >
+              Reset
+            </Button>
+            <Button
+              color="secondary"
+              display="block"
+              onClick={this.handleNewPuzzle}
+              margin="0.5rem 0 0 0"
+            >
+                New Puzzle
+            </Button>
           </div>
         </Tray>
       </div>

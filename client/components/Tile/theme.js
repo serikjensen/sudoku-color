@@ -22,7 +22,9 @@ export default ({ spacing, colors, borders, typography }) => ({
   removeHoverColor: colors.focus,
   removeHoverBorderColor: colors.focus,
 
-  highlightColor: colors.lightest
+  highlightColor: colors.lightest,
+  highlightOffset: spacing.highlightOffset,
+  highlightWidth: borders.width.medium
 })
 
 const calculateCellSize = (spacing) => (

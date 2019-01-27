@@ -1,5 +1,7 @@
 import styled from 'styled-components'
 
+import { FocusRingStyles } from '../FocusRing/styles'
+
 export const DefaultFacadeStyles = styled.button`
   position: absolute;
   display: flex;
@@ -14,25 +16,11 @@ export const DefaultFacadeStyles = styled.button`
   border-radius: ${({ theme }) => theme.borderRadius};
   cursor: pointer;
 
-  &:before {
-    content: "";
-    position: absolute;
-    top: -${({ theme }) => theme.focusOffset};
-    left: -${({ theme }) => theme.focusOffset};
-    bottom: -${({ theme }) => theme.focusOffset};
-    right: -${({ theme }) => theme.focusOffset};
-    border-width: ${({ theme }) => theme.focusBorderWidth};
-    border-style: ${({ theme }) => theme.focusBorderStyle};
-    border-color: ${({ theme }) => theme.focusBorderColor};
-    border-radius: ${({ theme }) => theme.focusBorderRadius};
-    opacity: 0;
-  }
-
   &:focus {
     outline: none;
 
-    &:before {
-      opacity: 1;
+    ${FocusRingStyles} {
+      display: inline-block;
     }
   }
 `
@@ -75,13 +63,13 @@ export const EditLabelStyles = styled.span`
 export const HighlightStyles = styled.span`
   display: inline-block;
   position: absolute;
-  top: 0.15rem;
-  left: 0.15rem;
-  bottom: 0.15rem;
-  right: 0.15rem;
+  top: ${({ theme }) => theme.highlightOffset};
+  left: ${({ theme }) => theme.highlightOffset};
+  bottom: ${({ theme }) => theme.highlightOffset};
+  right: ${({ theme }) => theme.highlightOffset};
   border-radius: 50%;
   border-style: solid;
-  border-width: 0.15rem;
+  border-width: ${({ theme }) => theme.highlightWidth};
   border-color: ${({ theme }) => theme.highlightColor};
 `
 

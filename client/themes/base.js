@@ -37,18 +37,28 @@ export default Object.freeze({
 
   typography: {
     fontSize: {
-      medium: '1rem'
+      medium: '1rem',
+      large: '1.25rem'
     }
   },
 
   spacing: {
-    focusOffset: '0.4rem',
-    cellSize: '3.5rem'
+    // TODO: Offsets given in px to avoid weird spacing. Figure out how to bring these
+    // valuse into rem/em
+    focusOffset: '8px',
+    highlightOffset: '2px',
+    cellSize: '3.5rem',
+    formFieldHeight: '2.7rem'
+  },
+
+  transitions: {
+    duration: '0.25s'
   },
 
   shadows: {
     resting: '0 0 0.5rem 0.025rem #9B9B9B',
     above: '0 0 1rem 0.025rem #9B9B9B',
-    topmost: '0 0 1.5rem 0.025rem #9B9B9B'
+    topmost: '0 0 1.5rem 0.025rem #9B9B9B',
+    inner: 'inset 0 0 0.25rem #9B9B9B'
   }
 })
