@@ -2,12 +2,8 @@ import React, { Component } from 'react'
 import PropTypes from 'prop-types'
 import { connect } from 'react-redux'
 
-import Popover, { PopoverTrigger, PopoverContent } from '@instructure/ui-overlays/lib/components/Popover'
-import ApplyTheme from '@instructure/ui-themeable/lib/components/ApplyTheme'
-import View from '@instructure/ui-layout/lib/components/View'
+import Popover from '../util/Popover'
 import { setTile } from '../../actions/puzzleActions'
-
-import AppThemeProvider from '../theming/AppThemeProvider'
 
 import CellMenu from '../CellMenu'
 import Tile from '../Tile'
@@ -148,43 +144,24 @@ class Cell extends Component {
     )
     /* eslint-enable jsx-a11y/mouse-events-have-key-events */
 
-    // Rendering within the Popover is somehow interfering with the context. Recreate the
-    // app theme context within the Popover content
-    /* eslint-disable react/prop-types */
     const menuContent = (
-      <AppThemeProvider theme={this.props.appTheme}>
-        <CellMenu
-          value={value}
-          onSelect={this.handleSelect}
-        />
-      </AppThemeProvider>
+      <CellMenu
+        value={value}
+        onSelect={this.handleSelect}
+      />
     )
-    /* eslint-enable react/prop-types */
 
     /* eslint-disable react/no-array-index-key */
     return value < 0 ? children : (
-      <ApplyTheme theme={{
-          [View.theme]: {
-            borderRadiusMedium: '1rem',
-            shadowResting: '0 0.1875rem 0.375rem rgba(0, 0, 0, 0.1), 0 0.1875rem 0.375rem rgba(0, 0, 0, 0.16)'
-          }
-        }}
-      >
-        <Popover
-          on="click"
-          show={this.state.show}
-          onDismiss={this.handlePopoverDismiss}
-          shouldContainFocus={false}
-          offsetY={-12}
-        >
-          <PopoverTrigger>
-            {children}
-          </PopoverTrigger>
-          <PopoverContent>
-            {menuContent}
-          </PopoverContent>
-        </Popover>
-      </ApplyTheme>
+      <Popover
+        on="click"
+        show={this.state.show}
+        onDismiss={this.handlePopoverDismiss}
+        shouldContainFocus={false}
+        offsetY={-12}
+        trigger={children}
+        content={menuContent}
+      />
     )
     /* eslint-enable react/no-array-index-key */
   }

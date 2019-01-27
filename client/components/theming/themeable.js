@@ -3,7 +3,7 @@ import { ThemeProvider } from 'styled-components'
 
 import AppThemeContext from './AppThemeContext'
 
-export default (Component, composeTheme) => {
+export default (Component, composeTheme = () => ({})) => {
   class Themeable extends React.Component {
     static contextType = AppThemeContext
 
