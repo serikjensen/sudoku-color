@@ -5,24 +5,28 @@ import { FocusRingStyles } from '../FocusRing/styles'
 /* eslint-disable import/prefer-default-export */
 export const ButtonStyles = styled.button`
   position: relative;
-  display: inline-flex;
+  display: ${({ display }) => (display === 'block' ? 'flex' : 'inline-flex')};
   align-items: center;
   justify-content: center;
   cursor: pointer;
-  padding: 0 2rem;
+  padding: ${({ theme }) => theme.padding};
   margin: ${({ margin }) => margin};
   box-sizing: border-box;
   color: ${({ theme, color }) => theme[color].color};
   background: ${({ theme, color }) => theme[color].background};
-  height: ${({ theme }) => theme.height};
+
   font-size: ${({ theme }) => theme.fontSize};
   font-weight: ${({ theme }) => theme.fontWeight};
+  line-height: ${({ theme }) => theme.lineHeight};
+
   border-width: ${({ theme }) => theme.borderWidth};
   border-style: ${({ theme }) => theme.borderStyle};
   border-color: ${({ theme, color }) => theme[color].borderColor};
-  border-radius: ${({ theme }) => theme.borderRadius};
-  display: ${({ display }) => (display === 'block' ? 'block' : 'inline-block')};
-  width: ${({ display }) => (display === 'block' && '100%')};
+  border-radius: ${(props) => generateBorderRadius(props)};
+
+  height: ${({ theme }) => theme.height};
+  width: ${({ theme, display }) => (display === 'block' ? '100%' : theme.width)};
+
   transition: background ${({ theme }) => theme.transitionDuration};
 
   &:active {
@@ -36,6 +40,7 @@ export const ButtonStyles = styled.button`
 
   &:focus {
     outline: none;
+    color: ${({ theme, color }) => theme[color].focusColor};
 
     ${FocusRingStyles} {
       display: inline-block;
@@ -43,3 +48,7 @@ export const ButtonStyles = styled.button`
   }
 `
 /* eslint-enable import/prefer-default-export */
+
+const generateBorderRadius = ({ theme, shape }) => (
+  shape === 'rectangular' ? theme.borderRadiusRectangular : theme.borderRadiusCircular
+)

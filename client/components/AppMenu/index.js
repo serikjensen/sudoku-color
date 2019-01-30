@@ -2,9 +2,13 @@ import React, { Component } from 'react'
 import PropTypes from 'prop-types'
 import { connect } from 'react-redux'
 
+import IconHamburger from '@instructure/ui-icons/lib/Line/IconHamburger'
+import IconX from '@instructure/ui-icons/lib/Line/IconX'
+
 import Tray from '../util/Tray'
 
 import Button from '../Button'
+import IconButton from '../IconButton'
 
 import { requestPuzzle, resetPuzzle } from '../../actions/puzzleActions'
 
@@ -70,19 +74,25 @@ class AppMenu extends Component {
   render () {
     return (
       <div>
-        <button
+        <IconButton
           ref={this.handleTriggerRef}
           onClick={this.handleMenuTriggerClick}
-        >
-          Open menu
-        </button>
+          label="Open menu"
+          color="neutral"
+          icon={() => <IconHamburger />}
+        />
         <Tray
           label="Menu"
           open={this.state.open}
           placement="end"
         >
           <div>
-            <button onClick={this.handleTrayCloseClick}>Close menu</button>
+            <IconButton
+              onClick={this.handleTrayCloseClick}
+              label="Close menu"
+              color="neutral"
+              icon={() => <IconX />}
+            />
             <h2>Sudoku Color</h2>
             <Button
               color="primary"

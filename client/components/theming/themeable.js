@@ -16,27 +16,38 @@ export default (Component, composeTheme = () => ({})) => {
     }
 
     render () {
-      const theme = composeTheme(this.context)
-
       const {
-        componentRef,
+        theme,
+        forwardedRef,
         ...props
       } = this.props
 
+      const componentTheme = {
+        ...composeTheme(this.context),
+        ...(theme || {})
+      }
+
       const componentProps = {
-        theme,
+        theme: componentTheme,
         appTheme: this.context,
-        ref: this.handleComponentRef,
+        ref: forwardedRef,
         ...props
       }
 
       return (
-        <ThemeProvider theme={() => theme}>
+        <ThemeProvider theme={() => componentTheme}>
           <Component {...componentProps} />
         </ThemeProvider>
       )
     }
   }
 
-  return Themeable
+  function forwardRef (props, ref) {
+    return <Themeable {...props} forwardedRef={ref} />
+  }
+
+  const name = Component.displayName || Component.name
+  forwardRef.displayName = `themeable(${name})`
+
+  return React.forwardRef(forwardRef)
 }

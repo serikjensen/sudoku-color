@@ -10,7 +10,8 @@ import { ButtonStyles } from './styles'
 class Button extends Component {
   static propTypes = {
     children: PropTypes.node,
-    color: PropTypes.oneOf(['primary', 'secondary']),
+    color: PropTypes.oneOf(['primary', 'secondary', 'neutral']),
+    shape: PropTypes.oneOf(['circular', 'rectangular']),
     display: PropTypes.oneOf(['inline', 'block']),
     margin: PropTypes.oneOfType([PropTypes.string, PropTypes.number])
   }
@@ -18,20 +19,27 @@ class Button extends Component {
   static defaultProps = {
     children: null,
     color: 'primary',
+    shape: 'circular',
     display: 'inline',
     margin: 0
   }
 
   render () {
     const {
+      shape,
       children,
       ...props
     } = this.props
 
+    const buttonProps = {
+      shape,
+      ...props
+    }
+
     return (
-      <ButtonStyles {...props}>
+      <ButtonStyles {...buttonProps}>
         {children}
-        <FocusRing shape="circular" />
+        <FocusRing shape={shape} />
       </ButtonStyles>
     )
   }
