@@ -39,7 +39,13 @@ export default Object.freeze({
     fontSize: {
       medium: '1rem',
       large: '1.25rem',
-      xLarge: '1.75rem'
+      xLarge: '1.75rem',
+      xxLarge: '2.25rem'
+    },
+    fontWeight: {
+      light: 300,
+      normal: 400,
+      bold: 500
     }
   },
 
@@ -49,7 +55,16 @@ export default Object.freeze({
     focusOffset: '8px',
     highlightOffset: '2px',
     cellSize: '3.5rem',
-    formFieldHeight: '2.5rem'
+    formFieldHeight: '2.5rem',
+
+    padding: {
+      xSmall: '0.25rem',
+      small: '0.5rem',
+      medium: '1rem',
+      large: '2rem',
+      xLarge: '3rem',
+      xxLarge: '6rem'
+    }
   },
 
   transitions: {

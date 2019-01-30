@@ -6,11 +6,19 @@ import IconHamburger from '@instructure/ui-icons/lib/Line/IconHamburger'
 import IconX from '@instructure/ui-icons/lib/Line/IconX'
 
 import Tray from '../util/Tray'
-
+import AppLogo from '../AppLogo'
 import Button from '../Button'
 import IconButton from '../IconButton'
 
 import { requestPuzzle, resetPuzzle } from '../../actions/puzzleActions'
+
+import composeTheme from './theme'
+import themeable from '../theming/themeable'
+import {
+  TrayStyles,
+  CloseButtonStyles,
+  HeaderStyles
+} from './styles'
 
 class AppMenu extends Component {
   static propTypes = {
@@ -86,14 +94,18 @@ class AppMenu extends Component {
           open={this.state.open}
           placement="end"
         >
-          <div>
-            <IconButton
-              onClick={this.handleTrayCloseClick}
-              label="Close menu"
-              color="neutral"
-              icon={() => <IconX />}
-            />
-            <h2>Sudoku Color</h2>
+          <TrayStyles {...this.props}>
+            <CloseButtonStyles {...this.props}>
+              <IconButton
+                onClick={this.handleTrayCloseClick}
+                label="Close menu"
+                color="neutral"
+                icon={() => <IconX />}
+              />
+            </CloseButtonStyles>
+            <HeaderStyles {...this.props}>
+              <AppLogo />
+            </HeaderStyles>
             <Button
               color="primary"
               display="block"
@@ -110,7 +122,7 @@ class AppMenu extends Component {
             >
                 New Puzzle
             </Button>
-          </div>
+          </TrayStyles>
         </Tray>
       </div>
     )
@@ -119,4 +131,4 @@ class AppMenu extends Component {
 
 const mapStateToProps = state => state.puzzle
 
-export default connect(mapStateToProps, { requestPuzzle, resetPuzzle })(AppMenu)
+export default connect(mapStateToProps, { requestPuzzle, resetPuzzle })(themeable(AppMenu, composeTheme))
