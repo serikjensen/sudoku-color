@@ -110,7 +110,6 @@ class AppMenu extends Component {
               color="primary"
               display="block"
               onClick={this.handleResetPuzzle}
-              margin="0.5rem 0 0 0"
             >
               Reset
             </Button>

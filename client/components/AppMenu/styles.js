@@ -6,7 +6,9 @@ export const TrayStyles = styled.div`
 `
 
 export const HeaderStyles = styled.div`
-  padding-top: ${({ theme }) => theme.headerPadding};
+  margin-top: ${({ theme }) => theme.headerMarginTop};
+  padding-bottom: ${({ theme }) => theme.headerPaddingBottom};
+  margin-bottom: ${({ theme }) => theme.headerMarginBottom};
 `
 
 export const CloseButtonStyles = styled.div`

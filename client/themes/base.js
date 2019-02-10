@@ -4,19 +4,19 @@ export default Object.freeze({
     neutral: '#9B9B9B',
     dark: '#4A4A4A',
     primary: '#4990E2',
-    secondary: '#7ED321',
+    secondary: '#1DCC4A',
     focus: '#50E3C2',
 
     swatches: {
       1: '#BD0000',
       2: '#FF8100',
       3: '#72D27B',
-      4: '#03913B',
+      4: '#0E9F1B',
       5: '#840CC4',
       6: '#E35094',
       7: '#D19DFF',
       8: '#80B5F4',
-      9: '#0F52FA'
+      9: '#2F65EB'
     }
   },
 
@@ -58,6 +58,15 @@ export default Object.freeze({
     formFieldHeight: '2.5rem',
 
     padding: {
+      xSmall: '0.25rem',
+      small: '0.5rem',
+      medium: '1rem',
+      large: '2rem',
+      xLarge: '3rem',
+      xxLarge: '6rem'
+    },
+
+    margin: {
       xSmall: '0.25rem',
       small: '0.5rem',
       medium: '1rem',

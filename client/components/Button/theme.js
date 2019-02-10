@@ -23,6 +23,7 @@ export default ({ spacing, colors, typography, borders, shadows, transitions }) 
 
     hoverColor: colors.lightest,
     focusColor: colors.primary,
+    activeColor: colors.lightest,
     hoverBackground: colors.primary
   },
 
@@ -33,6 +34,7 @@ export default ({ spacing, colors, typography, borders, shadows, transitions }) 
 
     hoverColor: colors.lightest,
     focusColor: colors.secondary,
+    activeColor: colors.lightest,
     hoverBackground: colors.secondary
   },
 
@@ -43,6 +45,7 @@ export default ({ spacing, colors, typography, borders, shadows, transitions }) 
 
     hoverColor: colors.lightest,
     focusColor: colors.neutral,
+    activeColor: colors.lightest,
     hoverBackground: colors.neutral
   }
 })

@@ -31,6 +31,7 @@ export const ButtonStyles = styled.button`
 
   &:active {
     box-shadow: ${({ theme }) => theme.shadow};
+    color: ${({ theme, color }) => theme[color].activeColor};
   }
 
   &:hover {
@@ -41,6 +42,10 @@ export const ButtonStyles = styled.button`
   &:focus {
     outline: none;
     color: ${({ theme, color }) => theme[color].focusColor};
+
+    &:hover {
+      color ${({ theme, color }) => theme[color].hoverColor};
+    }
 
     ${FocusRingStyles} {
       display: inline-block;
