@@ -1,3 +1,5 @@
+import { expect } from '@instructure/ui-test-utils'
+
 import filledPuzzle from '../filledPuzzle'
 import { puzzle1, puzzle2, puzzle3, puzzle4, puzzle5 } from './testPuzzles'
 

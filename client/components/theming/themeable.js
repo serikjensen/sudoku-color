@@ -3,17 +3,11 @@ import { ThemeProvider } from 'styled-components'
 
 import AppThemeContext from './AppThemeContext'
 
+import baseTheme from '../../themes/base'
+
 export default (Component, composeTheme = () => ({})) => {
   class Themeable extends React.Component {
     static contextType = AppThemeContext
-
-    handleComponentRef = (el) => {
-      const { componentRef } = this.props
-
-      if (typeof componentRef === 'function') {
-        componentRef(el)
-      }
-    }
 
     render () {
       const {
@@ -22,14 +16,15 @@ export default (Component, composeTheme = () => ({})) => {
         ...props
       } = this.props
 
+      const appTheme = getAppTheme(this.context)
+
       const componentTheme = {
-        ...composeTheme(this.context),
+        ...composeTheme(appTheme),
         ...(theme || {})
       }
 
       const componentProps = {
         theme: componentTheme,
-        appTheme: this.context,
         ref: forwardedRef,
         ...props
       }
@@ -50,4 +45,13 @@ export default (Component, composeTheme = () => ({})) => {
   forwardRef.displayName = `themeable(${name})`
 
   return React.forwardRef(forwardRef)
+}
+
+const getAppTheme = (context) => {
+  // If there's no context or context is empty, fall back to base theme
+  if (!context || (Object.keys(context).length === 0 && context.constructor === Object)) {
+    return baseTheme
+  }
+
+  return context
 }

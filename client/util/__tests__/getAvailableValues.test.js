@@ -1,3 +1,5 @@
+import { expect } from '@instructure/ui-test-utils'
+
 import getAvailableValues from '../getAvailableValues'
 
 describe('getAvailableValues', () => {

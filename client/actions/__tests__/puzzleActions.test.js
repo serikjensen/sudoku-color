@@ -1,4 +1,5 @@
 import configureStore from 'redux-mock-store'
+import { expect } from '@instructure/ui-test-utils'
 
 import {
   CONTINUE_PUZZLE,

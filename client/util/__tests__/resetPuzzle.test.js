@@ -1,3 +1,5 @@
+import { expect } from '@instructure/ui-test-utils'
+
 import resetPuzzle from '../resetPuzzle'
 
 describe('resetPuzzle', () => {

@@ -103,7 +103,7 @@ class Tile extends Component {
 
     const facadeProps = {
       tabIndex,
-      label,
+      value,
       onKeyDown: this.handleKeyDown,
       onClick: this.handleClick,
       onFocus: this.handleFocus,

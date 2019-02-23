@@ -1,17 +1,27 @@
+import { expect, mount, spy, within } from '@instructure/ui-test-utils'
+
 import React from 'react'
-import { mount } from 'enzyme'
-import sinon from 'sinon'
 
 import Tile from '../index'
-import lastCall from '../../../../test/testUtils'
 
-describe('<Tile/>', () => {
-  it('should call onClick with event and value', () => {
-    const onClick = sinon.spy()
-    const wrapper = mount(<Tile value={0} onClick={onClick} />)
-    const button = wrapper.find('button')
-    button.simulate('click')
+describe('<Tile/>', async () => {
+  it('should call onClick with event and value', async () => {
+    const onClick = spy()
 
-    expect(onClick.callCount).to.equal(1)
+    const subject = await mount(
+      <Tile
+        value={1}
+        coords={{ i: 0, j: 0 }}
+        label="1"
+        onClick={onClick}
+      />
+    )
+
+    const tile = within(subject.getDOMNode())
+    const button = await tile.find(':focusable')
+
+    await button.click()
+
+    expect(onClick).to.have.been.calledOnce()
   })
 })

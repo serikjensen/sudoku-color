@@ -21,6 +21,8 @@ module.exports = {
     'react/prefer-stateless-function': 0,
     'arrow-parens': 0,
     'prefer-destructuring': 0,
-    'object-curly-newline': ['error', { consistent: true }]
+    'object-curly-newline': ['error', { consistent: true }],
+    'import/no-webpack-loader-syntax': 0,
+    'function-paren-newline': 0
   }
 }

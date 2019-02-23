@@ -74,6 +74,6 @@ export const HighlightStyles = styled.span`
 `
 
 const generateTileColor = (props) => {
-  const { label, theme } = props
-  return theme.swatches[label]
+  const { value, theme } = props
+  return theme.swatches[value < 0 ? value * -1 : value]
 }

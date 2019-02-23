@@ -1,3 +1,5 @@
+import { expect } from '@instructure/ui-test-utils'
+
 import generatePuzzleSets from '../generatePuzzleSets'
 
 describe('generatePuzzleSets', () => {

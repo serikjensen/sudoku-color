@@ -1,3 +1,5 @@
+import { expect } from '@instructure/ui-test-utils'
+
 import deepEqual from 'deep-equal'
 import reducer, { defaultState } from '../puzzleReducer'
 
