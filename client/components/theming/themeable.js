@@ -1,4 +1,5 @@
 import React from 'react'
+import PropTypes from 'prop-types'
 import { ThemeProvider } from 'styled-components'
 
 import AppThemeContext from './AppThemeContext'
@@ -7,22 +8,30 @@ import baseTheme from '../../themes/base'
 
 export default (Component, composeTheme = () => ({})) => {
   class Themeable extends React.Component {
+    static propTypes = {
+      theme: PropTypes.object,
+      forwardedRef: PropTypes.func
+    }
+
+    static defaultProps = {
+      theme: {},
+      forwardedRef: () => {}
+    }
+
     static contextType = AppThemeContext
 
     render () {
-      /* eslint-disable react/prop-types */
       const {
         theme,
         forwardedRef,
         ...props
       } = this.props
-      /* eslint-enable react/prop-types */
 
       const appTheme = getAppTheme(this.context)
 
       const componentTheme = {
         ...composeTheme(appTheme),
-        ...(theme || {})
+        ...theme
       }
 
       const componentProps = {

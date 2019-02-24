@@ -27,7 +27,8 @@ class AppMenu extends Component {
     resetPuzzle: PropTypes.func,
     onResetPuzzle: PropTypes.func,
     submittedPuzzle: PropTypes.bool,
-    filledPuzzle: PropTypes.bool
+    filledPuzzle: PropTypes.bool,
+    theme: PropTypes.object
   }
 
   static defaultProps = {
@@ -36,7 +37,8 @@ class AppMenu extends Component {
     resetPuzzle: () => {},
     onResetPuzzle: () => {},
     submittedPuzzle: false,
-    filledPuzzle: false
+    filledPuzzle: false,
+    theme: {}
   }
 
   state = {
@@ -80,6 +82,8 @@ class AppMenu extends Component {
   }
 
   render () {
+    const { theme } = this.props
+
     return (
       <div>
         <IconButton
@@ -94,8 +98,8 @@ class AppMenu extends Component {
           open={this.state.open}
           placement="end"
         >
-          <TrayStyles {...this.props}>
-            <CloseButtonStyles {...this.props}>
+          <TrayStyles theme={theme}>
+            <CloseButtonStyles theme={theme}>
               <IconButton
                 onClick={this.handleTrayCloseClick}
                 label="Close menu"
@@ -103,7 +107,7 @@ class AppMenu extends Component {
                 icon={() => <IconX />}
               />
             </CloseButtonStyles>
-            <HeaderStyles {...this.props}>
+            <HeaderStyles theme={theme}>
               <AppLogo />
             </HeaderStyles>
             <Button

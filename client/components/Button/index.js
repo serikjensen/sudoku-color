@@ -24,6 +24,16 @@ class Button extends Component {
     margin: 0
   }
 
+  _buttonRef = null
+
+  focus () {
+    this._buttonRef.focus()
+  }
+
+  handleButtonRef = (el) => {
+    this._buttonRef = el
+  }
+
   render () {
     const {
       shape,
@@ -33,6 +43,7 @@ class Button extends Component {
 
     const buttonProps = {
       shape,
+      ref: this.handleButtonRef,
       ...props
     }
 

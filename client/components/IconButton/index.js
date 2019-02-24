@@ -24,6 +24,16 @@ class IconButton extends Component {
     color: 'primary'
   }
 
+  _buttonRef = null
+
+  focus () {
+    this._buttonRef.focus()
+  }
+
+  handleButtonRef = (el) => {
+    this._buttonRef = el
+  }
+
   render () {
     const {
       label,
@@ -34,6 +44,7 @@ class IconButton extends Component {
 
     const buttonProps = {
       shape: 'rectangular',
+      ref: this.handleButtonRef,
       ...props
     }
 
