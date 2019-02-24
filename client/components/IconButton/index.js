@@ -28,7 +28,7 @@ class IconButton extends Component {
     const {
       label,
       icon,
-      Icon = icon,
+      Icon = icon, // eslint-disable-line react/prop-types
       ...props
     } = this.props
 

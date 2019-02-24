@@ -10,11 +10,13 @@ export default (Component, composeTheme = () => ({})) => {
     static contextType = AppThemeContext
 
     render () {
+      /* eslint-disable react/prop-types */
       const {
         theme,
         forwardedRef,
         ...props
       } = this.props
+      /* eslint-enable react/prop-types */
 
       const appTheme = getAppTheme(this.context)
 
