@@ -1,4 +1,4 @@
-import React, { Component } from 'react'
+import React, { PureComponent } from 'react'
 import PropTypes from 'prop-types'
 import { connect } from 'react-redux'
 
@@ -16,7 +16,7 @@ import {
   CellStyles
 } from './styles'
 
-class CellMenu extends Component {
+class CellMenu extends PureComponent {
   static propTypes = {
     value: PropTypes.number.isRequired,
     puzzle: PropTypes.arrayOf(PropTypes.arrayOf(PropTypes.number)).isRequired,

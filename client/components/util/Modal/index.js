@@ -1,4 +1,4 @@
-import React, { Component } from 'react'
+import React, { PureComponent } from 'react'
 import PropTypes from 'prop-types'
 
 import InstUIModal, { ModalBody } from '@instructure/ui-overlays/lib/components/Modal'
@@ -6,7 +6,7 @@ import InstUIModal, { ModalBody } from '@instructure/ui-overlays/lib/components/
 import AppThemeProvider from '../../theming/AppThemeProvider'
 import AppThemeContext from '../../theming/AppThemeContext'
 
-class Modal extends Component {
+class Modal extends PureComponent {
   static propTypes = {
     children: PropTypes.node
   }

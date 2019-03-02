@@ -1,4 +1,4 @@
-import React, { Component } from 'react'
+import React, { PureComponent } from 'react'
 import PropTypes from 'prop-types'
 import { connect } from 'react-redux'
 
@@ -20,7 +20,7 @@ import {
   HeaderStyles
 } from './styles'
 
-class AppMenu extends Component {
+class AppMenu extends PureComponent {
   static propTypes = {
     requestPuzzle: PropTypes.func,
     onRequestPuzzle: PropTypes.func,

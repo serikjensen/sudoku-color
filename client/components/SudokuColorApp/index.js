@@ -1,4 +1,4 @@
-import React, { Component } from 'react'
+import React, { PureComponent } from 'react'
 import PropTypes from 'prop-types'
 import { connect } from 'react-redux'
 
@@ -20,7 +20,7 @@ import {
 
 import baseTheme from '../../themes/base'
 
-class SudokuColorApp extends Component {
+class SudokuColorApp extends PureComponent {
   static propTypes = {
     requestingPuzzle: PropTypes.bool,
     requestPuzzle: PropTypes.func

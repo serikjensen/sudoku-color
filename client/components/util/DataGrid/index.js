@@ -1,10 +1,10 @@
-import { Component } from 'react'
+import { PureComponent } from 'react'
 import PropTypes from 'prop-types'
 import keycode from 'keycode'
 
 import createChainedFunction from '@instructure/ui-utils/lib/createChainedFunction'
 
-class DataGrid extends Component {
+class DataGrid extends PureComponent {
   static propTypes = {
     label: PropTypes.node.isRequired,
     children: PropTypes.func,

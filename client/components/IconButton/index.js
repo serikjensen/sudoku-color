@@ -1,4 +1,4 @@
-import React, { Component } from 'react'
+import React, { PureComponent } from 'react'
 import PropTypes from 'prop-types'
 
 import ScreenReaderContent from '@instructure/ui-a11y/lib/components/ScreenReaderContent'
@@ -9,7 +9,7 @@ import Button from '../Button'
 import themeable from '../theming/themeable'
 import composeTheme from './theme'
 
-class IconButton extends Component {
+class IconButton extends PureComponent {
   static propTypes = {
     icon: PropTypes.oneOfType([PropTypes.func, PropTypes.node]),
     label: PropTypes.node,

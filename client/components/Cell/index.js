@@ -1,4 +1,4 @@
-import React, { Component } from 'react'
+import React, { PureComponent } from 'react'
 import PropTypes from 'prop-types'
 import { connect } from 'react-redux'
 
@@ -12,7 +12,7 @@ import themeable from '../theming/themeable'
 import composeTheme from './theme'
 import { CellStyles } from './styles'
 
-class Cell extends Component {
+class Cell extends PureComponent {
   static propTypes = {
     value: PropTypes.number,
     coords: PropTypes.shape({

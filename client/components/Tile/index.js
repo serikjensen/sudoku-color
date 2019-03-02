@@ -1,4 +1,4 @@
-import React, { Component } from 'react'
+import React, { PureComponent } from 'react'
 import PropTypes from 'prop-types'
 
 import { omitProps } from '@instructure/ui-utils/lib/react/passthroughProps'
@@ -22,7 +22,7 @@ import {
   HighlightStyles
 } from './styles'
 
-class Tile extends Component {
+class Tile extends PureComponent {
   static propTypes = {
     value: PropTypes.number,
     label: PropTypes.node,

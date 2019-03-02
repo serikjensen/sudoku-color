@@ -1,4 +1,4 @@
-import React, { Component } from 'react'
+import React, { PureComponent } from 'react'
 import PropTypes from 'prop-types'
 import { connect } from 'react-redux'
 
@@ -12,7 +12,7 @@ import {
   continuePuzzle
 } from '../../actions/puzzleActions'
 
-class SubmitModal extends Component {
+class SubmitModal extends PureComponent {
   static propTypes = {
     submitPuzzle: PropTypes.func,
     continuePuzzle: PropTypes.func,

@@ -7,7 +7,7 @@ import AppThemeContext from './AppThemeContext'
 import baseTheme from '../../themes/base'
 
 export default (Component, composeTheme = () => ({})) => {
-  class Themeable extends React.Component {
+  class Themeable extends React.PureComponent {
     static propTypes = {
       theme: PropTypes.object,
       forwardedRef: PropTypes.func

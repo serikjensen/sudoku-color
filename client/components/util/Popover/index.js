@@ -1,4 +1,4 @@
-import React, { Component } from 'react'
+import React, { PureComponent } from 'react'
 import PropTypes from 'prop-types'
 
 import InstUIPopover, { PopoverTrigger, PopoverContent } from '@instructure/ui-overlays/lib/components/Popover'
@@ -8,7 +8,7 @@ import View from '@instructure/ui-layout/lib/components/View'
 import AppThemeProvider from '../../theming/AppThemeProvider'
 import AppThemeContext from '../../theming/AppThemeContext'
 
-class Popover extends Component {
+class Popover extends PureComponent {
   static propTypes = {
     trigger: PropTypes.node,
     content: PropTypes.node

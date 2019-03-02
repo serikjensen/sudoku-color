@@ -1,4 +1,4 @@
-import React, { Component } from 'react'
+import React, { PureComponent } from 'react'
 import PropTypes from 'prop-types'
 
 import FocusRing from '../FocusRing'
@@ -7,7 +7,7 @@ import themeable from '../theming/themeable'
 import composeTheme from './theme'
 import { ButtonStyles } from './styles'
 
-class Button extends Component {
+class Button extends PureComponent {
   static propTypes = {
     children: PropTypes.node,
     color: PropTypes.oneOf(['primary', 'secondary', 'neutral']),

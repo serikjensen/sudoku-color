@@ -1,9 +1,9 @@
-import React, { Component } from 'react'
+import React, { PureComponent } from 'react'
 import PropTypes from 'prop-types'
 
 import AppThemeContext from '../AppThemeContext'
 
-export default class ThemeProvider extends Component {
+export default class ThemeProvider extends PureComponent {
   static propTypes = {
     // eslint-disable-next-line react/forbid-prop-types
     theme: PropTypes.object,

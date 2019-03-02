@@ -1,4 +1,4 @@
-import React, { Component } from 'react'
+import React, { PureComponent } from 'react'
 import PropTypes from 'prop-types'
 
 import InstUITray from '@instructure/ui-overlays/lib/components/Tray'
@@ -6,7 +6,7 @@ import InstUITray from '@instructure/ui-overlays/lib/components/Tray'
 import AppThemeProvider from '../../theming/AppThemeProvider'
 import AppThemeContext from '../../theming/AppThemeContext'
 
-class Tray extends Component {
+class Tray extends PureComponent {
   static propTypes = {
     children: PropTypes.node
   }
