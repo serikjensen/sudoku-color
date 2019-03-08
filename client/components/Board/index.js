@@ -32,7 +32,7 @@ class Board extends PureComponent {
 
       return {
         focusedCoords: (
-          i >= 0 && puzzle[i] !== 'undefined' && j >= 0 && typeof puzzle[i][j] !== 'undefined'
+          i >= 0 && typeof puzzle[i] !== 'undefined' && j >= 0 && typeof puzzle[i][j] !== 'undefined'
         ) ? { i, j } : focusedCoords
       }
     })

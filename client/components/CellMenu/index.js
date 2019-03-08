@@ -61,7 +61,7 @@ class CellMenu extends PureComponent {
 
       return {
         focusedCoords: (
-          i >= 0 && availableValues[i] !== 'undefined' && j >= 0 && typeof availableValues[i][j] !== 'undefined'
+          i >= 0 && typeof availableValues[i] !== 'undefined' && j >= 0 && typeof availableValues[i][j] !== 'undefined'
         ) ? { i, j } : focusedCoords
       }
     })

@@ -1,4 +1,4 @@
-import React, { PureComponent } from 'react'
+import React, { Component } from 'react'
 import PropTypes from 'prop-types'
 
 import { omitProps } from '@instructure/ui-utils/lib/react/passthroughProps'
@@ -22,7 +22,7 @@ import {
   HighlightStyles
 } from './styles'
 
-class Tile extends PureComponent {
+class Tile extends Component {
   static propTypes = {
     value: PropTypes.number,
     label: PropTypes.node,
@@ -49,6 +49,15 @@ class Tile extends PureComponent {
     elementRef: () => {},
     editing: false,
     highlighted: false
+  }
+
+  shouldComponentUpdate (nextProps) {
+    const { value, label, facade, highlighted, tabIndex } = this.props
+    return value !== nextProps.value ||
+      label !== nextProps.label ||
+      facade !== nextProps.facade ||
+      highlighted !== nextProps.highlighted ||
+      tabIndex !== nextProps.tabIndex
   }
 
   get facade () {

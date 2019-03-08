@@ -1,4 +1,4 @@
-import React, { PureComponent } from 'react'
+import React, { Component } from 'react'
 import PropTypes from 'prop-types'
 import { connect } from 'react-redux'
 
@@ -12,7 +12,7 @@ import themeable from '../theming/themeable'
 import composeTheme from './theme'
 import { CellStyles } from './styles'
 
-class Cell extends PureComponent {
+class Cell extends Component {
   static propTypes = {
     value: PropTypes.number,
     coords: PropTypes.shape({
@@ -43,6 +43,16 @@ class Cell extends PureComponent {
 
   state = {
     show: false
+  }
+
+  shouldComponentUpdate (nextProps, nextState) {
+    const { value, highlighted, tabIndex } = this.props
+    const { show } = this.state
+
+    return value !== nextProps.value ||
+      highlighted !== nextProps.highlighted ||
+      tabIndex !== nextProps.tabIndex ||
+      show !== nextState.show
   }
 
   get facade () {
