@@ -2,9 +2,6 @@ import React, { PureComponent } from 'react'
 import PropTypes from 'prop-types'
 import { connect } from 'react-redux'
 
-import containsActiveElement from '@instructure/ui-utils/lib/dom/containsActiveElement'
-import requestAnimationFrame from '@instructure/ui-utils/lib/dom/requestAnimationFrame'
-
 import getAvailableValues from '../../util/getAvailableValues'
 import DataGrid from '../util/DataGrid'
 import Tile from '../Tile'
@@ -28,14 +25,7 @@ class CellMenu extends PureComponent {
   }
 
   state = {
-    active: false
-  }
-
-  componentWillUnmount () {
-    this._raf.forEach(request => {
-      request.cancel()
-    })
-    this._raf = []
+    focusedCoords: { i: 0, j: 0 }
   }
 
   get availableValues () {
@@ -62,27 +52,24 @@ class CellMenu extends PureComponent {
     })
   }
 
-  _raf = []
+  handleDataGridMove = (event, { direction }) => {
+    const { availableValues } = this
 
-  handleTileClick = (event, coords, value) => {
-    const { onSelect } = this.props
-    onSelect(event, value)
-  }
+    this.setState(({ focusedCoords }) => {
+      const i = focusedCoords.i + direction.i
+      const j = focusedCoords.j + direction.j
 
-  handleFocus = () => {
-    this.setState({ active: true })
-  }
-
-  handleBlur = () => {
-    this._raf.push(requestAnimationFrame(() => {
-      if (!containsActiveElement(this._table)) {
-        this.setState({ active: false })
+      return {
+        focusedCoords: (
+          i >= 0 && availableValues[i] !== 'undefined' && j >= 0 && typeof availableValues[i][j] !== 'undefined'
+        ) ? { i, j } : focusedCoords
       }
-    }))
+    })
   }
 
-  handleTableRef = (el) => {
-    this._table = el
+  handleTileClick = (event, { value }) => {
+    const { onSelect } = this.props
+    onSelect(event, { value })
   }
 
   generateLabel = (value) => {
@@ -93,13 +80,15 @@ class CellMenu extends PureComponent {
   }
 
   render () {
+    const { focusedCoords } = this.state
+
     /* eslint-disable react/no-array-index-key */
-    const tableBody = ({ getTableProps, getCellProps }) => (
+    const tableBody = ({ getRootProps, getCellProps }) => (
       <TableStyles
-        onFocus={this.handleFocus}
-        onBlur={this.handleBlur}
-        {...getTableProps({
-          ref: this.handleTableRef
+        {...getRootProps({
+          ref: this.handleTableRef,
+          onFocus: this.handleFocus,
+          onBlur: this.handleBlur
         })}
       >
         <tbody>
@@ -109,14 +98,12 @@ class CellMenu extends PureComponent {
                 <td key={`${j}`}>
                   <CellStyles>
                     <Tile
-                      coords={{ i, j }}
-                      value={availableValue}
-                      facade={availableValue > 0 ? 'default' : 'remove'}
-                      label={this.generateLabel(availableValue)}
-                      active={this.state.active}
                       {...getCellProps({
                         onClick: this.handleTileClick,
-                        coords: { i, j }
+                        coords: { i, j },
+                        value: availableValue,
+                        facade: availableValue > 0 ? 'default' : 'remove',
+                        label: this.generateLabel(availableValue)
                       })}
                     />
                   </CellStyles>
@@ -133,6 +120,8 @@ class CellMenu extends PureComponent {
       <DataGrid
         label="Select value"
         render={tableBody}
+        focusedCoords={focusedCoords}
+        onRequestMove={this.handleDataGridMove}
       />
     )
   }

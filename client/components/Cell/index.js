@@ -24,7 +24,6 @@ class Cell extends PureComponent {
     onClick: PropTypes.func,
     onMouseEnter: PropTypes.func,
     onMouseLeave: PropTypes.func,
-    active: PropTypes.bool,
     tabIndex: PropTypes.number,
     onMenuDismiss: PropTypes.func,
     highlighted: PropTypes.bool
@@ -37,7 +36,6 @@ class Cell extends PureComponent {
     onMouseEnter: () => {},
     onMouseLeave: () => {},
     onClick: () => {},
-    active: false,
     tabIndex: -1,
     onMenuDismiss: () => {},
     highlighted: false
@@ -77,9 +75,9 @@ class Cell extends PureComponent {
     this.setState({ show: true })
   }
 
-  handleClick = (e, coords, value) => {
+  handleClick = (event, { coords, value }) => {
     const { onClick } = this.props
-    onClick(e, coords, value)
+    onClick(event, { coords, value })
     this.showMenu()
   }
 
@@ -88,7 +86,7 @@ class Cell extends PureComponent {
     this.props.onMenuDismiss()
   }
 
-  handleSelect = (event, value) => {
+  handleSelect = (event, { value }) => {
     const { coords } = this.props
     this.props.setTile(coords, value)
     this.hideMenu()
@@ -101,19 +99,18 @@ class Cell extends PureComponent {
 
   handleMouseEnter = (event) => {
     const { onMouseEnter, value, coords } = this.props
-    onMouseEnter(event, coords, value)
+    onMouseEnter(event, { coords, value })
   }
 
   handleMouseLeave = (event) => {
     const { onMouseLeave, value, coords } = this.props
-    onMouseLeave(event, coords, value)
+    onMouseLeave(event, { coords, value })
   }
 
   render () {
     const {
       value,
       tabIndex,
-      active,
       coords,
       onKeyDown,
       highlighted
@@ -132,7 +129,6 @@ class Cell extends PureComponent {
           label={this.label}
           onKeyDown={onKeyDown}
           onClick={this.handleClick}
-          active={active}
           tabIndex={tabIndex}
           coords={coords}
           aria-haspopup={value >= 0 ? 'true' : null}

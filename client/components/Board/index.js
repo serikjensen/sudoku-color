@@ -2,9 +2,6 @@ import React, { PureComponent } from 'react'
 import PropTypes from 'prop-types'
 import { connect } from 'react-redux'
 
-import containsActiveElement from '@instructure/ui-utils/lib/dom/containsActiveElement'
-import requestAnimationFrame from '@instructure/ui-utils/lib/dom/requestAnimationFrame'
-
 import DataGrid from '../util/DataGrid'
 import Cell from '../Cell'
 
@@ -18,60 +15,44 @@ class Board extends PureComponent {
   }
 
   state = {
-    active: false,
-    hoveredCoords: null
+    hoveredCoords: null,
+    focusedCoords: { i: 0, j: 0 }
   }
-
-  componentWillUnmount () {
-    this._raf.forEach(request => {
-      request.cancel()
-    })
-    this._raf = []
-  }
-
-  _dataGrid = null
-  _table = null
-  _raf = []
 
   reset () {
-    this._dataGrid.reset()
+    this.setState({ focusedCoords: { i: 0, j: 0 } })
   }
 
-  handleFocus = () => {
-    this.setState({ active: true })
-  }
+  handleDataGridMove = (event, { direction }) => {
+    const { puzzle } = this.props
 
-  handleBlur = () => {
-    this._raf.push(requestAnimationFrame(() => {
-      if (!containsActiveElement(this._table)) {
-        this.setState({ active: false })
+    this.setState(({ focusedCoords }) => {
+      const i = focusedCoords.i + direction.i
+      const j = focusedCoords.j + direction.j
+
+      return {
+        focusedCoords: (
+          i >= 0 && puzzle[i] !== 'undefined' && j >= 0 && typeof puzzle[i][j] !== 'undefined'
+        ) ? { i, j } : focusedCoords
       }
-    }))
+    })
   }
 
-  handleDataGridRef = (el) => {
-    this._dataGrid = el
+  handleCellClick = (event, { coords }) => {
+    this.setState({ focusedCoords: coords })
   }
 
-  handleTableRef = (el) => {
-    this._table = el
-  }
-
-  handleCellMenuDismiss = () => {
-    this.setState({ active: true })
-  }
-
-  handleCellMouseEnter = (event, { i, j }) => {
-    this.setState({ hoveredCoords: { i, j } })
+  handleCellMouseEnter = (event, { coords }) => {
+    this.setState({ hoveredCoords: coords })
   }
 
   handleCellMouseLeave = () => {
     this.setState({ hoveredCoords: null })
   }
 
-  cellHighlighted = (coords, selectedCoords) => {
+  cellHighlighted = (coords, focused) => {
     const { puzzle } = this.props
-    const { hoveredCoords, active } = this.state
+    const { hoveredCoords, focusedCoords } = this.state
 
     const value = puzzle[coords.i][coords.j]
 
@@ -80,22 +61,21 @@ class Board extends PureComponent {
     const compareValues = ({ i, j }) => Math.abs(value) === Math.abs(puzzle[i][j])
 
     // Give preference to mouse hover
-    return hoveredCoords ? compareValues(hoveredCoords) : active && compareValues(selectedCoords)
+    return hoveredCoords ? compareValues(hoveredCoords) : focused && compareValues(focusedCoords)
   }
 
   renderGrid () {
     const { puzzle } = this.props
+    const { focusedCoords } = this.state
 
     /* eslint-disable react/no-array-index-key */
     /* eslint-disable jsx-a11y/mouse-events-have-key-events */
-    const tableBody = ({ getTableProps, getCellProps, selectedCoords }) => (
+    const tableBody = ({ getRootProps, getCellProps, focused }) => (
       <TableStyles
-        onFocus={this.handleFocus}
-        onBlur={this.handleBlur}
-        {...getTableProps({
-          ref: this.handleTableRef
+        {...getRootProps({
+          onBlur: this.handleBlur,
+          onFocus: this.handleFocus
         })}
-        onMouseOut={this.handleBoardMouseOut}
       >
         <tbody>
           {puzzle.map((row, i) => (
@@ -103,15 +83,16 @@ class Board extends PureComponent {
               {row.map((value, j) => (
                 <TdStyles key={`${j}`}>
                   <Cell
-                    coords={{ i, j }}
-                    value={value}
-                    puzzle={puzzle}
-                    active={this.state.active}
-                    onMenuDismiss={this.handleCellMenuDismiss}
-                    onMouseEnter={this.handleCellMouseEnter}
-                    onMouseLeave={this.handleCellMouseLeave}
-                    highlighted={this.cellHighlighted({ i, j }, selectedCoords)}
-                    {...getCellProps({ coords: { i, j } })}
+                    {...getCellProps({
+                      coords: { i, j },
+                      value,
+                      puzzle,
+                      onClick: this.handleCellClick,
+                      onMenuDismiss: this.handleCellMenuDismiss,
+                      onMouseEnter: this.handleCellMouseEnter,
+                      onMouseLeave: this.handleCellMouseLeave,
+                      highlighted: this.cellHighlighted({ i, j }, focused)
+                    })}
                   />
                 </TdStyles>))
               }
@@ -127,7 +108,8 @@ class Board extends PureComponent {
       <DataGrid
         label="Sudoku Board"
         render={tableBody}
-        ref={this.handleDataGridRef}
+        focusedCoords={focusedCoords}
+        onRequestMove={this.handleDataGridMove}
       />
     )
   }

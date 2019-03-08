@@ -4,8 +4,8 @@ import React from 'react'
 
 import Tile from '../index'
 
-describe('<Tile/>', async () => {
-  it('should call onClick with event and value', async () => {
+describe.only('<Tile/>', async () => {
+  it('should call onClick with value', async () => {
     const onClick = spy()
 
     const subject = await mount(
@@ -18,7 +18,7 @@ describe('<Tile/>', async () => {
     )
 
     const tile = within(subject.getDOMNode())
-    const button = await tile.find(':focusable')
+    const button = await tile.find('button')
 
     await button.click()
 

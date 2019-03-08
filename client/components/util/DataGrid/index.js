@@ -1,114 +1,79 @@
-import { PureComponent } from 'react'
+import React, { PureComponent } from 'react'
 import PropTypes from 'prop-types'
 import keycode from 'keycode'
 
 import createChainedFunction from '@instructure/ui-utils/lib/createChainedFunction'
 
+import Focusable from '@instructure/ui-focusable/lib/components/Focusable'
+
 class DataGrid extends PureComponent {
   static propTypes = {
     label: PropTypes.node.isRequired,
     children: PropTypes.func,
-    render: PropTypes.func
+    render: PropTypes.func,
+    onRequestMove: PropTypes.func,
+    focusedCoords: PropTypes.shape({
+      i: PropTypes.number.isRequired,
+      j: PropTypes.number.isRequired
+    })
   }
 
   static defaultProps = {
     children: () => null,
-    render: () => null
+    render: () => null,
+    onRequestMove: () => {},
+    focusedCoords: { i: 0, j: 0 }
   }
 
-  state = {
-    selectedCoords: { i: 0, j: 0 }
-  }
+  handleKeyDown = (e) => {
+    const { onRequestMove } = this.props
 
-  get table () {
-    // TODO: Account for nested tables/table headers
-    return [...this._table.querySelectorAll('tr')]
-      .map((row) => [...row.querySelectorAll('td')])
-  }
-
-  get width () {
-    return (this.table && this.table.length) || 0
-  }
-
-  get height () {
-    return (this.table && this.table[0] && this.table[0].length) || 0
-  }
-
-  reset () {
-    this.setState({ selectedCoords: { i: 0, j: 0 } })
-  }
-
-  _table = null
-
-  handleClick = (e, coords) => {
-    this.setState({ selectedCoords: { i: coords.i, j: coords.j } })
-  }
-
-  handleKeyDown = (e, coords) => {
     const key = keycode(e.keyCode)
+
     if (['right', 'left', 'down', 'up'].includes(key)) {
-      this.arrowMove(key, coords)
+      switch (key) { // eslint-disable-line default-case
+        case 'right':
+          onRequestMove(e, { direction: { i: 0, j: 1 } })
+          break
+        case 'left':
+          onRequestMove(e, { direction: { i: 0, j: -1 } })
+          break
+        case 'up':
+          onRequestMove(e, { direction: { i: -1, j: 0 } })
+          break
+        case 'down':
+          onRequestMove(e, { direction: { i: 1, j: 0 } })
+          break
+      }
     }
-  }
-
-  arrowMove = (key, coords) => {
-    const move = { i: 0, j: 0 }
-
-    switch (key) { // eslint-disable-line default-case
-      case 'right':
-        move.j = 1
-        break
-      case 'left':
-        move.j = -1
-        break
-      case 'up':
-        move.i = -1
-        break
-      case 'down':
-        move.i = 1
-        break
-    }
-
-    this.setState(() => {
-      let i = coords.i + move.i
-      let j = coords.j + move.j
-      i = i < 0 ? 0 : i
-      j = j < 0 ? 0 : j
-      i = i > this.width ? this.width : i
-      j = j > this.height ? this.height : j
-      return { selectedCoords: this.isValidIndex({ i, j }) ? { i, j } : coords }
-    })
-  }
-
-  isValidIndex ({ i, j }) {
-    const { table } = this
-    return !!(table && table[i] && table[i][j])
   }
 
   render () {
-    const { label, children, render = children } = this.props
-    const { selectedCoords } = this.state
+    const {
+      label,
+      children,
+      focusedCoords,
+      render = children
+    } = this.props
 
-    const getTableProps = ({ ref, ...props } = {}) => ({
+    const getRootProps = (props) => ({
       role: 'grid',
       'aria-label': label,
-      ref: (el) => {
-        this._table = el
-        if (typeof ref === 'function') {
-          ref(el)
-        }
-      },
       ...props
     })
 
-    const getCellProps = ({ onKeyDown, onClick, coords, ...props } = {}) => ({
+    const getCellProps = ({ coords, onKeyDown, ...props } = {}) => ({
+      tabIndex: (coords.i === focusedCoords.i && coords.j === focusedCoords.j) ? 0 : -1,
       onKeyDown: createChainedFunction(onKeyDown, this.handleKeyDown),
-      onClick: createChainedFunction(onClick, this.handleClick),
-      tabIndex: (coords.i === selectedCoords.i && coords.j === selectedCoords.j) ? 0 : -1,
+      coords,
       ...props
     })
 
-    return render({ getTableProps, getCellProps, selectedCoords })
+    return (
+      <Focusable>
+        {({ focused }) => render({ getRootProps, getCellProps, focused })}
+      </Focusable>
+    )
   }
 }
 

@@ -30,7 +30,6 @@ class Tile extends PureComponent {
     onClick: PropTypes.func,
     onKeyDown: PropTypes.func,
     tabIndex: PropTypes.number,
-    active: PropTypes.bool,
     elementRef: PropTypes.func,
     editing: PropTypes.bool,
     highlighted: PropTypes.bool,
@@ -47,18 +46,9 @@ class Tile extends PureComponent {
     onClick: () => {},
     onKeyDown: () => {},
     tabIndex: -1,
-    active: false,
     elementRef: () => {},
     editing: false,
     highlighted: false
-  }
-
-  componentWillUpdate (nextProps) {
-    const { tabIndex, active } = this.props
-
-    if (tabIndex === -1 && nextProps.tabIndex === 0 && active) {
-      this._element.focus()
-    }
   }
 
   get facade () {
@@ -75,12 +65,12 @@ class Tile extends PureComponent {
 
   handleClick = (event) => {
     const { onClick, value, coords } = this.props
-    onClick(event, coords, value)
+    onClick(event, { coords, value })
   }
 
   handleKeyDown = (event) => {
     const { onKeyDown, value, coords } = this.props
-    onKeyDown(event, coords, value)
+    onKeyDown(event, { coords, value })
   }
 
   handleElementRef = (el) => {
