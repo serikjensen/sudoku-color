@@ -52,12 +52,21 @@ class Tile extends Component {
   }
 
   shouldComponentUpdate (nextProps) {
-    const { value, label, facade, highlighted, tabIndex } = this.props
+    const {
+      value,
+      label,
+      facade,
+      highlighted,
+      tabIndex,
+      editing
+    } = this.props
+
     return value !== nextProps.value ||
       label !== nextProps.label ||
       facade !== nextProps.facade ||
       highlighted !== nextProps.highlighted ||
-      tabIndex !== nextProps.tabIndex
+      tabIndex !== nextProps.tabIndex ||
+      editing !== nextProps.editing
   }
 
   get facade () {
