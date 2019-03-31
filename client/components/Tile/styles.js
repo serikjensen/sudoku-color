@@ -12,6 +12,7 @@ export const DefaultFacadeStyles = styled.button`
   color: ${({ theme }) => theme.defaultColor};
   background: ${props => generateTileColor(props) || props.theme.defaultBackground};
   font-size: ${({ theme }) => theme.fontSize};
+  font-family: ${({ theme }) => theme.fontFamily};
   border: none;
   border-radius: ${({ theme }) => theme.borderRadius};
   cursor: pointer;

@@ -5,6 +5,7 @@ export default ({ spacing, colors, borders, typography }) => ({
   defaultBackground: colors.lightest,
   swatches: colors.swatches,
   fontSize: typography.fontSize.medium,
+  fontFamily: typography.fontFamily,
   borderRadius: borders.radii.circular,
 
   focusOffset: spacing.focusOffset,

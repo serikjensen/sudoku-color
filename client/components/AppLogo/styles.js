@@ -5,6 +5,7 @@ export const HeaderStyles = styled.h2`
   text-align: center;
   color: ${({ theme }) => theme.color};
   font-size: ${({ theme }) => theme.fontSize};
+  font-family: ${({ theme }) => theme.fontFamily};
   margin-bottom: 0.25rem;
 `
 

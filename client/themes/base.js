@@ -46,7 +46,8 @@ export default Object.freeze({
       light: 300,
       normal: 400,
       bold: 500
-    }
+    },
+    fontFamily: 'Lato'
   },
 
   spacing: {
