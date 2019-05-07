@@ -1,8 +1,7 @@
 import React, { PureComponent } from 'react'
 import PropTypes from 'prop-types'
 
-import ScreenReaderContent from '@instructure/ui-a11y/lib/components/ScreenReaderContent'
-import PresentationContent from '@instructure/ui-a11y/lib/components/PresentationContent'
+import { ScreenReaderContent, PresentationContent } from '@instructure/ui-a11y'
 
 import Button from '../Button'
 

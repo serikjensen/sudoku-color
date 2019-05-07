@@ -2,9 +2,9 @@ import React, { PureComponent } from 'react'
 import PropTypes from 'prop-types'
 import keycode from 'keycode'
 
-import createChainedFunction from '@instructure/ui-utils/lib/createChainedFunction'
+import { createChainedFunction } from '@instructure/ui-utils'
 
-import Focusable from '@instructure/ui-focusable/lib/components/Focusable'
+import { Focusable } from '@instructure/ui-focusable'
 
 class DataGrid extends PureComponent {
   static propTypes = {

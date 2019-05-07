@@ -1,9 +1,9 @@
 import React, { PureComponent } from 'react'
 import PropTypes from 'prop-types'
 
-import InstUIPopover, { PopoverTrigger, PopoverContent } from '@instructure/ui-overlays/lib/components/Popover'
-import ApplyTheme from '@instructure/ui-themeable/lib/components/ApplyTheme'
-import View from '@instructure/ui-layout/lib/components/View'
+import InstUIPopover, { PopoverTrigger, PopoverContent } from '@instructure/ui-overlays/lib/Popover'
+import { ApplyTheme } from '@instructure/ui-themeable'
+import { View } from '@instructure/ui-layout'
 
 import AppThemeProvider from '../../theming/AppThemeProvider'
 import AppThemeContext from '../../theming/AppThemeContext'

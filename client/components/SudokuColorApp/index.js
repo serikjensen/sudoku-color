@@ -2,9 +2,7 @@ import React, { PureComponent } from 'react'
 import PropTypes from 'prop-types'
 import { connect } from 'react-redux'
 
-import '@instructure/ui-themes/lib/canvas'
-
-import View from '@instructure/ui-layout/lib/components/View'
+import '@instructure/canvas-theme'
 
 import AppThemeProvider from '../theming/AppThemeProvider'
 
@@ -74,11 +72,6 @@ class SudokuColorApp extends PureComponent {
             </div>
           </AppContentStyles>
         </AppThemeProvider>
-        <div style={{ background: 'black' }}>
-          <View display="block" borderWidth="small" height="10rem" background="default" margin="large">
-            Hello some View content
-          </View>
-        </div>
       </div>
     )
   }

@@ -1,13 +1,11 @@
 import React, { Component } from 'react'
 import PropTypes from 'prop-types'
 
-import { omitProps } from '@instructure/ui-utils/lib/react/passthroughProps'
+import { omitProps } from '@instructure/ui-react-utils'
 
-import ScreenReaderContent from '@instructure/ui-a11y/lib/components/ScreenReaderContent'
-import PresentationContent from '@instructure/ui-a11y/lib/components/PresentationContent'
+import { ScreenReaderContent, PresentationContent } from '@instructure/ui-a11y'
 
-import IconEdit from '@instructure/ui-icons/lib/Line/IconEdit'
-import IconTrash from '@instructure/ui-icons/lib/Solid/IconTrash'
+import { IconEditLine, IconTrashSolid } from '@instructure/ui-icons'
 
 import FocusRing from '../FocusRing'
 
@@ -134,7 +132,7 @@ class Tile extends Component {
           <ScreenReaderContent>{label}</ScreenReaderContent>
           <PresentationContent>
             <EditLabelStyles editing={editing}>
-              <IconEdit size="small" />
+              <IconEditLine size="small" />
             </EditLabelStyles>
           </PresentationContent>
         </React.Fragment>
@@ -146,7 +144,7 @@ class Tile extends Component {
         <React.Fragment>
           <ScreenReaderContent>{label}</ScreenReaderContent>
           <PresentationContent>
-            <IconTrash size="x-small" />
+            <IconTrashSolid size="x-small" />
           </PresentationContent>
         </React.Fragment>
       )

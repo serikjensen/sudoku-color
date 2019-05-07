@@ -1,7 +1,7 @@
 import React, { PureComponent } from 'react'
 import PropTypes from 'prop-types'
 
-import InstUIModal, { ModalBody } from '@instructure/ui-overlays/lib/components/Modal'
+import { Modal as InstUIModal } from '@instructure/ui-overlays'
 
 import AppThemeProvider from '../../theming/AppThemeProvider'
 import AppThemeContext from '../../theming/AppThemeContext'
@@ -29,11 +29,11 @@ class Modal extends PureComponent {
     // app theme context within the Popover content
     return (
       <InstUIModal {...props}>
-        <ModalBody>
+        <InstUIModal.Body>
           <AppThemeProvider theme={appTheme}>
             {children}
           </AppThemeProvider>
-        </ModalBody>
+        </InstUIModal.Body>
       </InstUIModal>
     )
   }

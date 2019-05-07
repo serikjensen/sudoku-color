@@ -4,7 +4,7 @@ import React from 'react'
 
 import Tile from '../index'
 
-describe.only('<Tile/>', async () => {
+describe('<Tile/>', async () => {
   it('should call onClick with value', async () => {
     const onClick = spy()
 

@@ -2,8 +2,7 @@ import React, { PureComponent } from 'react'
 import PropTypes from 'prop-types'
 import { connect } from 'react-redux'
 
-import IconHamburger from '@instructure/ui-icons/lib/Line/IconHamburger'
-import IconX from '@instructure/ui-icons/lib/Line/IconX'
+import { IconHamburgerLine, IconXLine } from '@instructure/ui-icons'
 
 import Tray from '../util/Tray'
 import AppLogo from '../AppLogo'
@@ -91,7 +90,7 @@ class AppMenu extends PureComponent {
           onClick={this.handleMenuTriggerClick}
           label="Open menu"
           color="neutral"
-          icon={() => <IconHamburger />}
+          icon={() => <IconHamburgerLine />}
         />
         <Tray
           label="Menu"
@@ -104,7 +103,7 @@ class AppMenu extends PureComponent {
                 onClick={this.handleTrayCloseClick}
                 label="Close menu"
                 color="neutral"
-                icon={() => <IconX />}
+                icon={() => <IconXLine />}
               />
             </CloseButtonStyles>
             <HeaderStyles theme={theme}>

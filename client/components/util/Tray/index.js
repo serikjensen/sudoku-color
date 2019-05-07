@@ -1,7 +1,7 @@
 import React, { PureComponent } from 'react'
 import PropTypes from 'prop-types'
 
-import InstUITray from '@instructure/ui-overlays/lib/components/Tray'
+import { Tray as InstUITray } from '@instructure/ui-overlays'
 
 import AppThemeProvider from '../../theming/AppThemeProvider'
 import AppThemeContext from '../../theming/AppThemeContext'
