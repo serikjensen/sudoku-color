@@ -3,22 +3,18 @@ import PropTypes from 'prop-types'
 
 import { omitProps } from '@instructure/ui-react-utils'
 
-import { ScreenReaderContent, PresentationContent } from '@instructure/ui-a11y'
-
-import { IconEditLine, IconTrashSolid } from '@instructure/ui-icons'
-
+import Focusable from '../util/Focusable'
 import FocusRing from '../FocusRing'
 
 import themeable from '../theming/themeable'
 import composeTheme from './theme'
-import {
-  DefaultFacadeStyles,
-  PresentationFacadeStyles,
-  EditFacadeStyles,
-  RemoveFacadeStyles,
-  EditLabelStyles,
-  HighlightStyles
-} from './styles'
+
+import TileHighlight from './TileHighlight'
+import DefaultFacade from './DefaultFacade'
+import EditFacade from './EditFacade'
+import RemoveFacade from './RemoveFacade'
+
+import { TileStyles } from './styles'
 
 class Tile extends Component {
   static propTypes = {
@@ -70,11 +66,10 @@ class Tile extends Component {
   get facade () {
     const { facade } = this.props
 
-    if (facade === 'presentation') return PresentationFacadeStyles
-    if (facade === 'remove') return RemoveFacadeStyles
-    if (facade === 'edit') return EditFacadeStyles
+    if (facade === 'remove') return RemoveFacade
+    if (facade === 'edit') return EditFacade
 
-    return DefaultFacadeStyles
+    return DefaultFacade
   }
 
   _element = null
@@ -107,55 +102,37 @@ class Tile extends Component {
 
     const Facade = this.facade
 
-    const facadeProps = {
+    const tileProps = {
       tabIndex,
-      value,
+      facade,
+      ref: this.handleElementRef,
       onKeyDown: this.handleKeyDown,
       onClick: this.handleClick,
-      onFocus: this.handleFocus,
-      onBlur: this.handleBlur,
-      ref: this.handleElementRef,
       as: facade === 'presentation' ? 'span' : 'button',
       ...omitProps(props, Tile.propTypes)
     }
 
-    let children = (
+    const children = ['default', 'presentation'].includes(facade) ? (
       <React.Fragment>
         {label}
-        {highlighted && <HighlightStyles />}
+        {highlighted && <TileHighlight />}
       </React.Fragment>
+    ) : null
+
+    const renderTile = ({ getFocusableProps, focused }) => (
+      <TileStyles {...getFocusableProps(tileProps)}>
+        <Facade
+          value={value}
+          editing={editing}
+          focused={focused}
+        >
+          {children}
+        </Facade>
+        <FocusRing focused={focused} />
+      </TileStyles>
     )
 
-    if (facade === 'edit') {
-      children = (
-        <React.Fragment>
-          <ScreenReaderContent>{label}</ScreenReaderContent>
-          <PresentationContent>
-            <EditLabelStyles editing={editing}>
-              <IconEditLine size="small" />
-            </EditLabelStyles>
-          </PresentationContent>
-        </React.Fragment>
-      )
-    }
-
-    if (facade === 'remove') {
-      children = (
-        <React.Fragment>
-          <ScreenReaderContent>{label}</ScreenReaderContent>
-          <PresentationContent>
-            <IconTrashSolid size="x-small" />
-          </PresentationContent>
-        </React.Fragment>
-      )
-    }
-
-    return (
-      <Facade {...facadeProps}>
-        {children}
-        <FocusRing />
-      </Facade>
-    )
+    return <Focusable render={renderTile} />
   }
 }
 

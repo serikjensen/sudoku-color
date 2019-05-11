@@ -2,7 +2,7 @@ import styled from 'styled-components'
 
 /* eslint-disable import/prefer-default-export */
 export const FocusRingStyles = styled.span`
-  display: none;
+  display: ${({ focused }) => (focused ? 'inline-block' : 'none')};
   position: absolute;
   top: -${({ theme }) => theme.offset};
   left: -${({ theme }) => theme.offset};

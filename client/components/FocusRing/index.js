@@ -7,11 +7,13 @@ import { FocusRingStyles } from './styles'
 
 class FocusRing extends PureComponent {
   static propTypes = {
-    shape: PropTypes.oneOf(['rectangular', 'circular'])
+    shape: PropTypes.oneOf(['rectangular', 'circular']),
+    focused: PropTypes.bool
   }
 
   static defaultProps = {
-    shape: 'rectangular'
+    shape: 'rectangular',
+    focused: false
   }
 
   render () {

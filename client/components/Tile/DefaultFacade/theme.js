@@ -1,8 +1,8 @@
 export default ({ spacing, colors, borders, typography }) => ({
   width: calculateCellSize(spacing),
   height: calculateCellSize(spacing),
-  defaultColor: colors.lightest,
-  defaultBackground: colors.lightest,
+  color: colors.lightest,
+  background: colors.lightest,
   swatches: colors.swatches,
   fontSize: typography.fontSize.medium,
   fontFamily: typography.fontFamily,

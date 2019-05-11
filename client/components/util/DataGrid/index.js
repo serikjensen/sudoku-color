@@ -9,7 +9,6 @@ import { Focusable } from '@instructure/ui-focusable'
 class DataGrid extends PureComponent {
   static propTypes = {
     label: PropTypes.node.isRequired,
-    children: PropTypes.func,
     render: PropTypes.func,
     onRequestMove: PropTypes.func,
     focusedCoords: PropTypes.shape({
@@ -19,7 +18,6 @@ class DataGrid extends PureComponent {
   }
 
   static defaultProps = {
-    children: () => null,
     render: () => null,
     onRequestMove: () => {},
     focusedCoords: { i: 0, j: 0 }
@@ -51,9 +49,8 @@ class DataGrid extends PureComponent {
   render () {
     const {
       label,
-      children,
       focusedCoords,
-      render = children
+      render
     } = this.props
 
     const getRootProps = (props) => ({

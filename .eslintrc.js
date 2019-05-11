@@ -11,6 +11,7 @@ module.exports = {
     'comma-dangle': ['error', 'never'],
     'function-paren-newline': 0,
     'import/no-webpack-loader-syntax': 0,
+    'import/prefer-default-export': 0,
     'jsx-a11y/href-no-hash': 0,
     'max-len': [2, 120, 2],
     'no-console': ['error', { allow: ['warn', 'error'] }],
