@@ -51,7 +51,9 @@ class AppMenu extends PureComponent {
   }
 
   setTrayStatus (open) {
-    this.setState({ open })
+    this.setState({ open }, () => {
+      this._trigger.focus()
+    })
   }
 
   _trigger = null
@@ -60,7 +62,7 @@ class AppMenu extends PureComponent {
     this.setTrayStatus(true)
   }
 
-  handleTrayCloseClick = () => {
+  handleTrayClose = () => {
     this.setTrayStatus(false)
   }
 
@@ -96,11 +98,12 @@ class AppMenu extends PureComponent {
           label="Menu"
           open={this.state.open}
           placement="end"
+          onDismiss={this.handleTrayClose}
         >
           <TrayStyles theme={theme}>
             <CloseButtonStyles theme={theme}>
               <IconButton
-                onClick={this.handleTrayCloseClick}
+                onClick={this.handleTrayClose}
                 label="Close menu"
                 color="neutral"
                 icon={() => <IconXLine />}

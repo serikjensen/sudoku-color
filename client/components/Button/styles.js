@@ -1,7 +1,5 @@
 import styled from 'styled-components'
 
-import { FocusRingStyles } from '../FocusRing/styles'
-
 /* eslint-disable import/prefer-default-export */
 export const ButtonStyles = styled.button`
   position: relative;
@@ -45,10 +43,6 @@ export const ButtonStyles = styled.button`
 
     &:hover {
       color ${({ theme, color }) => theme[color].hoverColor};
-    }
-
-    ${FocusRingStyles} {
-      display: inline-block;
     }
   }
 `

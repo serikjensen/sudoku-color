@@ -1,6 +1,7 @@
 import React, { PureComponent } from 'react'
 import PropTypes from 'prop-types'
 
+import Focusable from '../util/Focusable'
 import FocusRing from '../FocusRing'
 
 import themeable from '../theming/themeable'
@@ -47,12 +48,17 @@ class Button extends PureComponent {
       ...props
     }
 
-    return (
-      <ButtonStyles {...buttonProps}>
+    const renderButton = ({ getFocusableProps, focused }) => (
+      <ButtonStyles {...getFocusableProps(buttonProps)}>
         {children}
-        <FocusRing shape={shape} />
+        <FocusRing
+          shape={shape}
+          focused={focused}
+        />
       </ButtonStyles>
     )
+
+    return <Focusable render={renderButton} />
   }
 }
 

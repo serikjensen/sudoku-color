@@ -1,7 +1,5 @@
 import styled from 'styled-components'
 
-import { FocusRingStyles } from '../../FocusRing/styles'
-
 export const DefaultFacadeStyles = styled.div`
   width: 100%;
   height: 100%;
@@ -12,14 +10,6 @@ export const DefaultFacadeStyles = styled.div`
   background: ${props => generateTileColor(props) || props.theme.background};
   border: none;
   border-radius: ${({ theme }) => theme.borderRadius};
-
-  &:focus {
-    outline: none;
-
-    ${FocusRingStyles} {
-      display: inline-block;
-    }
-  }
 `
 
 const generateTileColor = (props) => {
