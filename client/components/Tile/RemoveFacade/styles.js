@@ -6,8 +6,12 @@ export const RemoveFacadeStyles = styled.div`
   border-style: solid;
   border-width: ${({ theme }) => theme.borderWidth};
   border-color: ${({ theme }) => theme.borderColor};
+  border-radius: ${({ theme }) => theme.borderRadius};
   color: ${({ theme }) => theme.color};
   background: ${({ theme }) => theme.background};
+  display: flex;
+  align-items: center;
+  justify-content: center;
 
   &:focus {
     border-color: transparent;

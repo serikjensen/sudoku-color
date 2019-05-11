@@ -1,12 +1,11 @@
-export default ({ spacing, colors, borders, typography }) => ({
+export default ({ spacing, colors, typography }) => ({
   width: calculateCellSize(spacing),
   height: calculateCellSize(spacing),
   defaultColor: colors.lightest,
   defaultBackground: colors.lightest,
   swatches: colors.swatches,
   fontSize: typography.fontSize.medium,
-  fontFamily: typography.fontFamily,
-  borderRadius: borders.radii.circular
+  fontFamily: typography.fontFamily
 })
 
 const calculateCellSize = (spacing) => (
