@@ -23,7 +23,7 @@ class Tile extends Component {
     facade: PropTypes.oneOf(['default', 'presentation', 'edit', 'remove']),
     onClick: PropTypes.func,
     onKeyDown: PropTypes.func,
-    tabIndex: PropTypes.number,
+    tabIndex: PropTypes.oneOfType([PropTypes.number, PropTypes.string]),
     elementRef: PropTypes.func,
     editing: PropTypes.bool,
     highlighted: PropTypes.bool,
