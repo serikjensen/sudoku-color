@@ -36,7 +36,7 @@ class Popover extends PureComponent {
       <ApplyTheme theme={{
           [View.theme]: {
             borderRadiusMedium: '1rem',
-            shadowResting: appTheme.shadows.resting
+            shadowResting: (appTheme.shadows || {}).resting
           }
         }}
       >

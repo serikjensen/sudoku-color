@@ -24,7 +24,7 @@ class Cell extends Component {
     onClick: PropTypes.func,
     onMouseEnter: PropTypes.func,
     onMouseLeave: PropTypes.func,
-    tabIndex: PropTypes.number,
+    tabIndex: PropTypes.oneOfType([PropTypes.number, PropTypes.string]),
     onMenuDismiss: PropTypes.func,
     highlighted: PropTypes.bool
   }
@@ -91,16 +91,15 @@ class Cell extends Component {
     this.showMenu()
   }
 
-  handlePopoverDismiss = () => {
+  handlePopoverDismiss = (event) => {
     this.hideMenu()
-    this.props.onMenuDismiss()
+    this.props.onMenuDismiss(event)
   }
 
   handleSelect = (event, { value }) => {
     const { coords } = this.props
     this.props.setTile(coords, value)
-    this.hideMenu()
-    this.props.onMenuDismiss()
+    this.handlePopoverDismiss(event)
   }
 
   handleTileRef = (el) => {
@@ -173,4 +172,7 @@ class Cell extends Component {
   }
 }
 
-export default connect(null, { setTile })(themeable(Cell, composeTheme))
+const ThemeableCell = themeable(Cell, composeTheme)
+
+export { ThemeableCell as Cell }
+export default connect(null, { setTile })(ThemeableCell)

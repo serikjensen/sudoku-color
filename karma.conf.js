@@ -3,11 +3,13 @@ const rules = require('./rules')
 module.exports = (config) => {
   config.set({
     files: [
+      './test/setup.js',
       { pattern: 'client/**/*.test.js', watched: false }
     ],
     frameworks: ['mocha'],
     reporters: ['mocha'],
     preprocessors: {
+      './test/setup.js': ['webpack'],
       'client/**/*.test.js': ['webpack', 'sourcemap']
     },
     webpack: {

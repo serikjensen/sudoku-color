@@ -4,7 +4,7 @@ import React from 'react'
 
 import Tile from '../index'
 
-describe.only('<Tile/>', async () => {
+describe('<Tile/>', async () => {
   it('should apply tabIndex', async () => {
     const subject = await mount(
       <Tile
