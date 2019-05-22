@@ -43,13 +43,9 @@ class CellMenu extends PureComponent {
     // Given a single array of available values, format such that it fits on a max 3x3 grid
     return availableValues.reduce((collection, availableValue, i) => {
       const index = Math.floor(i / 3)
-
-      if (Array.isArray(collection)) {
-        collection[index] ? collection[index].push(availableValue) : collection.push([availableValue])
-      }
-
-      return Array.isArray(collection) ? collection : [[collection, availableValue]]
-    })
+      collection[index] ? collection[index].push(availableValue) : collection.push([availableValue])
+      return collection
+    }, [])
   }
 
   handleDataGridMove = (event, { direction }) => {
@@ -127,6 +123,9 @@ class CellMenu extends PureComponent {
   }
 }
 
+const ThemeableCellMenu = themeable(CellMenu, composeTheme)
+
 const mapStateToProps = state => state.puzzle
 
-export default connect(mapStateToProps)(themeable(CellMenu, composeTheme))
+export { ThemeableCellMenu as CellMenu }
+export default connect(mapStateToProps)(ThemeableCellMenu)

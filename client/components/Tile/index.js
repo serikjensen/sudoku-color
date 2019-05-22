@@ -122,6 +122,7 @@ class Tile extends Component {
     const renderTile = ({ getFocusableProps, focused }) => (
       <TileStyles {...getFocusableProps(tileProps)}>
         <Facade
+          label={label}
           value={value}
           editing={editing}
           focused={focused}
