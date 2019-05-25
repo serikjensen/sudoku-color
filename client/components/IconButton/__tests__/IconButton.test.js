@@ -4,7 +4,7 @@ import { expect, mount, find, spy } from '@instructure/ui-test-utils'
 
 import IconButton from '../index'
 
-describe.only('<IconButton />', async () => {
+describe('<IconButton />', async () => {
   it('should render label', async () => {
     await mount(<IconButton label="hello" />)
     expect(await find('button:contains(hello)')).to.exist()

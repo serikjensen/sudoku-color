@@ -1,10 +1,13 @@
 module.exports = {
-  extends: "airbnb",
+  extends: 'airbnb',
   env: {
     browser: true,
     es6: true,
     jest: true
   },
+  plugins: [
+    'mocha'
+  ],
   parser: 'babel-eslint',
   rules: {
     'arrow-parens': 0,
@@ -15,6 +18,7 @@ module.exports = {
     'import/prefer-default-export': 0,
     'jsx-a11y/href-no-hash': 0,
     'max-len': [2, 120, 2],
+    'mocha/no-exclusive-tests': 'error',
     'no-console': ['error', { allow: ['warn', 'error'] }],
     'no-underscore-dangle': 0,
     'no-unused-expressions': 0,

@@ -62,7 +62,7 @@ class SubmitModal extends PureComponent {
         <Modal
           open={this.props.submittedPuzzle}
           onDismiss={this.handleModalDismiss}
-          label="Submitting puzzle"
+          label="Submitted puzzle"
           shouldCloseOnDocumentClick
         >
           {this.props.validPuzzle ? <div>Puzzle is correct</div> : <div>Puzzle is incorrect</div>}
@@ -77,4 +77,5 @@ class SubmitModal extends PureComponent {
 
 const mapStateToProps = state => state.puzzle
 
+export { SubmitModal }
 export default connect(mapStateToProps, { requestPuzzle, resetPuzzle, submitPuzzle, continuePuzzle })(SubmitModal)
