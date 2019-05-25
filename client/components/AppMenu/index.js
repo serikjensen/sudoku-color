@@ -11,8 +11,6 @@ import IconButton from '../IconButton'
 
 import { requestPuzzle, resetPuzzle } from '../../actions/puzzleActions'
 
-import composeTheme from './theme'
-import themeable from '../theming/themeable'
 import {
   TrayStyles,
   CloseButtonStyles,
@@ -26,8 +24,7 @@ class AppMenu extends PureComponent {
     resetPuzzle: PropTypes.func,
     onResetPuzzle: PropTypes.func,
     submittedPuzzle: PropTypes.bool,
-    filledPuzzle: PropTypes.bool,
-    theme: PropTypes.object
+    filledPuzzle: PropTypes.bool
   }
 
   static defaultProps = {
@@ -36,8 +33,7 @@ class AppMenu extends PureComponent {
     resetPuzzle: () => {},
     onResetPuzzle: () => {},
     submittedPuzzle: false,
-    filledPuzzle: false,
-    theme: {}
+    filledPuzzle: false
   }
 
   state = {
@@ -83,8 +79,6 @@ class AppMenu extends PureComponent {
   }
 
   render () {
-    const { theme } = this.props
-
     return (
       <div>
         <IconButton
@@ -100,8 +94,8 @@ class AppMenu extends PureComponent {
           placement="end"
           onDismiss={this.handleTrayClose}
         >
-          <TrayStyles theme={theme}>
-            <CloseButtonStyles theme={theme}>
+          <TrayStyles>
+            <CloseButtonStyles>
               <IconButton
                 onClick={this.handleTrayClose}
                 label="Close menu"
@@ -109,7 +103,7 @@ class AppMenu extends PureComponent {
                 icon={() => <IconXLine />}
               />
             </CloseButtonStyles>
-            <HeaderStyles theme={theme}>
+            <HeaderStyles>
               <AppLogo />
             </HeaderStyles>
             <Button
@@ -136,4 +130,5 @@ class AppMenu extends PureComponent {
 
 const mapStateToProps = state => state.puzzle
 
-export default connect(mapStateToProps, { requestPuzzle, resetPuzzle })(themeable(AppMenu, composeTheme))
+export { AppMenu }
+export default connect(mapStateToProps, { requestPuzzle, resetPuzzle })(AppMenu)
