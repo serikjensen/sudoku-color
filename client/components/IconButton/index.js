@@ -17,7 +17,7 @@ class IconButton extends PureComponent {
   }
 
   static defaultProps = {
-    icon: null,
+    icon: () => null,
     label: null,
     margin: 0,
     color: 'primary'
