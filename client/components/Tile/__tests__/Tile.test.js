@@ -1,10 +1,65 @@
 import { expect, mount, spy, within } from '@instructure/ui-test-utils'
+import { find } from 'styled-components/test-utils'
 
 import React from 'react'
 
 import Tile from '../index'
 
+import { DefaultFacadeStyles } from '../DefaultFacade/styles'
+import { EditFacadeStyles } from '../EditFacade/styles'
+import { RemoveFacadeStyles } from '../RemoveFacade/styles'
+import { TileHighlightStyles } from '../TileHighlight/styles'
+
 describe('<Tile/>', async () => {
+  describe('rendering facades and highlights', async () => {
+    it('should render the DefaultFacade by default', async () => {
+      const subject = await mount(
+        <Tile
+          value={1}
+          coords={{ i: 1, j: 5 }}
+          label="1"
+        />
+      )
+      expect(find(subject.getDOMNode(), DefaultFacadeStyles)).to.exist()
+    })
+
+    it('should render the EditFacade', async () => {
+      const subject = await mount(
+        <Tile
+          value={1}
+          coords={{ i: 1, j: 5 }}
+          label="1"
+          facade="edit"
+        />
+      )
+      expect(find(subject.getDOMNode(), EditFacadeStyles)).to.exist()
+    })
+
+    it('should render the RemoveFacade', async () => {
+      const subject = await mount(
+        <Tile
+          value={1}
+          coords={{ i: 1, j: 5 }}
+          label="1"
+          facade="remove"
+        />
+      )
+      expect(find(subject.getDOMNode(), RemoveFacadeStyles)).to.exist()
+    })
+
+    it('should highlight when highlighted is set', async () => {
+      const subject = await mount(
+        <Tile
+          value={1}
+          coords={{ i: 1, j: 5 }}
+          label="1"
+          highlighted
+        />
+      )
+      expect(find(subject.getDOMNode(), TileHighlightStyles)).to.exist()
+    })
+  })
+
   it('should apply tabIndex', async () => {
     const subject = await mount(
       <Tile
