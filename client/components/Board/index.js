@@ -119,6 +119,9 @@ class Board extends PureComponent {
   }
 }
 
+const ThemeableBoard = themeable(Board, composeTheme)
+
 const mapStateToProps = state => state.puzzle
 
-export default connect(mapStateToProps, null, null, { withRef: true })(themeable(Board, composeTheme))
+export { ThemeableBoard as Board }
+export default connect(mapStateToProps, null, null, { withRef: true })(ThemeableBoard)
