@@ -12,7 +12,6 @@ import SubmitModal from '../SubmitModal'
 import { requestPuzzle } from '../../actions/puzzleActions'
 
 import {
-  GlobalStyles,
   AppContentStyles,
   AppHeaderStyles,
   AppBodyStyles
@@ -38,17 +37,16 @@ class SudokuColorApp extends PureComponent {
   _board = null
 
   handleBoardRef = (el) => {
-    this._board = el.getWrappedInstance()
+    this._board = el ? el.getWrappedInstance() : null
   }
 
   handleResetPuzzle = () => {
-    this._board.reset()
+    this._board && this._board.reset()
   }
 
   render () {
     return (
       <div>
-        <GlobalStyles />
         <AppThemeProvider theme={baseTheme}>
           <AppContentStyles>
             <div>
@@ -79,4 +77,5 @@ class SudokuColorApp extends PureComponent {
 
 const mapStateToProps = state => state.puzzle
 
+export { SudokuColorApp }
 export default connect(mapStateToProps, { requestPuzzle })(SudokuColorApp)
