@@ -8,16 +8,21 @@ import configureStore from 'redux-mock-store'
 import { puzzle1 } from '../../../util/__tests__/testPuzzles'
 import { TileHighlightStyles } from '../../Tile/TileHighlight/styles'
 
-import { Board } from '../index'
+import Board from '../index'
+
+const mockStore = configureStore()
 
 describe('<Board />', async () => {
   it('should render children', async () => {
-    const mockStore = configureStore()
-    const store = mockStore()
+    const store = mockStore({
+      puzzle: {
+        puzzle: puzzle1
+      }
+    })
 
     await mount(
       <Provider store={store}>
-        <Board puzzle={puzzle1} />
+        <Board />
       </Provider>
     )
 
@@ -26,9 +31,6 @@ describe('<Board />', async () => {
   })
 
   it('should move focus with arrow keys', async () => {
-    const mockStore = configureStore()
-    const store = mockStore()
-
     const puzzle = [
       [1, 4, 0, 0, 0, 0, 0, 0, 0],
       [2, 3, 0, 0, 0, 0, 0, 0, 0],
@@ -41,9 +43,11 @@ describe('<Board />', async () => {
       [0, 0, 0, 0, 0, 0, 0, 0, 0]
     ]
 
+    const store = mockStore({ puzzle: { puzzle } })
+
     await mount(
       <Provider store={store}>
-        <Board puzzle={puzzle} />
+        <Board />
       </Provider>
     )
 
@@ -85,9 +89,6 @@ describe('<Board />', async () => {
   })
 
   it('should highlight all same valued tiles on hover', async () => {
-    const mockStore = configureStore()
-    const store = mockStore()
-
     const puzzle = [
       [0, 0, 0, 2, 0, 0, 0, 0, 2],
       [0, 1, 0, 0, 0, 0, 0, 0, 0],
@@ -100,9 +101,11 @@ describe('<Board />', async () => {
       [0, 0, 0, 0, 0, 0, 0, 0, 0]
     ]
 
+    const store = mockStore({ puzzle: { puzzle } })
+
     const subject = await mount(
       <Provider store={store}>
-        <Board puzzle={puzzle} />
+        <Board />
       </Provider>
     )
 
@@ -153,9 +156,6 @@ describe('<Board />', async () => {
   })
 
   it('should highlight all same valued tiles on focus', async () => {
-    const mockStore = configureStore()
-    const store = mockStore()
-
     const puzzle = [
       [1, 0, 0, 0, 0, 0, 0, 1, 0],
       [2, 3, 0, 3, 0, 0, 0, 0, 0],
@@ -168,9 +168,11 @@ describe('<Board />', async () => {
       [0, 3, 0, 0, 0, 0, 0, 0, 0]
     ]
 
+    const store = mockStore({ puzzle: { puzzle } })
+
     const subject = await mount(
       <Provider store={store}>
-        <Board puzzle={puzzle} />
+        <Board />
       </Provider>
     )
 
@@ -199,9 +201,6 @@ describe('<Board />', async () => {
   })
 
   it('should highlight all same valued tiles on click', async () => {
-    const mockStore = configureStore()
-    const store = mockStore()
-
     const puzzle = [
       [0, 0, 0, 0, 0, 0, 0, 0, 0],
       [0, 0, 5, 0, 0, 0, 0, 0, 0],
@@ -214,15 +213,18 @@ describe('<Board />', async () => {
       [0, 0, 0, 0, 0, 0, 0, 0, 0]
     ]
 
+    const store = mockStore({ puzzle: { puzzle } })
+
     const subject = await mount(
       <Provider store={store}>
-        <Board puzzle={puzzle} />
+        <Board />
       </Provider>
     )
 
-    const tile = (await findAll('button:contains(5)'))[0]
-    await tile.focus()
+    const tile = await find('button:contains(5)')
+
     await tile.click()
+    await tile.focus()
 
     await wait(() => {
       const highlightedTiles1 = findAllStyled(subject.getDOMNode(), TileHighlightStyles)
