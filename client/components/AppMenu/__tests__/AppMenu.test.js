@@ -12,7 +12,7 @@ describe('<AppMenu />', async () => {
     const trigger = await find('button:contains(Open menu)')
     await trigger.click()
 
-    const tray = await TrayLocator.find()
+    const tray = await TrayLocator.find(':label(Menu)')
 
     await wait(() => {
       expect(tray.containsFocus()).to.be.true()
@@ -25,7 +25,7 @@ describe('<AppMenu />', async () => {
     const trigger = await find('button:contains(Open menu)')
     await trigger.click()
 
-    const tray = await TrayLocator.find()
+    const tray = await TrayLocator.find(':label(Menu)')
 
     await wait(() => {
       expect(tray.containsFocus()).to.be.true()
@@ -34,7 +34,11 @@ describe('<AppMenu />', async () => {
     const closeButton = await tray.find('button:contains(Close menu)')
     await closeButton.click()
 
-    expect(await TrayLocator.find({ expectEmpty: true })).to.not.exist()
+    await wait(() => {
+      expect(trigger.focused()).to.be.true()
+    })
+
+    expect(await TrayLocator.find(':label(Menu)', { expectEmpty: true })).to.not.exist()
   })
 
   it('should fire request puzzle and onRequestPuzzle on when new puzzle button clicked', async () => {
@@ -50,7 +54,7 @@ describe('<AppMenu />', async () => {
     const trigger = await find('button:contains(Open menu)')
     await trigger.click()
 
-    const tray = await TrayLocator.find()
+    const tray = await TrayLocator.find(':label(Menu)')
 
     await wait(() => {
       expect(tray.containsFocus()).to.be.true()
@@ -61,7 +65,7 @@ describe('<AppMenu />', async () => {
 
     expect(requestPuzzle).to.have.been.calledOnce()
     expect(onRequestPuzzle).to.have.been.calledOnce()
-    expect(await TrayLocator.find({ expectEmpty: true })).to.not.exist()
+    expect(await TrayLocator.find(':label(Menu)', { expectEmpty: true })).to.not.exist()
   })
 
   it('should reset puzzle and onResetPuzzle when reset puzzle button clicked', async () => {
@@ -77,7 +81,7 @@ describe('<AppMenu />', async () => {
     const trigger = await find('button:contains(Open menu)')
     await trigger.click()
 
-    const tray = await TrayLocator.find()
+    const tray = await TrayLocator.find(':label(Menu)')
 
     await wait(() => {
       expect(tray.containsFocus()).to.be.true()
@@ -88,7 +92,7 @@ describe('<AppMenu />', async () => {
 
     expect(resetPuzzle).to.have.been.calledOnce()
     expect(onResetPuzzle).to.have.been.calledOnce()
-    expect(await TrayLocator.find({ expectEmpty: true })).to.not.exist()
+    expect(await TrayLocator.find(':label(Menu)', { expectEmpty: true })).to.not.exist()
   })
 
   it('should focus trigger after submitting a puzzle', async () => {

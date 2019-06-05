@@ -3,10 +3,13 @@ import React from 'react'
 import { Provider } from 'react-redux'
 import configureStore from 'redux-mock-store'
 
-import { expect, mount, within, spy } from '@instructure/ui-test-utils'
+import { expect, mount, within, spy, wait } from '@instructure/ui-test-utils'
 import PopoverLocator from '@instructure/ui-overlays/lib/Popover/locator'
 
+import { puzzle1 } from '../../../util/__tests__/testPuzzles'
 import { Cell } from '../index'
+
+const mockStore = configureStore()
 
 describe('<Cell/>', async () => {
   it('should render presentationally if value is less than 0', async () => {
@@ -57,9 +60,26 @@ describe('<Cell/>', async () => {
     expect(await cell.find('button')).to.have.attribute('tabindex', '-1')
   })
 
+  it('should focus when the focused prop is set', async () => {
+    const subject = await mount(
+      <Cell
+        value={0}
+        coords={{ i: 5, j: 7 }}
+        tabIndex="0"
+      />
+    )
+
+    const cell = within(subject.getDOMNode())
+
+    expect((await cell.find('button')).focused()).to.be.false()
+
+    await subject.setProps({ focused: true })
+
+    expect((await cell.find('button')).focused()).to.be.true()
+  })
+
   it('should call onClick with coords and value', async () => {
-    const mockStore = configureStore()
-    const store = mockStore()
+    const store = mockStore({ puzzle: { puzzle: puzzle1 } })
 
     const onClick = spy()
     const coords = { i: 5, j: 7 }
@@ -138,8 +158,7 @@ describe('<Cell/>', async () => {
   })
 
   it('should call setTile with value and coords', async () => {
-    const mockStore = configureStore()
-    const store = mockStore()
+    const store = mockStore({ puzzle: { puzzle: puzzle1 } })
 
     const setTile = spy()
     const coords = { i: 4, j: 2 }
@@ -163,6 +182,11 @@ describe('<Cell/>', async () => {
     await button.click()
 
     const content = await popover.findContent()
+
+    await wait(() => {
+      expect(content.containsFocus()).to.be.true()
+    })
+
     const tile = await content.find('button:contains(5)')
 
     await tile.click()
@@ -174,9 +198,47 @@ describe('<Cell/>', async () => {
     expect(args[1]).to.equal(5)
   })
 
+  it('should call onMenuShow when clicked with value and coords', async () => {
+    const store = mockStore({ puzzle: { puzzle: puzzle1 } })
+
+    const onMenuShow = spy()
+    const coords = { i: 4, j: 2 }
+    const value = 0
+
+    const subject = await mount(
+      <Provider store={store}>
+        <Cell
+          value={value}
+          coords={coords}
+          onMenuShow={onMenuShow}
+          tabIndex="0"
+        />
+      </Provider>
+    )
+
+    const popover = await PopoverLocator.find()
+
+    const cell = within(subject.getDOMNode())
+    const button = await cell.find('button')
+    expect(button).to.exist()
+
+    await button.click()
+
+    const content = await popover.findContent()
+
+    await wait(() => {
+      expect(content.containsFocus()).to.be.true()
+    })
+
+    expect(onMenuShow).to.have.been.calledOnce()
+
+    const data = onMenuShow.lastCall.args[1]
+    expect(data.coords).to.deep.equal(coords)
+    expect(data.value).to.equal(value)
+  })
+
   it('should call onMenuDismiss when value is selected', async () => {
-    const mockStore = configureStore()
-    const store = mockStore()
+    const store = mockStore({ puzzle: { puzzle: puzzle1 } })
 
     const onMenuDismiss = spy()
     const coords = { i: 4, j: 2 }
@@ -188,6 +250,7 @@ describe('<Cell/>', async () => {
           value={value}
           coords={coords}
           onMenuDismiss={onMenuDismiss}
+          tabIndex="0"
         />
       </Provider>
     )
@@ -196,10 +259,16 @@ describe('<Cell/>', async () => {
 
     const cell = within(subject.getDOMNode())
     const button = await cell.find('button')
+    expect(button).to.exist()
 
     await button.click()
 
     const content = await popover.findContent()
+
+    await wait(() => {
+      expect(content.containsFocus()).to.be.true()
+    })
+
     const tile = await content.find('button:contains(5)')
 
     await tile.click()

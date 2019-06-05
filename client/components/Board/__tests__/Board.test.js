@@ -47,7 +47,7 @@ describe('<Board />', async () => {
 
     await mount(
       <Provider store={store}>
-        <Board />
+        <Board defaultFocus />
       </Provider>
     )
 
@@ -56,17 +56,20 @@ describe('<Board />', async () => {
 
     await wait(() => {
       expect(tile1.focused()).to.be.true()
-      expect(tile1).to.have.attribute('tabindex', '0')
     })
+
+    expect(tile1).to.have.attribute('tabindex', '0')
     expect(await findAll('[tabindex="0"]')).to.have.length(1)
 
     await tile1.keyDown('down')
     const tile2 = await find('button:contains(2)')
 
+    expect(tile2).to.exist()
     await wait(() => {
       expect(tile2.focused()).to.be.true()
-      expect(tile2).to.have.attribute('tabindex', '0')
     })
+
+    expect(tile2).to.have.attribute('tabindex', '0')
     expect(await findAll('[tabindex="0"]')).to.have.length(1)
 
     await tile2.keyDown('right')
@@ -74,8 +77,8 @@ describe('<Board />', async () => {
 
     await wait(() => {
       expect(tile3.focused()).to.be.true()
-      expect(tile3).to.have.attribute('tabindex', '0')
     })
+    expect(tile3).to.have.attribute('tabindex', '0')
     expect(await findAll('[tabindex="0"]')).to.have.length(1)
 
     await tile3.keyDown('up')
@@ -83,8 +86,8 @@ describe('<Board />', async () => {
 
     await wait(() => {
       expect(tile4.focused()).to.be.true()
-      expect(tile4).to.have.attribute('tabindex', '0')
     })
+    expect(tile4).to.have.attribute('tabindex', '0')
     expect(await findAll('[tabindex="0"]')).to.have.length(1)
   })
 
@@ -112,47 +115,29 @@ describe('<Board />', async () => {
     const tile1 = (await findAll('button:contains(1)'))[0]
     await tile1.mouseOver()
 
-    await wait(() => {
-      const highlightedTiles1 = findAllStyled(subject.getDOMNode(), TileHighlightStyles)
-      expect(highlightedTiles1.length).to.equal(3)
-    })
+    expect(findAllStyled(subject.getDOMNode(), TileHighlightStyles).length).to.equal(3)
 
     await tile1.mouseOut()
 
-    await wait(() => {
-      const highlightedTiles1 = findAllStyled(subject.getDOMNode(), TileHighlightStyles)
-      expect(highlightedTiles1.length).to.equal(0)
-    })
+    expect(findAllStyled(subject.getDOMNode(), TileHighlightStyles).length).to.equal(0)
 
     const tile2 = (await findAll('button:contains(2)'))[0]
     await tile2.mouseOver()
 
-    await wait(() => {
-      const highlightedTiles2 = findAllStyled(subject.getDOMNode(), TileHighlightStyles)
-      expect(highlightedTiles2.length).to.equal(4)
-    })
+    expect(findAllStyled(subject.getDOMNode(), TileHighlightStyles).length).to.equal(4)
 
     await tile2.mouseOut()
 
-    await wait(() => {
-      const highlightedTiles2 = findAllStyled(subject.getDOMNode(), TileHighlightStyles)
-      expect(highlightedTiles2.length).to.equal(0)
-    })
+    expect(findAllStyled(subject.getDOMNode(), TileHighlightStyles).length).to.equal(0)
 
     const tile3 = (await findAll('button:contains(3)'))[0]
     await tile3.mouseOver()
 
-    await wait(() => {
-      const highlightedTiles3 = findAllStyled(subject.getDOMNode(), TileHighlightStyles)
-      expect(highlightedTiles3.length).to.equal(5)
-    })
+    expect(findAllStyled(subject.getDOMNode(), TileHighlightStyles).length).to.equal(5)
 
     await tile3.mouseOut()
 
-    await wait(() => {
-      const highlightedTiles3 = findAllStyled(subject.getDOMNode(), TileHighlightStyles)
-      expect(highlightedTiles3.length).to.equal(0)
-    })
+    expect(findAllStyled(subject.getDOMNode(), TileHighlightStyles).length).to.equal(0)
   })
 
   it('should highlight all same valued tiles on focus', async () => {
@@ -172,63 +157,35 @@ describe('<Board />', async () => {
 
     const subject = await mount(
       <Provider store={store}>
-        <Board />
+        <Board defaultFocus />
       </Provider>
     )
 
-    const tile1 = (await findAll('button:contains(1)'))[0]
+    const tile1 = await find('button:contains(1)')
     await tile1.focus()
 
     await wait(() => {
-      const highlightedTiles1 = findAllStyled(subject.getDOMNode(), TileHighlightStyles)
-      expect(highlightedTiles1.length).to.equal(3)
+      expect(tile1.focused()).to.be.true()
     })
+
+    expect(findAllStyled(subject.getDOMNode(), TileHighlightStyles).length).to.equal(3)
 
     await tile1.keyDown('down')
+    const tile2 = await find('button:contains(2)')
 
     await wait(() => {
-      const highlightedTiles2 = findAllStyled(subject.getDOMNode(), TileHighlightStyles)
-      expect(highlightedTiles2.length).to.equal(4)
+      expect(tile2.focused()).to.be.true()
     })
 
-    const tile2 = (await findAll('button:contains(2)'))[0]
+    expect(findAllStyled(subject.getDOMNode(), TileHighlightStyles).length).to.equal(4)
+
     await tile2.keyDown('right')
+    const tile3 = await find('button:contains(3)')
 
     await wait(() => {
-      const highlightedTiles3 = findAllStyled(subject.getDOMNode(), TileHighlightStyles)
-      expect(highlightedTiles3.length).to.equal(5)
+      expect(tile3.focused()).to.be.true()
     })
-  })
 
-  it('should highlight all same valued tiles on click', async () => {
-    const puzzle = [
-      [0, 0, 0, 0, 0, 0, 0, 0, 0],
-      [0, 0, 5, 0, 0, 0, 0, 0, 0],
-      [0, 0, 0, 0, 0, 0, 0, 0, 0],
-      [0, 5, 0, 0, 0, 0, 5, 0, 0],
-      [0, 0, 0, 0, 0, 0, 0, 0, 0],
-      [0, 0, 0, 0, 0, 0, 0, 0, 0],
-      [0, 0, 5, 0, 0, 0, 0, 0, 0],
-      [0, 0, 0, 0, 0, 0, 0, 5, 0],
-      [0, 0, 0, 0, 0, 0, 0, 0, 0]
-    ]
-
-    const store = mockStore({ puzzle: { puzzle } })
-
-    const subject = await mount(
-      <Provider store={store}>
-        <Board />
-      </Provider>
-    )
-
-    const tile = await find('button:contains(5)')
-
-    await tile.click()
-    await tile.focus()
-
-    await wait(() => {
-      const highlightedTiles1 = findAllStyled(subject.getDOMNode(), TileHighlightStyles)
-      expect(highlightedTiles1.length).to.equal(5)
-    })
+    expect(findAllStyled(subject.getDOMNode(), TileHighlightStyles).length).to.equal(5)
   })
 })

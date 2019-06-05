@@ -47,9 +47,8 @@ class AppMenu extends PureComponent {
   }
 
   setTrayStatus (open) {
-    this.setState({ open }, () => {
-      this._trigger.focus()
-    })
+    this._trigger.focus()
+    this.setState({ open })
   }
 
   _trigger = null

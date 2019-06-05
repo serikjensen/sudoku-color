@@ -27,6 +27,7 @@ class Tile extends Component {
     elementRef: PropTypes.func,
     editing: PropTypes.bool,
     highlighted: PropTypes.bool,
+    focused: PropTypes.bool,
     coords: PropTypes.shape({
       i: PropTypes.number.isRequired,
       j: PropTypes.number.isRequired
@@ -42,7 +43,8 @@ class Tile extends Component {
     tabIndex: -1,
     elementRef: () => {},
     editing: false,
-    highlighted: false
+    highlighted: false,
+    focused: false
   }
 
   shouldComponentUpdate (nextProps) {
@@ -51,6 +53,7 @@ class Tile extends Component {
       label,
       facade,
       highlighted,
+      focused,
       tabIndex,
       editing
     } = this.props
@@ -59,8 +62,17 @@ class Tile extends Component {
       label !== nextProps.label ||
       facade !== nextProps.facade ||
       highlighted !== nextProps.highlighted ||
+      focused !== nextProps.focused ||
       tabIndex !== nextProps.tabIndex ||
       editing !== nextProps.editing
+  }
+
+  componentDidUpdate () {
+    const { focused } = this.props
+
+    if (focused && document.activeElement !== this._element) {
+      this._element.focus()
+    }
   }
 
   get facade () {

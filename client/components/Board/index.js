@@ -11,16 +11,36 @@ import { TableStyles, TdStyles } from './styles'
 
 class Board extends PureComponent {
   static propTypes = {
-    puzzle: PropTypes.arrayOf(PropTypes.arrayOf(PropTypes.number)).isRequired
+    puzzle: PropTypes.arrayOf(PropTypes.arrayOf(PropTypes.number)).isRequired,
+    defaultFocus: PropTypes.bool
   }
 
-  state = {
-    hoveredCoords: null,
-    focusedCoords: { i: 0, j: 0 }
+  static defaultProps = {
+    defaultFocus: false
+  }
+
+  constructor (props) {
+    super(props)
+
+    this.state = {
+      focused: props.defaultFocus,
+      editing: false,
+      hoveredCoords: null,
+      editingCoords: null,
+      focusedCoords: { i: 0, j: 0 }
+    }
   }
 
   reset () {
     this.setState({ focusedCoords: { i: 0, j: 0 } })
+  }
+
+  handleDataGridFocus = () => {
+    this.setState({ focused: true })
+  }
+
+  handleDataGridBlur = () => {
+    this.setState({ focused: false })
   }
 
   handleDataGridMove = (event, { direction }) => {
@@ -50,9 +70,17 @@ class Board extends PureComponent {
     this.setState({ hoveredCoords: null })
   }
 
-  cellHighlighted = (coords, focused) => {
+  handleCellMenuShow = (event, { coords }) => {
+    this.setState({ editingCoords: coords, editing: true })
+  }
+
+  handleCellMenuDismiss = () => {
+    this.setState({ editingCoords: null, editing: false })
+  }
+
+  cellHighlighted = (coords) => {
     const { puzzle } = this.props
-    const { hoveredCoords, focusedCoords } = this.state
+    const { hoveredCoords, editingCoords, focusedCoords, focused } = this.state
 
     const value = puzzle[coords.i][coords.j]
 
@@ -60,8 +88,17 @@ class Board extends PureComponent {
 
     const compareValues = ({ i, j }) => Math.abs(value) === Math.abs(puzzle[i][j])
 
-    // Give preference to mouse hover
-    return hoveredCoords ? compareValues(hoveredCoords) : focused && compareValues(focusedCoords)
+    // Give preference to mouse hover, then editing, then focused
+    if (hoveredCoords) return compareValues(hoveredCoords)
+    if (editingCoords) return compareValues(editingCoords)
+    if (focused) return compareValues(focusedCoords)
+
+    return false
+  }
+
+  cellFocused = ({ i, j }) => {
+    const { focusedCoords, focused, editing } = this.state
+    return focused && !editing && focusedCoords.i === i && focusedCoords.j === j
   }
 
   renderGrid () {
@@ -70,13 +107,8 @@ class Board extends PureComponent {
 
     /* eslint-disable react/no-array-index-key */
     /* eslint-disable jsx-a11y/mouse-events-have-key-events */
-    const tableBody = ({ getRootProps, getCellProps, focused }) => (
-      <TableStyles
-        {...getRootProps({
-          onBlur: this.handleBlur,
-          onFocus: this.handleFocus
-        })}
-      >
+    const tableBody = ({ getRootProps, getCellProps }) => (
+      <TableStyles {...getRootProps()}>
         <tbody>
           {puzzle.map((row, i) => (
             <tr key={`${i}`}>
@@ -88,10 +120,12 @@ class Board extends PureComponent {
                       value,
                       puzzle,
                       onClick: this.handleCellClick,
+                      onMenuShow: this.handleCellMenuShow,
                       onMenuDismiss: this.handleCellMenuDismiss,
                       onMouseEnter: this.handleCellMouseEnter,
                       onMouseLeave: this.handleCellMouseLeave,
-                      highlighted: this.cellHighlighted({ i, j }, focused)
+                      highlighted: this.cellHighlighted({ i, j }),
+                      focused: this.cellFocused({ i, j })
                     })}
                   />
                 </TdStyles>))
@@ -110,6 +144,8 @@ class Board extends PureComponent {
         render={tableBody}
         focusedCoords={focusedCoords}
         onRequestMove={this.handleDataGridMove}
+        onFocus={this.handleDataGridFocus}
+        onBlur={this.handleDataGridBlur}
       />
     )
   }

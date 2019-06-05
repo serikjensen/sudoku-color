@@ -15,7 +15,7 @@ describe('<Button/>', async () => {
 
     await mount(<Button onClick={onClick}>hello</Button>)
 
-    const button = await find('button')
+    const button = await find('button:contains(hello)')
     await button.click()
 
     expect(onClick).to.have.been.calledOnce()

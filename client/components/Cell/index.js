@@ -22,11 +22,15 @@ class Cell extends Component {
     setTile: PropTypes.func,
     onKeyDown: PropTypes.func,
     onClick: PropTypes.func,
+    onFocus: PropTypes.func,
+    onBlur: PropTypes.func,
     onMouseEnter: PropTypes.func,
     onMouseLeave: PropTypes.func,
     tabIndex: PropTypes.oneOfType([PropTypes.number, PropTypes.string]),
+    onMenuShow: PropTypes.func,
     onMenuDismiss: PropTypes.func,
-    highlighted: PropTypes.bool
+    highlighted: PropTypes.bool,
+    focused: PropTypes.bool
   }
 
   static defaultProps = {
@@ -36,9 +40,13 @@ class Cell extends Component {
     onMouseEnter: () => {},
     onMouseLeave: () => {},
     onClick: () => {},
+    onFocus: () => {},
+    onBlur: () => {},
     tabIndex: -1,
+    onMenuShow: () => {},
     onMenuDismiss: () => {},
-    highlighted: false
+    highlighted: false,
+    focused: false
   }
 
   state = {
@@ -46,11 +54,12 @@ class Cell extends Component {
   }
 
   shouldComponentUpdate (nextProps, nextState) {
-    const { value, highlighted, tabIndex } = this.props
+    const { value, highlighted, focused, tabIndex } = this.props
     const { show } = this.state
 
     return value !== nextProps.value ||
       highlighted !== nextProps.highlighted ||
+      focused !== nextProps.focused ||
       tabIndex !== nextProps.tabIndex ||
       show !== nextState.show
   }
@@ -76,9 +85,8 @@ class Cell extends Component {
   _tile = null
 
   hideMenu = () => {
-    this.setState({ show: false }, () => {
-      this._tile.focus()
-    })
+    this._tile && this._tile.focus()
+    this.setState({ show: false })
   }
 
   showMenu = () => {
@@ -94,6 +102,11 @@ class Cell extends Component {
   handlePopoverDismiss = (event) => {
     this.hideMenu()
     this.props.onMenuDismiss(event)
+  }
+
+  handlePopoverShow = () => {
+    const { coords, value } = this.props
+    this.props.onMenuShow(null, { coords, value })
   }
 
   handleSelect = (event, { value }) => {
@@ -122,7 +135,10 @@ class Cell extends Component {
       tabIndex,
       coords,
       onKeyDown,
-      highlighted
+      onFocus,
+      onBlur,
+      highlighted,
+      focused
     } = this.props
 
     /* eslint-disable jsx-a11y/mouse-events-have-key-events */
@@ -138,12 +154,15 @@ class Cell extends Component {
           label={this.label}
           onKeyDown={onKeyDown}
           onClick={this.handleClick}
+          onFocus={onFocus}
+          onBlur={onBlur}
           tabIndex={tabIndex}
           coords={coords}
           aria-haspopup={value >= 0 ? 'true' : null}
           elementRef={this.handleTileRef}
           editing={this.state.show}
           highlighted={highlighted}
+          focused={focused}
         />
       </CellStyles>
     )
@@ -161,6 +180,7 @@ class Cell extends Component {
       <Popover
         on="click"
         show={this.state.show}
+        onShow={this.handlePopoverShow}
         onDismiss={this.handlePopoverDismiss}
         shouldContainFocus={false}
         offsetY={-12}

@@ -78,6 +78,24 @@ describe('<Tile/>', async () => {
     expect(tile.getAttribute('tabIndex')).to.equal('0')
   })
 
+  it('should focus when the focused prop is set', async () => {
+    const subject = await mount(
+      <Tile
+        value={1}
+        coords={{ i: 1, j: 5 }}
+        label="1"
+      />
+    )
+
+    const tile = within(subject.getDOMNode())
+
+    expect((await tile.find('button')).focused()).to.be.false()
+
+    await subject.setProps({ focused: true })
+
+    expect((await tile.find('button')).focused()).to.be.true()
+  })
+
   it('should render the label', async () => {
     const subject = await mount(
       <Tile

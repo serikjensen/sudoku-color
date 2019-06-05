@@ -80,13 +80,7 @@ class CellMenu extends PureComponent {
 
     /* eslint-disable react/no-array-index-key */
     const tableBody = ({ getRootProps, getCellProps }) => (
-      <TableStyles
-        {...getRootProps({
-          ref: this.handleTableRef,
-          onFocus: this.handleFocus,
-          onBlur: this.handleBlur
-        })}
-      >
+      <TableStyles {...getRootProps()}>
         <tbody>
           {this.availableValues.map((row, i) => (
             <tr key={`${i}`}>
@@ -99,7 +93,8 @@ class CellMenu extends PureComponent {
                         coords: { i, j },
                         value: availableValue,
                         facade: availableValue > 0 ? 'default' : 'remove',
-                        label: this.generateLabel(availableValue)
+                        label: this.generateLabel(availableValue),
+                        focused: focusedCoords.i === i && focusedCoords.j === j
                       })}
                     />
                   </CellStyles>
