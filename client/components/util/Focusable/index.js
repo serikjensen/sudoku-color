@@ -17,15 +17,8 @@ class Focusable extends PureComponent {
   }
 
   get focused () {
-    return this.state.focused
-  }
-
-  focus () {
-    this.setState({ focused: true })
-  }
-
-  blur () {
-    this.setState({ focused: false })
+    const { focused } = this.state
+    return focused
   }
 
   handleFocus = () => {
@@ -36,8 +29,17 @@ class Focusable extends PureComponent {
     this.blur()
   }
 
+  focus () {
+    this.setState({ focused: true })
+  }
+
+  blur () {
+    this.setState({ focused: false })
+  }
+
   render () {
     const { render } = this.props
+    const { focused } = this.state
 
     const getFocusableProps = ({ onFocus, onBlur, ...props } = {}) => ({
       onFocus: createChainedFunction(onFocus, this.handleFocus),
@@ -45,7 +47,7 @@ class Focusable extends PureComponent {
       ...props
     })
 
-    return render({ getFocusableProps, focused: this.state.focused })
+    return render({ getFocusableProps, focused })
   }
 }
 
