@@ -1,6 +1,5 @@
 import { expect } from '@instructure/ui-test-utils'
 
-import deepEqual from 'deep-equal'
 import reducer, { defaultState } from '../puzzleReducer'
 
 import {
@@ -19,7 +18,7 @@ import { generateEmptyPuzzle } from '../../util/generatePuzzle'
 describe('puzzleReducer', () => {
   it('should initialize with the default state', () => {
     const state = reducer()
-    expect(deepEqual(defaultState, state)).to.be.true
+    expect(defaultState).to.deep.equal(state)
   })
 
   it('should handle REQUEST_PUZZLE', () => {
@@ -27,10 +26,10 @@ describe('puzzleReducer', () => {
       type: REQUEST_PUZZLE
     })
 
-    expect(deepEqual(state, {
+    expect(state).to.deep.equal({
       ...defaultState,
       requestingPuzzle: true
-    })).to.be.true
+    })
   })
 
   describe('should handle RECEIVE_PUZZLE', () => {
@@ -48,10 +47,10 @@ describe('puzzleReducer', () => {
         error: false
       })
 
-      expect(deepEqual(state, {
+      expect(state).to.deep.equal({
         ...defaultState,
         puzzle
-      })).to.be.true
+      })
     })
 
     it('handles error', () => {
@@ -63,10 +62,10 @@ describe('puzzleReducer', () => {
         error: true
       })
 
-      expect(deepEqual(state, {
+      expect(state).to.deep.equal({
         ...defaultState,
         failedPuzzleRequest: error
-      })).to.be.true
+      })
     })
   })
 
@@ -95,10 +94,10 @@ describe('puzzleReducer', () => {
     puzzle[4][4] = 0
     puzzle[6][6] = 0
 
-    expect(deepEqual(state, {
+    expect(state).to.deep.equal({
       ...defaultState,
       puzzle
-    })).to.be.true
+    })
   })
 
   it('should handle SET_TILE', () => {
@@ -121,11 +120,11 @@ describe('puzzleReducer', () => {
           }
         })
 
-        expect(deepEqual(state, {
+        expect(state).to.deep.equal({
           ...defaultState,
           filledPuzzle: (i === puzzle.length - 1 && j === row.length - 1),
           puzzle
-        })).to.be.true
+        })
       })
     })
   })
@@ -139,12 +138,12 @@ describe('puzzleReducer', () => {
         type: SUBMIT_PUZZLE
       })
 
-      expect(deepEqual(state, {
+      expect(state).to.deep.equal({
         ...defaultState,
         submittedPuzzle: true,
         validPuzzle: true,
         puzzle: puzzle3
-      })).to.be.true
+      })
     })
 
     it('submitting an invalid puzzle', () => {
@@ -154,12 +153,12 @@ describe('puzzleReducer', () => {
       }, {
         type: SUBMIT_PUZZLE
       })
-      expect(deepEqual(state, {
+      expect(state).to.deep.equal({
         ...defaultState,
         submittedPuzzle: true,
         validPuzzle: false,
         puzzle: puzzle4
-      })).to.be.true
+      })
     })
   })
 
@@ -173,11 +172,11 @@ describe('puzzleReducer', () => {
         type: CONTINUE_PUZZLE
       })
 
-      expect(deepEqual(state, {
+      expect(state).to.deep.equal({
         ...defaultState,
         submittedPuzzle: false,
         validPuzzle: true
-      })).to.be.true
+      })
     })
 
     it('continuing an invalid puzzle', () => {
@@ -189,11 +188,11 @@ describe('puzzleReducer', () => {
         type: CONTINUE_PUZZLE
       })
 
-      expect(deepEqual(state, {
+      expect(state).to.deep.equal({
         ...defaultState,
         submittedPuzzle: false,
         validPuzzle: false
-      })).to.be.true
+      })
     })
   })
 })

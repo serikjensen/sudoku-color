@@ -160,4 +160,4 @@ const ThemeableBoard = themeable(Board, composeTheme)
 const mapStateToProps = state => state.puzzle
 
 export { ThemeableBoard as Board }
-export default connect(mapStateToProps, null, null, { withRef: true })(ThemeableBoard)
+export default connect(mapStateToProps, null, null, { forwardRef: true })(ThemeableBoard)

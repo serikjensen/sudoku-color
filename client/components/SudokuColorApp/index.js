@@ -37,7 +37,7 @@ class SudokuColorApp extends PureComponent {
   }
 
   handleBoardRef = (el) => {
-    this._board = el ? el.getWrappedInstance() : null
+    this._board = el
   }
 
   handleResetPuzzle = () => {
