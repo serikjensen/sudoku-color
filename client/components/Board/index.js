@@ -31,10 +31,6 @@ class Board extends PureComponent {
     }
   }
 
-  reset () {
-    this.setState({ focusedCoords: { i: 0, j: 0 } })
-  }
-
   handleDataGridFocus = () => {
     this.setState({ focused: true })
   }
@@ -101,6 +97,10 @@ class Board extends PureComponent {
     return focused && !editing && focusedCoords.i === i && focusedCoords.j === j
   }
 
+  reset () {
+    this.setState({ focusedCoords: { i: 0, j: 0 } })
+  }
+
   renderGrid () {
     const { puzzle } = this.props
     const { focusedCoords } = this.state
@@ -128,8 +128,8 @@ class Board extends PureComponent {
                       focused: this.cellFocused({ i, j })
                     })}
                   />
-                </TdStyles>))
-              }
+                </TdStyles>
+              ))}
             </tr>
           ))}
         </tbody>

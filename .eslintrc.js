@@ -25,6 +25,7 @@ module.exports = {
     'no-use-before-define': 0,
     'object-curly-newline': ['error', { consistent: true }],
     'prefer-destructuring': 0,
+    'react/destructuring-assignment': 0,
     'react/forbid-prop-types': 0,
     'react/jsx-filename-extension': [1, { extensions: ['.js'] }],
     'react/prefer-stateless-function': 0,

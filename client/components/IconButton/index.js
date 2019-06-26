@@ -25,12 +25,12 @@ class IconButton extends PureComponent {
 
   _buttonRef = null
 
-  focus () {
-    this._buttonRef.focus()
-  }
-
   handleButtonRef = (el) => {
     this._buttonRef = el
+  }
+
+  focus () {
+    this._buttonRef.focus()
   }
 
   render () {

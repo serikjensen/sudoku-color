@@ -66,7 +66,7 @@ class SubmitModal extends PureComponent {
           shouldCloseOnDocumentClick
         >
           {this.props.validPuzzle ? <div>Puzzle is correct</div> : <div>Puzzle is incorrect</div>}
-          <button onClick={this.handleModalDismiss}>close</button>
+          <button type="button" onClick={this.handleModalDismiss}>close</button>
           <Button onClick={this.handleResetPuzzle}>Reset</Button>
           <Button color="secondary" onClick={this.handleNewPuzzle}>New Puzzle</Button>
         </Modal>

@@ -40,6 +40,8 @@ class AppMenu extends PureComponent {
     open: false
   }
 
+  _trigger = null
+
   componentWillReceiveProps (nextProps) {
     if (this.props.submittedPuzzle && !nextProps.submittedPuzzle && !nextProps.filledPuzzle) {
       this._trigger.focus()
@@ -50,8 +52,6 @@ class AppMenu extends PureComponent {
     this._trigger.focus()
     this.setState({ open })
   }
-
-  _trigger = null
 
   handleMenuTriggerClick = () => {
     this.setTrayStatus(true)

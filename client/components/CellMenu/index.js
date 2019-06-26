@@ -98,8 +98,8 @@ class CellMenu extends PureComponent {
                       })}
                     />
                   </CellStyles>
-                </td>))
-              }
+                </td>
+              ))}
             </tr>
           ))}
         </tbody>

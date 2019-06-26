@@ -26,13 +26,14 @@ class DataGrid extends PureComponent {
     focusedCoords: { i: 0, j: 0 }
   }
 
+  _root = null
+
+  _raf = []
+
   componentWillUnmount () {
     this._raf.forEach(request => request.cancel())
     this._raf = []
   }
-
-  _root = null
-  _raf = []
 
   handleRootRef = (el) => {
     this._root = el

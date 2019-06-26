@@ -53,15 +53,17 @@ class Cell extends Component {
     show: false
   }
 
+  _tile = null
+
   shouldComponentUpdate (nextProps, nextState) {
     const { value, highlighted, focused, tabIndex } = this.props
     const { show } = this.state
 
-    return value !== nextProps.value ||
-      highlighted !== nextProps.highlighted ||
-      focused !== nextProps.focused ||
-      tabIndex !== nextProps.tabIndex ||
-      show !== nextState.show
+    return value !== nextProps.value
+      || highlighted !== nextProps.highlighted
+      || focused !== nextProps.focused
+      || tabIndex !== nextProps.tabIndex
+      || show !== nextState.show
   }
 
   get facade () {
@@ -81,8 +83,6 @@ class Cell extends Component {
 
     return value
   }
-
-  _tile = null
 
   hideMenu = () => {
     this._tile && this._tile.focus()

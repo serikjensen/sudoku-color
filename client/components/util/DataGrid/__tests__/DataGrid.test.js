@@ -1,6 +1,6 @@
 import React from 'react'
 
-import { expect, mount, find, spy, wait, within } from '@instructure/ui-test-utils'
+import { expect, mount, find, spy, wait } from '@instructure/ui-test-utils'
 import { render as testLibRender, cleanup } from '@testing-library/react'
 import { fireEvent } from '@testing-library/dom'
 

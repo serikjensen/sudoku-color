@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import PropTypes from 'prop-types'
 
-import { omitProps } from '@instructure/ui-react-utils'
+import { passthroughProps } from '@instructure/ui-react-utils'
 
 import Focusable from '../util/Focusable'
 import FocusRing from '../FocusRing'
@@ -47,6 +47,8 @@ class Tile extends Component {
     focused: false
   }
 
+  _element = null
+
   shouldComponentUpdate (nextProps) {
     const {
       value,
@@ -58,13 +60,13 @@ class Tile extends Component {
       editing
     } = this.props
 
-    return value !== nextProps.value ||
-      label !== nextProps.label ||
-      facade !== nextProps.facade ||
-      highlighted !== nextProps.highlighted ||
-      focused !== nextProps.focused ||
-      tabIndex !== nextProps.tabIndex ||
-      editing !== nextProps.editing
+    return value !== nextProps.value
+      || label !== nextProps.label
+      || facade !== nextProps.facade
+      || highlighted !== nextProps.highlighted
+      || focused !== nextProps.focused
+      || tabIndex !== nextProps.tabIndex
+      || editing !== nextProps.editing
   }
 
   componentDidUpdate () {
@@ -83,8 +85,6 @@ class Tile extends Component {
 
     return DefaultFacade
   }
-
-  _element = null
 
   handleClick = (event) => {
     const { onClick, value, coords } = this.props
@@ -109,6 +109,9 @@ class Tile extends Component {
       facade,
       editing,
       highlighted,
+      coords,
+      onClick,
+      onKeyDown,
       ...props
     } = this.props
 
@@ -121,7 +124,7 @@ class Tile extends Component {
       onKeyDown: this.handleKeyDown,
       onClick: this.handleClick,
       as: facade === 'presentation' ? 'span' : 'button',
-      ...omitProps(props, Tile.propTypes)
+      ...passthroughProps(props)
     }
 
     const children = ['default', 'presentation'].includes(facade) ? (

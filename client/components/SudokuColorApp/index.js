@@ -30,11 +30,11 @@ class SudokuColorApp extends PureComponent {
     requestPuzzle: () => {}
   }
 
+  _board = null
+
   componentDidMount () {
     this.props.requestPuzzle()
   }
-
-  _board = null
 
   handleBoardRef = (el) => {
     this._board = el ? el.getWrappedInstance() : null
