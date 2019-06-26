@@ -1,10 +1,14 @@
 import React from 'react'
 
 import { expect, mount, find, spy, wait, within } from '@instructure/ui-test-utils'
+import { render as testLibRender, cleanup } from '@testing-library/react'
+import { fireEvent } from '@testing-library/dom'
 
 import DataGrid from '../index'
 
 describe('<DataGrid />', async () => {
+  afterEach(cleanup)
+
   describe('getRootProps', async () => {
     it('should provide aria-label', async () => {
       const label = 'Hello world'
@@ -75,6 +79,7 @@ describe('<DataGrid />', async () => {
     /* eslint-disable react/no-array-index-key */
     /* eslint-disable react/prop-types */
     const props = {
+      debug: true,
       label: 'Hello world',
       onFocus,
       render: ({ getRootProps, getCellProps }) => (
@@ -84,11 +89,11 @@ describe('<DataGrid />', async () => {
               <tr key={`${i}`}>
                 {row.map((value, j) => (
                   <td key={`${j}`}>
-                    <button {...getCellProps({ coords: { i, j } })}>
+                    <button type="button" {...getCellProps({ coords: { i, j } })}>
                       {value}
                     </button>
-                  </td>))
-                }
+                  </td>
+                ))}
               </tr>
             ))}
           </tbody>
@@ -99,11 +104,13 @@ describe('<DataGrid />', async () => {
     /* eslint-enable react/prop-types */
     /* eslint-enable react/no-array-index-key */
 
-    await mount(<DataGrid {...props} />)
-    const button = await find('button:contains(foo)')
-    await button.focus()
+    const { getByText } = testLibRender(<DataGrid {...props} />)
+    const focusable = getByText('foo')
+    fireEvent.focus(focusable)
 
-    expect(onFocus).to.have.been.calledOnce()
+    await wait(() => {
+      expect(onFocus).to.have.been.calledOnce()
+    })
   })
 
   it('should call onBlur', async () => {
@@ -124,11 +131,11 @@ describe('<DataGrid />', async () => {
               <tr key={`${i}`}>
                 {row.map((value, j) => (
                   <td key={`${j}`}>
-                    <button {...getCellProps({ coords: { i, j } })}>
+                    <button type="button" {...getCellProps({ coords: { i, j } })}>
                       {value}
                     </button>
-                  </td>))
-                }
+                  </td>
+                ))}
               </tr>
             ))}
           </tbody>
@@ -139,16 +146,12 @@ describe('<DataGrid />', async () => {
     /* eslint-enable react/prop-types */
     /* eslint-enable react/no-array-index-key */
 
-    const subject = await mount(<DataGrid {...props} />)
-    const grid = within(subject.getDOMNode())
+    const { getByText } = testLibRender(<DataGrid {...props} />)
+    const focusable = getByText('foo')
 
-    const button1 = await find('button:contains(foo)')
-
-    await button1.focus()
-    await button1.blur({}, { simulate: true })
+    fireEvent.blur(focusable)
 
     await wait(() => {
-      expect(grid.containsFocus()).to.be.false()
       expect(onBlur).to.have.been.calledOnce()
     })
   })
@@ -160,7 +163,7 @@ describe('<DataGrid />', async () => {
       onRequestMove,
       focusedCoords: { i: 0, j: 0 },
       label: 'Hello world',
-      render: ({ getCellProps }) => <button {...getCellProps({ coords: { i: 0, j: 0 } })}>foo</button>
+      render: ({ getCellProps }) => <button type="button" {...getCellProps({ coords: { i: 0, j: 0 } })}>foo</button>
     }
     /* eslint-enable react/prop-types */
 

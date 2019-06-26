@@ -33,12 +33,11 @@ class Popover extends PureComponent {
     // Rendering within the Popover is somehow interfering with the context. We recreate the
     // app theme context within the Popover content
     return (
-      <ApplyTheme theme={{
-          [View.theme]: {
-            borderRadiusMedium: '1rem',
-            shadowResting: (appTheme.shadows || {}).resting
-          }
-        }}
+      <ApplyTheme theme={
+        { [View.theme]: {
+          borderRadiusMedium: '1rem',
+          shadowResting: (appTheme.shadows || {}).resting
+        } }}
       >
         <InstUIPopover {...props}>
           <PopoverTrigger>

@@ -1,14 +1,19 @@
 import React from 'react'
+import { render as testLibRender, cleanup } from '@testing-library/react'
+import { fireEvent } from '@testing-library/dom'
 
-import { expect, find, mount, spy, wait } from '@instructure/ui-test-utils'
+import { expect, spy, wait } from '@instructure/ui-test-utils'
 
 import Focusable from '../index'
 
 describe('<Focusable />', async () => {
+  afterEach(cleanup)
+
   it('should call render with focused bool', async () => {
+    const text = 'hello'
     /* eslint-disable react/prop-types */
     const render = ({ getFocusableProps }) => (
-      <input {...getFocusableProps({ type: 'text' })} />
+      <button type="button" {...getFocusableProps()}>{text}</button>
     )
     /* eslint-enable react/prop-types */
 
@@ -16,46 +21,17 @@ describe('<Focusable />', async () => {
 
     const renderSpy = spy(props, 'render')
 
-    await mount(<Focusable {...props} />)
+    // TODO: Remove dom test lib once ui-test-utils is more robust
+    const { getByText } = testLibRender(<Focusable {...props} />)
+    const focusable = getByText(text)
 
-    expect(renderSpy).to.have.been.calledOnce()
-
-    const focused = () => renderSpy.lastCall.args[0].focused
-    expect(focused()).to.be.false()
-
-    const focusable = await find(':focusable')
-    await focusable.focus()
-
-    expect(focused()).to.be.true()
-  })
-
-  it('should provide focus and blur methods', async () => {
-    let focusable
-    /* eslint-disable react/prop-types */
-    const render = ({ getFocusableProps }) => (
-      <input {...getFocusableProps({ type: 'text', ref: (el) => { focusable = el } })} />
-    )
-    /* eslint-enable react/prop-types */
-
-    const props = { render }
-
-    const renderSpy = spy(props, 'render')
-
-    await mount(<Focusable {...props} />)
-
-    expect(renderSpy).to.have.been.calledOnce()
-
-    const focused = () => renderSpy.lastCall.args[0].focused
-    expect(focused()).to.be.false()
-
-    focusable.focus()
     await wait(() => {
-      expect(focused()).to.be.true()
+      expect(renderSpy.lastCall.args[0].focused).to.be.false()
     })
 
-    focusable.blur()
+    fireEvent.focus(focusable)
     await wait(() => {
-      expect(focused()).to.be.false()
+      expect(renderSpy.lastCall.args[0].focused).to.be.true()
     })
   })
 })
