@@ -1,5 +1,6 @@
 import React from 'react'
 import PropTypes from 'prop-types'
+import deepmerge from 'deepmerge'
 import { ThemeProvider } from 'styled-components'
 
 import AppThemeContext from './AppThemeContext'
@@ -29,10 +30,7 @@ export default (Component, composeTheme = () => ({})) => {
 
       const appTheme = getAppTheme(this.context)
 
-      const componentTheme = {
-        ...composeTheme(appTheme),
-        ...theme
-      }
+      const componentTheme = deepmerge(composeTheme(appTheme), theme)
 
       const componentProps = {
         theme: componentTheme,

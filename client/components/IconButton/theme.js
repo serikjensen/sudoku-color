@@ -14,6 +14,8 @@ export default ({ spacing, colors, typography }) => ({
   },
 
   neutral: {
-    focusColor: colors.focus
+    focusColor: colors.focus,
+    hoverBackground: colors.lightest,
+    hoverColor: colors.focus
   }
 })

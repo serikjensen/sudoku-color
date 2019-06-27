@@ -56,4 +56,4 @@ class IconButton extends PureComponent {
   }
 }
 
-export default themeable(IconButton, composeTheme, true)
+export default themeable(IconButton, composeTheme)
