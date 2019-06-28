@@ -1,5 +1,8 @@
 export default ({ spacing, colors, borders }) => ({
-  offset: spacing.focusOffset,
+  offsetLarge: spacing.focusOffsetLarge,
+  offsetMedium: spacing.focusOffsetMedium,
+  offsetSmall: spacing.focusOffsetSmall,
+
   borderWidth: borders.width.large,
   borderStyle: borders.style.default,
   borderColor: colors.focus,

@@ -8,8 +8,8 @@ export const CellStyles = styled.span`
   display: flex;
   align-items: center;
   justify-content: center;
-  width: ${({ theme }) => theme.width};
-  height: ${({ theme }) => theme.height};
+  width: ${({ theme }) => theme.widthLarge};
+  height: ${({ theme }) => theme.heightLarge};
   border-bottom: ${({ theme, ...props }) => (
     props.coords.i === 8 ? 'none' : `${theme.borderWidthSmall} ${theme.borderStyle} ${theme.borderColor}`
   )};
@@ -26,5 +26,15 @@ export const CellStyles = styled.span`
       ? `${theme.borderWidthMedium} ${theme.borderStyle} ${theme.borderColor}`
       : 'none'
   )};
+
+  @media only screen and (max-width: 33.125em) {
+    width: ${({ theme }) => theme.widthMedium};
+    height: ${({ theme }) => theme.heightMedium};
+  }
+
+  @media only screen and (max-width: 26.25em) {
+    width: ${({ theme }) => theme.widthSmall};
+    height: ${({ theme }) => theme.heightSmall};
+  }
 `
 /* eslint-enable import/prefer-default-export */

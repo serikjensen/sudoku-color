@@ -37,7 +37,7 @@ class EditFacade extends PureComponent {
             editing={editing}
             focused={focused}
           >
-            <IconEditLine size="small" />
+            <IconEditLine />
           </EditLabelStyles>
         </PresentationContent>
       </EditFacadeStyles>

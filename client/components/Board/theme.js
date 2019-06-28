@@ -1,4 +1,5 @@
 export default ({ spacing, shadows }) => ({
-  padding: spacing.cellSize,
+  paddingLarge: spacing.cellSizeLarge,
+  paddingSmall: spacing.medium,
   shadow: shadows.above
 })

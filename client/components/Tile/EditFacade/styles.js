@@ -9,6 +9,15 @@ export const EditFacadeStyles = styled.div`
   align-items: center;
   justify-content: center;
   background: ${({ theme }) => theme.background};
+  font-size: ${({ theme }) => theme.fontSizeLarge};
+
+  @media only screen and (max-width: 33.125em) {
+    font-size: ${({ theme }) => theme.fontSizeMedium};
+  }
+
+  @media only screen and (max-width: 26.25em) {
+    font-size: ${({ theme }) => theme.fontSizeSmall};
+  }
 `
 
 export const EditLabelStyles = styled.div`

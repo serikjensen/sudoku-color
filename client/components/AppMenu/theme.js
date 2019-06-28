@@ -1,6 +1,6 @@
 export default ({ spacing }) => ({
-  borderPadding: spacing.padding.medium,
-  headerMarginTop: spacing.margin.xxLarge,
-  headerPaddingBottom: spacing.padding.large,
-  headerMarginBottom: spacing.margin.xLarge
+  borderPadding: spacing.medium,
+  headerMarginTop: spacing.xxLarge,
+  headerPaddingBottom: spacing.large,
+  headerMarginBottom: spacing.xLarge
 })

@@ -37,6 +37,7 @@ export default Object.freeze({
 
   typography: {
     fontSize: {
+      small: '.75rem',
       medium: '1rem',
       large: '1.25rem',
       xLarge: '1.75rem',
@@ -53,28 +54,23 @@ export default Object.freeze({
   spacing: {
     // TODO: Offsets given in px to avoid weird spacing. Figure out how to bring these
     // values into rem/em
-    focusOffset: '8px',
+    focusOffsetLarge: '8px',
+    focusOffsetMedium: '6px',
+    focusOffsetSmall: '4px',
+
     highlightOffset: '2px',
-    cellSize: '3.5rem',
     formFieldHeight: '2.5rem',
 
-    padding: {
-      xSmall: '0.25rem',
-      small: '0.5rem',
-      medium: '1rem',
-      large: '2rem',
-      xLarge: '3rem',
-      xxLarge: '6rem'
-    },
+    cellSizeLarge: '3.5rem',
+    cellSizeMedium: '2.75rem',
+    cellSizeSmall: '2.25rem',
 
-    margin: {
-      xSmall: '0.25rem',
-      small: '0.5rem',
-      medium: '1rem',
-      large: '2rem',
-      xLarge: '3rem',
-      xxLarge: '6rem'
-    }
+    xSmall: '0.25rem',
+    small: '0.5rem',
+    medium: '1rem',
+    large: '2rem',
+    xLarge: '3rem',
+    xxLarge: '6rem'
   },
 
   transitions: {

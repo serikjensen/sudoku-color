@@ -1,13 +1,25 @@
 export default ({ spacing, colors, typography }) => ({
-  width: calculateCellSize(spacing),
-  height: calculateCellSize(spacing),
-  defaultColor: colors.lightest,
-  defaultBackground: colors.lightest,
+  widthLarge: calculateLargeCellSize(spacing),
+  heightLarge: calculateLargeCellSize(spacing),
+  widthMedium: calculateMediumCellSize(spacing),
+  heightMedium: calculateMediumCellSize(spacing),
+  widthSmall: calculateSmallCellSize(spacing),
+  heightSmall: calculateSmallCellSize(spacing),
+  background: colors.lightest,
   swatches: colors.swatches,
   fontSize: typography.fontSize.medium,
+  fontSizeSmall: typography.fontSize.small,
   fontFamily: typography.fontFamily
 })
 
-const calculateCellSize = (spacing) => (
-  `calc(${spacing.cellSize} - calc(${spacing.focusOffset} * 2))`
+const calculateLargeCellSize = (spacing) => (
+  `calc(${spacing.cellSizeLarge} - calc(${spacing.focusOffsetLarge} * 2))`
+)
+
+const calculateMediumCellSize = (spacing) => (
+  `calc(${spacing.cellSizeMedium} - calc(${spacing.focusOffsetMedium} * 2))`
+)
+
+const calculateSmallCellSize = (spacing) => (
+  `calc(${spacing.cellSizeSmall} - calc(${spacing.focusOffsetSmall} * 2))`
 )

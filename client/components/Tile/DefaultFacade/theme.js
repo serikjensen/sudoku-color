@@ -10,5 +10,5 @@ export default ({ spacing, colors, borders, typography }) => ({
 })
 
 const calculateCellSize = (spacing) => (
-  `calc(${spacing.cellSize} - calc(${spacing.focusOffset} * 2))`
+  `calc(${spacing.cellSizeLarge} - calc(${spacing.focusOffsetLarge} * 2))`
 )
