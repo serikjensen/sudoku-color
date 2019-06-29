@@ -59,7 +59,9 @@ export default Object.freeze({
     focusOffsetSmall: '4px',
 
     highlightOffset: '2px',
+
     formFieldHeight: '2.5rem',
+    formFieldHeightSmall: '2rem',
 
     cellSizeLarge: '3.5rem',
     cellSizeMedium: '2.75rem',

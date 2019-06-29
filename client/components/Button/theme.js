@@ -1,8 +1,10 @@
 export default ({ spacing, colors, typography, borders, shadows, transitions }) => ({
   width: 'initial',
   height: spacing.formFieldHeight,
+  heightSmall: spacing.formFieldHeightSmall,
   padding: '0 2rem',
   fontSize: typography.fontSize.large,
+  fontSizeSmall: typography.fontSize.medium,
   borderWidth: borders.width.medium,
   borderStyle: borders.style.default,
   borderRadiusCircular: borders.radii.circular,

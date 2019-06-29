@@ -45,6 +45,11 @@ export const ButtonStyles = styled.button`
       color ${({ theme, color }) => theme[color].hoverColor};
     }
   }
+
+  @media only screen and (max-width: 33.125em) {
+    font-size: ${({ theme }) => theme.fontSizeSmall};
+    height: ${({ theme }) => theme.heightSmall};
+  }
 `
 /* eslint-enable import/prefer-default-export */
 

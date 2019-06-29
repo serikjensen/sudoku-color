@@ -4,6 +4,7 @@ export default ({ spacing, colors, typography }) => ({
   borderWidth: 0,
   shadow: 'none',
   fontSize: typography.fontSize.xLarge,
+  fontSizeSmall: typography.fontSize.large,
 
   primary: {
     focusColor: colors.focus
