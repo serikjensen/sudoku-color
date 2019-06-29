@@ -22,7 +22,9 @@ export const EditFacadeStyles = styled.div`
 
 export const EditLabelStyles = styled.div`
   display: ${props => (props.editing || props.focused ? 'inline-block' : 'none')};
-  ${EditFacadeStyles}:hover & {
-    display: inline-block;
+  @media (any-hover: hover) {
+    ${EditFacadeStyles}:hover & {
+      display: inline-block;
+    }
   }
 `
