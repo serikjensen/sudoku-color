@@ -6980,6 +6980,11 @@ extsprintf@^1.2.0:
   resolved "https://registry.yarnpkg.com/extsprintf/-/extsprintf-1.4.0.tgz#e2689f8f356fad62cca65a3a91c5df5f9551692f"
   integrity sha1-4mifjzVvrWLMplo6kcXfX5VRaS8=
 
+fake-sudoku-puzzle-generator@1.1.8:
+  version "1.1.8"
+  resolved "https://registry.yarnpkg.com/fake-sudoku-puzzle-generator/-/fake-sudoku-puzzle-generator-1.1.8.tgz#b4b096e71646a17b0fbd6fef97a099f319ffe30a"
+  integrity sha512-g8qWzfMUOhNURqIkNOpBl5WGPXieAoTlrFMyM84npCF6W2gsX8t0ZsR1f4w+paTJr8yfhO2KbUYX5nHGB+Z2IQ==
+
 fast-deep-equal@^2, fast-deep-equal@^2.0.1:
   version "2.0.1"
   resolved "https://registry.yarnpkg.com/fast-deep-equal/-/fast-deep-equal-2.0.1.tgz#7b05218ddf9667bf7f370bf7fdb2cb15fdd0aa49"
@@ -13957,13 +13962,6 @@ stylis@^3.5.0:
   resolved "https://registry.yarnpkg.com/stylis/-/stylis-3.5.4.tgz#f665f25f5e299cf3d64654ab949a57c768b73fbe"
   integrity sha512-8/3pSmthWM7lsPBKv7NXkzn2Uc9W7NotcwGNpJaa3k7WMM1XDCA4MgT5k/8BIexd5ydZdboXtU90XH9Ec4Bv/Q==
 
-sudoku@^0.0.2:
-  version "0.0.2"
-  resolved "https://registry.yarnpkg.com/sudoku/-/sudoku-0.0.2.tgz#b1c82927ffabc0243ec76c212824c3f1f3e69034"
-  integrity sha1-scgpJ/+rwCQ+x2whKCTD8fPmkDQ=
-  dependencies:
-    underscore "= 1.1.6"
-
 sugarss@^2.0.0:
   version "2.0.0"
   resolved "https://registry.yarnpkg.com/sugarss/-/sugarss-2.0.0.tgz#ddd76e0124b297d40bf3cca31c8b22ecb43bc61d"
@@ -14486,11 +14484,6 @@ umask@^1.1.0:
   version "1.1.0"
   resolved "https://registry.yarnpkg.com/umask/-/umask-1.1.0.tgz#f29cebf01df517912bb58ff9c4e50fde8e33320d"
   integrity sha1-8pzr8B31F5ErtY/5xOUP3o4zMg0=
-
-"underscore@= 1.1.6":
-  version "1.1.6"
-  resolved "https://registry.yarnpkg.com/underscore/-/underscore-1.1.6.tgz#6868da1bdd72d75285be0b4e50f228e70d001a2c"
-  integrity sha1-aGjaG91y11KFvgtOUPIo5w0AGiw=
 
 underscore@~1.6.0:
   version "1.6.0"

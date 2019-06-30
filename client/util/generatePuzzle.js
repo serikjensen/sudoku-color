@@ -1,10 +1,14 @@
-import sudoku from 'sudoku'
+import {
+  getVeryEasySudoku
+} from 'fake-sudoku-puzzle-generator'
 
 const PUZZLE_LENGTH = 81
 const PUZZLE_WIDTH = 9
 
 export default function generatePuzzle () {
-  const rawPuzzle = generateRawPuzzle(sudoku.makepuzzle())
+  const puzzleGenerator = getVeryEasySudoku
+  const puzzle = puzzleGenerator().reduce((result, row) => result.concat(row), [])
+  const rawPuzzle = generateRawPuzzle(puzzle)
   /* TODO: error handling for malformed puzzle */
   return formatRawPuzzle(rawPuzzle)
 }
