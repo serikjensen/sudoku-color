@@ -94,9 +94,10 @@ class Cell extends Component {
   }
 
   handleClick = (event, { coords, value }) => {
+    const { onClick } = this.props
+    onClick(event, { coords, value })
+
     if (this.facade !== 'presentation') {
-      const { onClick } = this.props
-      onClick(event, { coords, value })
       this.showMenu()
     }
   }
