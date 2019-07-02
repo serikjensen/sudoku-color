@@ -102,6 +102,25 @@ class Cell extends Component {
     }
   }
 
+  handleKeyDown = (event, { coords, value }) => {
+    const { onKeyDown } = this.props
+    onKeyDown(event, { coords, value })
+
+    if (this.facade !== 'presentation' && !this.state.show) {
+      const { key, keyCode } = event
+
+      // Values 1-9 are valid
+      if (keyCode >= 49 && keyCode <= 57) {
+        this.props.setTile(coords, Number(key))
+      }
+
+      // Remove the tile if delete
+      if (keyCode === 8) {
+        this.props.setTile(coords, 0)
+      }
+    }
+  }
+
   handlePopoverDismiss = (event) => {
     this.hideMenu()
     this.props.onMenuDismiss(event)
@@ -137,7 +156,6 @@ class Cell extends Component {
       value,
       tabIndex,
       coords,
-      onKeyDown,
       onFocus,
       onBlur,
       highlighted,
@@ -155,8 +173,8 @@ class Cell extends Component {
           value={value}
           facade={this.facade}
           label={this.label}
-          onKeyDown={onKeyDown}
           onClick={this.handleClick}
+          onKeyDown={this.handleKeyDown}
           onFocus={onFocus}
           onBlur={onBlur}
           tabIndex={tabIndex}

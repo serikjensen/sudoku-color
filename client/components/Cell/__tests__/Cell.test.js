@@ -198,6 +198,64 @@ describe('<Cell/>', async () => {
     expect(args[1]).to.equal(5)
   })
 
+  it('should call setTile with when key down with values 1-9', async () => {
+    const setTile = spy()
+    const coords = { i: 4, j: 2 }
+    const value = 5
+
+    const subject = await mount(
+      <Cell
+        value={value}
+        coords={coords}
+        setTile={setTile}
+      />
+    )
+
+    const cell = within(subject.getDOMNode())
+    const button = await cell.find('button')
+    expect(button).to.exist()
+
+    await button.keyDown(48)
+    await button.keyDown(58)
+
+    expect(setTile).to.not.have.been.called()
+
+    await button.keyDown(49)
+
+    const getArgs = () => setTile.lastCall.args
+    expect(getArgs()[0]).to.deep.equal(coords)
+    expect(getArgs()[1]).to.equal(1)
+
+    await button.keyDown(57)
+
+    expect(getArgs()[0]).to.deep.equal(coords)
+    expect(getArgs()[1]).to.equal(9)
+  })
+
+  it('should call setTile with 0 when delete key', async () => {
+    const setTile = spy()
+    const coords = { i: 4, j: 2 }
+    const value = 5
+
+    const subject = await mount(
+      <Cell
+        value={value}
+        coords={coords}
+        setTile={setTile}
+      />
+    )
+
+    const cell = within(subject.getDOMNode())
+    const button = await cell.find('button')
+    expect(button).to.exist()
+
+    await button.keyDown(8)
+
+    const { args } = setTile.lastCall
+    expect(args[0]).to.deep.equal(coords)
+    expect(args[1]).to.equal(0)
+  })
+
   it('should call onMenuShow when clicked with value and coords', async () => {
     const store = mockStore({ puzzle: { puzzle: puzzle1 } })
 
