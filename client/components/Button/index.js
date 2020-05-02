@@ -9,6 +9,8 @@ import composeTheme from './theme'
 import { ButtonStyles } from './styles'
 
 class Button extends PureComponent {
+  _buttonRef = null
+
   static propTypes = {
     children: PropTypes.node,
     color: PropTypes.oneOf(['primary', 'secondary', 'neutral']),
@@ -24,8 +26,6 @@ class Button extends PureComponent {
     display: 'inline',
     margin: 0
   }
-
-  _buttonRef = null
 
   handleButtonRef = (el) => {
     this._buttonRef = el

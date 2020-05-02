@@ -18,6 +18,8 @@ import {
 } from './styles'
 
 class AppMenu extends PureComponent {
+  _trigger = null
+
   static propTypes = {
     requestPuzzle: PropTypes.func,
     onRequestPuzzle: PropTypes.func,
@@ -39,8 +41,6 @@ class AppMenu extends PureComponent {
   state = {
     open: false
   }
-
-  _trigger = null
 
   componentWillReceiveProps (nextProps) {
     if (this.props.submittedPuzzle && !nextProps.submittedPuzzle && !nextProps.filledPuzzle) {

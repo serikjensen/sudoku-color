@@ -20,6 +20,8 @@ import {
 import baseTheme from '../../themes/base'
 
 class SudokuColorApp extends PureComponent {
+  _board = null
+
   static propTypes = {
     requestingPuzzle: PropTypes.bool,
     requestPuzzle: PropTypes.func
@@ -29,8 +31,6 @@ class SudokuColorApp extends PureComponent {
     requestingPuzzle: true,
     requestPuzzle: () => {}
   }
-
-  _board = null
 
   componentDidMount () {
     this.props.requestPuzzle()

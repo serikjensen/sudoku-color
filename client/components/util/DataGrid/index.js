@@ -6,6 +6,10 @@ import { containsActiveElement, requestAnimationFrame } from '@instructure/ui-do
 import { createChainedFunction } from '@instructure/ui-utils'
 
 class DataGrid extends PureComponent {
+  _root = null
+
+  _raf = []
+
   static propTypes = {
     label: PropTypes.node.isRequired,
     render: PropTypes.func,
@@ -25,10 +29,6 @@ class DataGrid extends PureComponent {
     onBlur: () => {},
     focusedCoords: { i: 0, j: 0 }
   }
-
-  _root = null
-
-  _raf = []
 
   componentWillUnmount () {
     this._raf.forEach(request => request.cancel())

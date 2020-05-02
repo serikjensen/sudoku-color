@@ -17,6 +17,8 @@ import RemoveFacade from './RemoveFacade'
 import { TileStyles } from './styles'
 
 class Tile extends Component {
+  _element = null
+
   static propTypes = {
     value: PropTypes.number,
     label: PropTypes.node,
@@ -46,8 +48,6 @@ class Tile extends Component {
     highlighted: false,
     focused: false
   }
-
-  _element = null
 
   shouldComponentUpdate (nextProps) {
     const {

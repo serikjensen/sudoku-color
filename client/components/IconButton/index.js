@@ -12,6 +12,8 @@ import themeable from '../theming/themeable'
 import composeTheme from './theme'
 
 class IconButton extends PureComponent {
+  _buttonRef = null
+
   static propTypes = {
     icon: PropTypes.oneOfType([PropTypes.func, PropTypes.node]),
     label: PropTypes.node,
@@ -25,8 +27,6 @@ class IconButton extends PureComponent {
     margin: 0,
     color: 'primary'
   }
-
-  _buttonRef = null
 
   handleButtonRef = (el) => {
     this._buttonRef = el

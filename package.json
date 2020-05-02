@@ -6,6 +6,7 @@
   "repository": "git@github.com:serikjensen/SudokuColor.git",
   "author": "serikjensen",
   "license": "MIT",
+  "sideEffects": false,
   "scripts": {
     "build": "webpack --config webpack.prod.js",
     "start": "webpack-dev-server --config webpack.prod.js",

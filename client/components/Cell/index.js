@@ -13,6 +13,8 @@ import composeTheme from './theme'
 import { CellStyles } from './styles'
 
 class Cell extends Component {
+  _tile = null
+
   static propTypes = {
     value: PropTypes.number,
     coords: PropTypes.shape({
@@ -52,8 +54,6 @@ class Cell extends Component {
   state = {
     show: false
   }
-
-  _tile = null
 
   shouldComponentUpdate (nextProps, nextState) {
     const { value, highlighted, focused, tabIndex } = this.props
