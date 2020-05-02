@@ -1,4 +1,5 @@
 const rules = require('./rules')
+const resolve = require('./resolve')
 
 module.exports = (config) => {
   config.set({
@@ -16,7 +17,8 @@ module.exports = (config) => {
       mode: 'development',
       module: {
         rules
-      }
+      },
+      resolve
     },
     browsers: ['Chrome'],
     browserDisconnectTimeout: 10000,
