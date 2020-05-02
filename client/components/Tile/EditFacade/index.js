@@ -1,7 +1,10 @@
 import React, { PureComponent } from 'react'
 import PropTypes from 'prop-types'
 
-import { ScreenReaderContent, PresentationContent } from '@instructure/ui-a11y'
+import {
+  ScreenReaderContent,
+  PresentationContent
+} from '@instructure/ui-a11y-content'
 
 import { IconEditLine } from '@instructure/ui-icons'
 

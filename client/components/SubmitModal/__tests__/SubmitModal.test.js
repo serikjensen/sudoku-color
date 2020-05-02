@@ -1,7 +1,7 @@
 import React from 'react'
 
 import { expect, find, mount, spy } from '@instructure/ui-test-utils'
-import ModalLocator from '@instructure/ui-overlays/lib/Modal/locator'
+import ModalLocator from '@instructure/ui-modal/es/Modal/locator'
 
 import { SubmitModal } from '../index'
 

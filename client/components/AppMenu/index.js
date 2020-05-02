@@ -28,10 +28,10 @@ class AppMenu extends PureComponent {
   }
 
   static defaultProps = {
-    requestPuzzle: () => {},
-    onRequestPuzzle: () => {},
-    resetPuzzle: () => {},
-    onResetPuzzle: () => {},
+    requestPuzzle: () => { },
+    onRequestPuzzle: () => { },
+    resetPuzzle: () => { },
+    onResetPuzzle: () => { },
     submittedPuzzle: false,
     filledPuzzle: false
   }
@@ -118,7 +118,7 @@ class AppMenu extends PureComponent {
               onClick={this.handleNewPuzzle}
               margin="0.5rem 0 0 0"
             >
-                New Puzzle
+              New Puzzle
             </Button>
           </TrayStyles>
         </Tray>

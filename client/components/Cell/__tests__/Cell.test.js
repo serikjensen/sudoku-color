@@ -4,7 +4,7 @@ import { Provider } from 'react-redux'
 import configureStore from 'redux-mock-store'
 
 import { expect, mount, within, spy, wait } from '@instructure/ui-test-utils'
-import PopoverLocator from '@instructure/ui-overlays/lib/Popover/locator'
+import PopoverLocator from '@instructure/ui-popover/es/Popover/locator'
 
 import { puzzle1 } from '../../../util/__tests__/testPuzzles'
 import { Cell } from '../index'

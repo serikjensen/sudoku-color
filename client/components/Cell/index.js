@@ -200,9 +200,9 @@ class Cell extends Component {
     return value < 0 ? children : (
       <Popover
         on="click"
-        show={this.state.show}
-        onShow={this.handlePopoverShow}
-        onDismiss={this.handlePopoverDismiss}
+        isShowingContent={this.state.show}
+        onPositioned={this.handlePopoverShow}
+        onHideContent={this.handlePopoverDismiss}
         shouldContainFocus={false}
         offsetY={-12}
         trigger={children}

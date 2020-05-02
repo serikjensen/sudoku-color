@@ -1,7 +1,7 @@
 import React from 'react'
 
 import { expect, find, mount, spy, wait } from '@instructure/ui-test-utils'
-import TrayLocator from '@instructure/ui-overlays/lib/Tray/locator'
+import TrayLocator from '@instructure/ui-tray/es/Tray/locator'
 
 import { AppMenu } from '../index'
 

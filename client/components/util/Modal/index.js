@@ -1,7 +1,7 @@
 import React, { PureComponent } from 'react'
 import PropTypes from 'prop-types'
 
-import { Modal as InstUIModal } from '@instructure/ui-overlays'
+import { Modal as InstUIModal } from '@instructure/ui-modal'
 
 import AppThemeProvider from '../../theming/AppThemeProvider'
 import AppThemeContext from '../../theming/AppThemeContext'

@@ -13,7 +13,7 @@ module.exports = (config) => {
       'client/**/*.test.js': ['webpack', 'sourcemap']
     },
     webpack: {
-      mode: config.mode === 'development' ? 'development' : 'production',
+      mode: 'development',
       module: {
         rules
       }

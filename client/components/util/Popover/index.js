@@ -1,9 +1,9 @@
 import React, { PureComponent } from 'react'
 import PropTypes from 'prop-types'
 
-import InstUIPopover, { PopoverTrigger, PopoverContent } from '@instructure/ui-overlays/lib/Popover'
+import { Popover as InstUIPopover } from '@instructure/ui-popover'
 import { ApplyTheme } from '@instructure/ui-themeable'
-import { View } from '@instructure/ui-layout'
+import { View } from '@instructure/ui-view'
 
 import AppThemeProvider from '../../theming/AppThemeProvider'
 import AppThemeContext from '../../theming/AppThemeContext'
@@ -39,15 +39,13 @@ class Popover extends PureComponent {
           shadowResting: (appTheme.shadows || {}).resting
         } }}
       >
-        <InstUIPopover {...props}>
-          <PopoverTrigger>
-            {trigger}
-          </PopoverTrigger>
-          <PopoverContent>
-            <AppThemeProvider theme={appTheme}>
-              {content}
-            </AppThemeProvider>
-          </PopoverContent>
+        <InstUIPopover
+          {...props}
+          renderTrigger={trigger}
+        >
+          <AppThemeProvider theme={appTheme}>
+            {content}
+          </AppThemeProvider>
         </InstUIPopover>
       </ApplyTheme>
     )
