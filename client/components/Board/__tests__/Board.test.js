@@ -1,12 +1,17 @@
 import React from 'react'
 import { expect, mount, find, findAll, wait } from '@instructure/ui-test-utils'
-import { findAll as findAllStyled } from 'styled-components/test-utils'
 
 import { puzzle1 } from '../../../util/__tests__/testPuzzles'
-import { TileHighlightStyles } from '../../Tile/TileHighlight/styles'
+import { testSelector as tileHighlightSelector } from '../../Tile/TileHighlight'
 
 import { Board } from '../index'
 import { Cell } from '../../Cell'
+
+const queryTileHighlights = (node) => {
+  if (!node && !node.querySelectorAll) return []
+
+  return node.querySelectorAll(`[${tileHighlightSelector}]`)
+}
 
 describe('<Board />', async () => {
   it('should render children', async () => {
@@ -99,29 +104,29 @@ describe('<Board />', async () => {
     const tile1 = (await findAll('button:contains(1)'))[0]
     await tile1.mouseOver()
 
-    expect(findAllStyled(subject.getDOMNode(), TileHighlightStyles).length).to.equal(3)
+    expect(queryTileHighlights(subject.getDOMNode()).length).to.equal(3)
 
     await tile1.mouseOut()
 
-    expect(findAllStyled(subject.getDOMNode(), TileHighlightStyles).length).to.equal(0)
+    expect(queryTileHighlights(subject.getDOMNode()).length).to.equal(0)
 
     const tile2 = (await findAll('button:contains(2)'))[0]
     await tile2.mouseOver()
 
-    expect(findAllStyled(subject.getDOMNode(), TileHighlightStyles).length).to.equal(4)
+    expect(queryTileHighlights(subject.getDOMNode()).length).to.equal(4)
 
     await tile2.mouseOut()
 
-    expect(findAllStyled(subject.getDOMNode(), TileHighlightStyles).length).to.equal(0)
+    expect(queryTileHighlights(subject.getDOMNode()).length).to.equal(0)
 
     const tile3 = (await findAll('button:contains(3)'))[0]
     await tile3.mouseOver()
 
-    expect(findAllStyled(subject.getDOMNode(), TileHighlightStyles).length).to.equal(5)
+    expect(queryTileHighlights(subject.getDOMNode()).length).to.equal(5)
 
     await tile3.mouseOut()
 
-    expect(findAllStyled(subject.getDOMNode(), TileHighlightStyles).length).to.equal(0)
+    expect(queryTileHighlights(subject.getDOMNode()).length).to.equal(0)
   })
 
   it('should highlight all same valued tiles on focus', async () => {
@@ -152,7 +157,7 @@ describe('<Board />', async () => {
       expect(tile1.focused()).to.be.true()
     })
 
-    expect(findAllStyled(subject.getDOMNode(), TileHighlightStyles).length).to.equal(3)
+    expect(queryTileHighlights(subject.getDOMNode()).length).to.equal(3)
 
     await tile1.keyDown('down')
     const tile2 = await find('button:contains(2)')
@@ -161,7 +166,7 @@ describe('<Board />', async () => {
       expect(tile2.focused()).to.be.true()
     })
 
-    expect(findAllStyled(subject.getDOMNode(), TileHighlightStyles).length).to.equal(4)
+    expect(queryTileHighlights(subject.getDOMNode()).length).to.equal(4)
 
     await tile2.keyDown('right')
     const tile3 = await find('button:contains(3)')
@@ -170,6 +175,6 @@ describe('<Board />', async () => {
       expect(tile3.focused()).to.be.true()
     })
 
-    expect(findAllStyled(subject.getDOMNode(), TileHighlightStyles).length).to.equal(5)
+    expect(queryTileHighlights(subject.getDOMNode()).length).to.equal(5)
   })
 })

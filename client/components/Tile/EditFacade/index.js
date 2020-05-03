@@ -12,6 +12,8 @@ import themeable from '../../theming/themeable'
 import composeTheme from './theme'
 import { EditFacadeStyles, EditLabelStyles } from './styles'
 
+export const testSelector = 'data-sudoku-color-tile-edit'
+
 class EditFacade extends PureComponent {
   static propTypes = {
     label: PropTypes.node,
@@ -32,8 +34,12 @@ class EditFacade extends PureComponent {
       focused
     } = this.props
 
+    const props = {
+      [testSelector]: true
+    }
+
     return (
-      <EditFacadeStyles>
+      <EditFacadeStyles {...props}>
         <ScreenReaderContent>{label}</ScreenReaderContent>
         <PresentationContent>
           <EditLabelStyles

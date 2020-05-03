@@ -3,7 +3,7 @@ import PropTypes from 'prop-types'
 
 import AppThemeContext from '../AppThemeContext'
 
-export default class ThemeProvider extends PureComponent {
+export default class AppThemeProvider extends PureComponent {
   static propTypes = {
     // eslint-disable-next-line react/forbid-prop-types
     theme: PropTypes.object,

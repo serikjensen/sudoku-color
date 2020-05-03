@@ -2,11 +2,11 @@ const presets = [
   ['@babel/preset-env', {
     modules: 'commonjs'
   }],
-  '@babel/preset-react'
+  '@babel/preset-react',
+  '@emotion/babel-preset-css-prop'
 ]
 
 const plugins = [
-  'babel-plugin-styled-components',
   '@babel/plugin-proposal-export-default-from',
   '@babel/plugin-proposal-logical-assignment-operators',
   ['@babel/plugin-proposal-optional-chaining', { loose: false }],

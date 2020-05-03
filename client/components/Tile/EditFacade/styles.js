@@ -1,4 +1,4 @@
-import styled from 'styled-components'
+import styled from '@emotion/styled'
 
 export const EditFacadeStyles = styled.div`
   color: ${({ theme }) => theme.color};

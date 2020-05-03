@@ -12,6 +12,8 @@ import themeable from '../../theming/themeable'
 import composeTheme from './theme'
 import { RemoveFacadeStyles } from './styles'
 
+export const testSelector = 'data-sudoku-color-tile-remove'
+
 class RemoveFacade extends PureComponent {
   static propTypes = {
     label: PropTypes.node
@@ -24,8 +26,12 @@ class RemoveFacade extends PureComponent {
   render () {
     const { label } = this.props
 
+    const props = {
+      [testSelector]: true
+    }
+
     return (
-      <RemoveFacadeStyles>
+      <RemoveFacadeStyles {...props}>
         <ScreenReaderContent>{label}</ScreenReaderContent>
         <PresentationContent>
           <IconTrashSolid size="x-small" />

@@ -1,14 +1,19 @@
 import { expect, mount, spy, within } from '@instructure/ui-test-utils'
-import { find } from 'styled-components/test-utils'
 
 import React from 'react'
 
 import Tile from '../index'
 
-import { DefaultFacadeStyles } from '../DefaultFacade/styles'
-import { EditFacadeStyles } from '../EditFacade/styles'
-import { RemoveFacadeStyles } from '../RemoveFacade/styles'
-import { TileHighlightStyles } from '../TileHighlight/styles'
+import { testSelector as defaultFacadeSelector } from '../DefaultFacade'
+import { testSelector as editFacadeSelector } from '../EditFacade'
+import { testSelector as removeFacadeSelector } from '../RemoveFacade'
+import { testSelector as tileHighlightSelector } from '../TileHighlight'
+
+const queryTile = (node, selector) => {
+  if (!node && !node.querySelector) return null
+
+  return node.querySelector(`[${selector}]`)
+}
 
 describe('<Tile/>', async () => {
   describe('rendering facades and highlights', async () => {
@@ -20,7 +25,8 @@ describe('<Tile/>', async () => {
           label="1"
         />
       )
-      expect(find(subject.getDOMNode(), DefaultFacadeStyles)).to.exist()
+
+      expect(queryTile(subject.getDOMNode(), defaultFacadeSelector)).to.exist()
     })
 
     it('should render the EditFacade', async () => {
@@ -32,7 +38,7 @@ describe('<Tile/>', async () => {
           facade="edit"
         />
       )
-      expect(find(subject.getDOMNode(), EditFacadeStyles)).to.exist()
+      expect(queryTile(subject.getDOMNode(), editFacadeSelector)).to.exist()
     })
 
     it('should render the RemoveFacade', async () => {
@@ -44,7 +50,7 @@ describe('<Tile/>', async () => {
           facade="remove"
         />
       )
-      expect(find(subject.getDOMNode(), RemoveFacadeStyles)).to.exist()
+      expect(queryTile(subject.getDOMNode(), removeFacadeSelector)).to.exist()
     })
 
     it('should highlight when highlighted is set', async () => {
@@ -56,7 +62,7 @@ describe('<Tile/>', async () => {
           highlighted
         />
       )
-      expect(find(subject.getDOMNode(), TileHighlightStyles)).to.exist()
+      expect(queryTile(subject.getDOMNode(), tileHighlightSelector)).to.exist()
     })
   })
 

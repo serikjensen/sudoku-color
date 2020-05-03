@@ -5,6 +5,8 @@ import themeable from '../../theming/themeable'
 import composeTheme from './theme'
 import { DefaultFacadeStyles } from './styles'
 
+export const testSelector = 'data-sudoku-color-tile-default'
+
 class DefaultFacade extends PureComponent {
   static propTypes = {
     value: PropTypes.number,
@@ -20,7 +22,13 @@ class DefaultFacade extends PureComponent {
 
   render () {
     const { elementRef, ...props } = this.props
-    return <DefaultFacadeStyles ref={elementRef} {...props} />
+
+    const defaultFacadeProps = {
+      [testSelector]: true,
+      ...props
+    }
+
+    return <DefaultFacadeStyles ref={elementRef} {...defaultFacadeProps} />
   }
 }
 

@@ -1,7 +1,7 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 import deepmerge from 'deepmerge'
-import { ThemeProvider } from 'styled-components'
+import { ThemeProvider } from 'emotion-theming'
 
 import AppThemeContext from './AppThemeContext'
 

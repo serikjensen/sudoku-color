@@ -1,4 +1,4 @@
-import styled from 'styled-components'
+import styled from '@emotion/styled'
 
 /* eslint-disable import/prefer-default-export */
 export const CellStyles = styled.span`
