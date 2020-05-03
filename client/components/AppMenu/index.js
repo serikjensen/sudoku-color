@@ -42,8 +42,8 @@ class AppMenu extends PureComponent {
     open: false
   }
 
-  componentWillReceiveProps (nextProps) {
-    if (this.props.submittedPuzzle && !nextProps.submittedPuzzle && !nextProps.filledPuzzle) {
+  componentDidUpdate (prevProps) {
+    if (prevProps.submittedPuzzle && !this.props.submittedPuzzle && !this.props.filledPuzzle) {
       this._trigger.focus()
     }
   }
