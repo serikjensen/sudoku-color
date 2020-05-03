@@ -2,28 +2,16 @@ import React from 'react'
 import { expect, mount, find, findAll, wait } from '@instructure/ui-test-utils'
 import { findAll as findAllStyled } from 'styled-components/test-utils'
 
-import { Provider } from 'react-redux'
-import configureStore from 'redux-mock-store'
-
 import { puzzle1 } from '../../../util/__tests__/testPuzzles'
 import { TileHighlightStyles } from '../../Tile/TileHighlight/styles'
 
-import Board from '../index'
-
-const mockStore = configureStore()
+import { Board } from '../index'
+import { Cell } from '../../Cell'
 
 describe('<Board />', async () => {
   it('should render children', async () => {
-    const store = mockStore({
-      puzzle: {
-        puzzle: puzzle1
-      }
-    })
-
     await mount(
-      <Provider store={store}>
-        <Board />
-      </Provider>
+      <Board puzzle={puzzle1} cell={Cell} />
     )
 
     const tiles = await findAll('[tabindex]')
@@ -43,12 +31,12 @@ describe('<Board />', async () => {
       [0, 0, 0, 0, 0, 0, 0, 0, 0]
     ]
 
-    const store = mockStore({ puzzle: { puzzle } })
-
     await mount(
-      <Provider store={store}>
-        <Board defaultFocus />
-      </Provider>
+      <Board
+        defaultFocus
+        puzzle={puzzle}
+        cell={Cell}
+      />
     )
 
     const tile1 = await find('button:contains(1)')
@@ -104,12 +92,8 @@ describe('<Board />', async () => {
       [0, 0, 0, 0, 0, 0, 0, 0, 0]
     ]
 
-    const store = mockStore({ puzzle: { puzzle } })
-
     const subject = await mount(
-      <Provider store={store}>
-        <Board />
-      </Provider>
+      <Board puzzle={puzzle} cell={Cell} />
     )
 
     const tile1 = (await findAll('button:contains(1)'))[0]
@@ -153,12 +137,12 @@ describe('<Board />', async () => {
       [0, 3, 0, 0, 0, 0, 0, 0, 0]
     ]
 
-    const store = mockStore({ puzzle: { puzzle } })
-
     const subject = await mount(
-      <Provider store={store}>
-        <Board defaultFocus />
-      </Provider>
+      <Board
+        defaultFocus
+        puzzle={puzzle}
+        cell={Cell}
+      />
     )
 
     const tile1 = await find('button:contains(1)')

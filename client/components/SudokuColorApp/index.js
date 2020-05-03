@@ -6,9 +6,9 @@ import '@instructure/canvas-theme'
 
 import AppThemeProvider from '../theming/AppThemeProvider'
 
-import Board from '../Board'
-import AppMenu from '../AppMenu'
-import SubmitModal from '../SubmitModal'
+import ConnectedBoard from '../Board'
+import ConnectedAppMenu from '../AppMenu'
+import ConnectedSubmitModal from '../SubmitModal'
 import { requestPuzzle } from '../../actions/puzzleActions'
 
 import {
@@ -24,12 +24,18 @@ class SudokuColorApp extends PureComponent {
 
   static propTypes = {
     requestingPuzzle: PropTypes.bool,
-    requestPuzzle: PropTypes.func
+    requestPuzzle: PropTypes.func,
+    board: PropTypes.elementType,
+    appMenu: PropTypes.elementType,
+    submitModal: PropTypes.elementType
   }
 
   static defaultProps = {
     requestingPuzzle: true,
-    requestPuzzle: () => {}
+    requestPuzzle: () => {},
+    board: ConnectedBoard,
+    appMenu: ConnectedAppMenu,
+    submitModal: ConnectedSubmitModal
   }
 
   componentDidMount () {
@@ -45,6 +51,12 @@ class SudokuColorApp extends PureComponent {
   }
 
   render () {
+    const {
+      board: Board,
+      appMenu: AppMenu,
+      submitModal: SubmitModal
+    } = this.props
+
     return (
       <div>
         <AppThemeProvider theme={baseTheme}>

@@ -3,7 +3,7 @@ import PropTypes from 'prop-types'
 import { connect } from 'react-redux'
 
 import DataGrid from '../util/DataGrid'
-import Cell from '../Cell'
+import ConnectedCell from '../Cell'
 
 import composeTheme from './theme'
 import themeable from '../theming/themeable'
@@ -12,11 +12,13 @@ import { TableStyles, TdStyles } from './styles'
 class Board extends PureComponent {
   static propTypes = {
     puzzle: PropTypes.arrayOf(PropTypes.arrayOf(PropTypes.number)).isRequired,
-    defaultFocus: PropTypes.bool
+    defaultFocus: PropTypes.bool,
+    cell: PropTypes.elementType
   }
 
   static defaultProps = {
-    defaultFocus: false
+    defaultFocus: false,
+    cell: ConnectedCell
   }
 
   constructor (props) {
@@ -102,7 +104,7 @@ class Board extends PureComponent {
   }
 
   renderGrid () {
-    const { puzzle } = this.props
+    const { puzzle, cell: Cell } = this.props
     const { focusedCoords } = this.state
 
     /* eslint-disable react/no-array-index-key */

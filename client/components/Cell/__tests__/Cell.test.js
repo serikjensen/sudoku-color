@@ -1,15 +1,13 @@
 import React from 'react'
 
-import { Provider } from 'react-redux'
-import configureStore from 'redux-mock-store'
-
 import { expect, mount, within, spy, wait } from '@instructure/ui-test-utils'
 import PopoverLocator from '@instructure/ui-popover/es/Popover/locator'
 
 import { puzzle1 } from '../../../util/__tests__/testPuzzles'
 import { Cell } from '../index'
+import { CellMenu } from '../../CellMenu'
 
-const mockStore = configureStore()
+const StubbedCellMenu = props => <CellMenu {...props} puzzle={puzzle1} />
 
 describe('<Cell/>', async () => {
   it('should render presentationally if value is less than 0', async () => {
@@ -79,20 +77,17 @@ describe('<Cell/>', async () => {
   })
 
   it('should call onClick with coords and value', async () => {
-    const store = mockStore({ puzzle: { puzzle: puzzle1 } })
-
     const onClick = spy()
     const coords = { i: 5, j: 7 }
     const value = 1
 
     const subject = await mount(
-      <Provider store={store}>
-        <Cell
-          value={value}
-          coords={coords}
-          onClick={onClick}
-        />
-      </Provider>
+      <Cell
+        value={value}
+        coords={coords}
+        onClick={onClick}
+        cellMenu={StubbedCellMenu}
+      />
     )
 
     const cell = within(subject.getDOMNode())
@@ -158,20 +153,17 @@ describe('<Cell/>', async () => {
   })
 
   it('should call setTile with value and coords', async () => {
-    const store = mockStore({ puzzle: { puzzle: puzzle1 } })
-
     const setTile = spy()
     const coords = { i: 4, j: 2 }
     const value = 0
 
     const subject = await mount(
-      <Provider store={store}>
-        <Cell
-          value={value}
-          coords={coords}
-          setTile={setTile}
-        />
-      </Provider>
+      <Cell
+        value={value}
+        coords={coords}
+        setTile={setTile}
+        cellMenu={StubbedCellMenu}
+      />
     )
 
     const popover = await PopoverLocator.find()
@@ -257,21 +249,18 @@ describe('<Cell/>', async () => {
   })
 
   it('should call onMenuShow when clicked with value and coords', async () => {
-    const store = mockStore({ puzzle: { puzzle: puzzle1 } })
-
     const onMenuShow = spy()
     const coords = { i: 4, j: 2 }
     const value = 0
 
     const subject = await mount(
-      <Provider store={store}>
-        <Cell
-          value={value}
-          coords={coords}
-          onMenuShow={onMenuShow}
-          tabIndex="0"
-        />
-      </Provider>
+      <Cell
+        value={value}
+        coords={coords}
+        onMenuShow={onMenuShow}
+        tabIndex="0"
+        cellMenu={StubbedCellMenu}
+      />
     )
 
     const popover = await PopoverLocator.find()
@@ -296,21 +285,18 @@ describe('<Cell/>', async () => {
   })
 
   it('should call onMenuDismiss when value is selected', async () => {
-    const store = mockStore({ puzzle: { puzzle: puzzle1 } })
-
     const onMenuDismiss = spy()
     const coords = { i: 4, j: 2 }
     const value = 0
 
     const subject = await mount(
-      <Provider store={store}>
-        <Cell
-          value={value}
-          coords={coords}
-          onMenuDismiss={onMenuDismiss}
-          tabIndex="0"
-        />
-      </Provider>
+      <Cell
+        value={value}
+        coords={coords}
+        onMenuDismiss={onMenuDismiss}
+        tabIndex="0"
+        cellMenu={StubbedCellMenu}
+      />
     )
 
     const popover = await PopoverLocator.find()

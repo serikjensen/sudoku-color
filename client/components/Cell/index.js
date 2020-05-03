@@ -5,7 +5,7 @@ import { connect } from 'react-redux'
 import Popover from '../util/Popover'
 import { setTile } from '../../actions/puzzleActions'
 
-import CellMenu from '../CellMenu'
+import ConnectedCellMenu from '../CellMenu'
 import Tile from '../Tile'
 
 import themeable from '../theming/themeable'
@@ -32,7 +32,8 @@ class Cell extends Component {
     onMenuShow: PropTypes.func,
     onMenuDismiss: PropTypes.func,
     highlighted: PropTypes.bool,
-    focused: PropTypes.bool
+    focused: PropTypes.bool,
+    cellMenu: PropTypes.elementType
   }
 
   static defaultProps = {
@@ -48,7 +49,8 @@ class Cell extends Component {
     onMenuShow: () => {},
     onMenuDismiss: () => {},
     highlighted: false,
-    focused: false
+    focused: false,
+    cellMenu: ConnectedCellMenu
   }
 
   state = {
@@ -159,7 +161,8 @@ class Cell extends Component {
       onFocus,
       onBlur,
       highlighted,
-      focused
+      focused,
+      cellMenu: CellMenu
     } = this.props
 
     /* eslint-disable jsx-a11y/mouse-events-have-key-events */
