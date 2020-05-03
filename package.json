@@ -13,7 +13,13 @@
     "start:dev": "webpack-dev-server --config webpack.dev.js",
     "tableflip": "rm yarn.lock && rm -rf node_modules/ && yarn cache clean && yarn install",
     "test": "./node_modules/karma/bin/karma start karma.conf.js --single-run --mode=production",
-    "test:dev": "./node_modules/karma/bin/karma start karma.conf.js --single-run=false --mode=development"
+    "test:dev": "./node_modules/karma/bin/karma start karma.conf.js --single-run=false --mode=development",
+    "lint": "eslint ./"
+  },
+  "husky": {
+    "hooks": {
+      "pre-commit": "yarn lint"
+    }
   },
   "dependencies": {
     "@instructure/canvas-theme": "^6.26.0",
@@ -81,6 +87,7 @@
     "eslint-plugin-jsx-a11y": "^6.2.1",
     "eslint-plugin-mocha": "^5.3.0",
     "eslint-plugin-react": "^7.13.0",
+    "husky": "^4.2.5",
     "karma": "^4.1.0",
     "karma-chrome-launcher": "^2.2.0",
     "karma-mocha": "^1.3.0",

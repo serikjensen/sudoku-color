@@ -7,6 +7,8 @@ const CopyWebpackPlugin = require('copy-webpack-plugin')
 const rules = require('./rules')
 const resolve = require('./resolve')
 
+console.log('hello world!')
+
 module.exports = {
   entry: './client/index.js',
   module: {
