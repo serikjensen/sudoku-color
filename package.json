@@ -11,7 +11,7 @@
     "build": "webpack --config webpack.prod.js",
     "start": "webpack-dev-server --config webpack.prod.js",
     "start:dev": "webpack-dev-server --config webpack.dev.js",
-    "tableflip": "rm yarn.lock && rm -rf node_modules/ && yarn cache clean && yarn install",
+    "tableflip": "rm -f yarn.lock && rm -rf node_modules/ && yarn cache clean && yarn install",
     "test": "./node_modules/karma/bin/karma start karma.conf.js --single-run --mode=production",
     "test:dev": "./node_modules/karma/bin/karma start karma.conf.js --single-run=false --mode=development",
     "lint": "eslint ./"
@@ -44,7 +44,6 @@
     "fake-sudoku-puzzle-generator": "^1.1.8",
     "html-webpack-plugin": "^4.3.0",
     "keycode": "^2.2.0",
-    "mocha": "^6.1.4",
     "prop-types": "^15.7.2",
     "react": "^16",
     "react-dom": "^16",
@@ -94,6 +93,7 @@
     "karma-mocha": "^2.0.1",
     "karma-mocha-reporter": "^2.2.5",
     "karma-sourcemap-loader": "^0.3.7",
-    "karma-webpack": "^4.0.2"
+    "karma-webpack": "^4.0.2",
+    "mocha": "^7.1.2"
   }
 }
