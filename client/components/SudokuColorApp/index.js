@@ -63,11 +63,6 @@ class SudokuColorApp extends PureComponent {
           <AppContentStyles>
             <div>
               <AppHeaderStyles>
-                <SubmitModal
-                  onRequestPuzzle={this.handleResetPuzzle}
-                  onResetPuzzle={this.handleResetPuzzle}
-                  onModalClose={this.handleModalClose}
-                />
                 <AppMenu
                   onRequestPuzzle={this.handleResetPuzzle}
                   onResetPuzzle={this.handleResetPuzzle}
@@ -79,6 +74,11 @@ class SudokuColorApp extends PureComponent {
                   : 'Loading'
                 }
               </AppBodyStyles>
+              <SubmitModal
+                onRequestPuzzle={this.handleResetPuzzle}
+                onResetPuzzle={this.handleResetPuzzle}
+                onModalClose={this.handleModalClose}
+              />
             </div>
           </AppContentStyles>
         </AppThemeProvider>

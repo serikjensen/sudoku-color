@@ -90,7 +90,7 @@ class AppMenu extends PureComponent {
         <Tray
           label="Menu"
           open={this.state.open}
-          placement="end"
+          placement="start"
           onDismiss={this.handleTrayClose}
         >
           <TrayStyles>

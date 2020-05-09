@@ -58,7 +58,16 @@ class SubmitModal extends PureComponent {
   render () {
     return (
       <span>
-        {this.props.filledPuzzle && <Button color="secondary" onClick={this.handleSubmitPuzzle}>Submit puzzle</Button>}
+        {this.props.filledPuzzle && (
+          <Button
+            display="block"
+            color="secondary"
+            onClick={this.handleSubmitPuzzle}
+            margin="1rem 0 0 0"
+          >
+            Submit puzzle
+          </Button>
+        )}
         <Modal
           open={this.props.submittedPuzzle}
           onDismiss={this.handleModalDismiss}
