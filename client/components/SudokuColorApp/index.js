@@ -9,7 +9,7 @@ import AppThemeProvider from '../theming/AppThemeProvider'
 import ConnectedBoard from '../Board'
 import ConnectedAppMenu from '../AppMenu'
 import ConnectedSubmitModal from '../SubmitModal'
-import { requestPuzzle } from '../../actions/puzzleActions'
+import { loadPuzzle } from '../../actions/puzzleActions'
 
 import {
   AppContentStyles,
@@ -24,7 +24,7 @@ class SudokuColorApp extends PureComponent {
 
   static propTypes = {
     requestingPuzzle: PropTypes.bool,
-    requestPuzzle: PropTypes.func,
+    loadPuzzle: PropTypes.func,
     board: PropTypes.elementType,
     appMenu: PropTypes.elementType,
     submitModal: PropTypes.elementType
@@ -32,14 +32,14 @@ class SudokuColorApp extends PureComponent {
 
   static defaultProps = {
     requestingPuzzle: true,
-    requestPuzzle: () => {},
+    loadPuzzle: () => {},
     board: ConnectedBoard,
     appMenu: ConnectedAppMenu,
     submitModal: ConnectedSubmitModal
   }
 
   componentDidMount () {
-    this.props.requestPuzzle()
+    this.props.loadPuzzle()
   }
 
   handleBoardRef = (el) => {
@@ -90,4 +90,4 @@ class SudokuColorApp extends PureComponent {
 const mapStateToProps = state => state.puzzle
 
 export { SudokuColorApp }
-export default connect(mapStateToProps, { requestPuzzle })(SudokuColorApp)
+export default connect(mapStateToProps, { loadPuzzle })(SudokuColorApp)

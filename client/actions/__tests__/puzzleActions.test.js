@@ -12,6 +12,7 @@ import {
 
 import {
   continuePuzzle,
+  loadPuzzle,
   requestPuzzle,
   resetPuzzle,
   setTile,
@@ -27,7 +28,7 @@ describe('puzzleActions', () => {
   })
 
   describe('REQUEST_PUZZLE and RECEIVED_PUZZLE', () => {
-    it('should dispatch REQUEST_PUZZLE and RECEIVED_PUZZLE', () => {
+    it('should dispatch REQUEST_PUZZLE and RECEIVED_PUZZLE when loading puzzle', () => {
       const requestAction = {
         type: REQUEST_PUZZLE
       }
@@ -44,13 +45,13 @@ describe('puzzleActions', () => {
         load([[4, 5], [5, 4]], null)
       }
 
-      requestPuzzle(onLoad)(store.dispatch)
+      loadPuzzle(onLoad)(store.dispatch)
       const actions = store.getActions()
       expect(actions[0]).to.deep.equal(requestAction)
       expect(actions[1]).to.deep.equal(receivedAction)
     })
 
-    it('should dispatch REQUEST_PUZZLE and RECEIVED_PUZZLE with error', () => {
+    it('should dispatch REQUEST_PUZZLE and RECEIVED_PUZZLE with error when loading puzzle', () => {
       const error = '[ERROR] Could not get get puzzle'
 
       const requestAction = {
@@ -67,10 +68,23 @@ describe('puzzleActions', () => {
         load(undefined, error)
       }
 
-      requestPuzzle(onLoad)(store.dispatch)
+      loadPuzzle(onLoad)(store.dispatch)
       const actions = store.getActions()
       expect(actions[0]).to.deep.equal(requestAction)
       expect(actions[1]).to.deep.equal(receivedAction)
+    })
+
+    it('should dispatch RECEIVED_PUZZLE when requesting new puzzle', () => {
+      const receivedAction = {
+        type: RECEIVED_PUZZLE,
+        payload: {
+          puzzle: [[4, 5], [5, 4]]
+        }
+      }
+
+      requestPuzzle(() => [[4, 5], [5, 4]])(store.dispatch)
+      const actions = store.getActions()
+      expect(actions[0]).to.deep.equal(receivedAction)
     })
   })
 

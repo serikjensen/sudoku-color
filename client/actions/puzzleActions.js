@@ -7,9 +7,10 @@ import {
   SUBMIT_PUZZLE
 } from '../constants/actionTypes'
 
-import loadPuzzle from '../util/loadPuzzle'
+import handleLoadPuzzle from '../util/loadPuzzle'
+import generatePuzzle from '../util/generatePuzzle'
 
-export const requestPuzzle = (onLoad = loadPuzzle) => (dispatch) => {
+export const loadPuzzle = (onLoad = handleLoadPuzzle) => (dispatch) => {
   dispatch({
     type: REQUEST_PUZZLE
   })
@@ -22,6 +23,15 @@ export const requestPuzzle = (onLoad = loadPuzzle) => (dispatch) => {
       },
       error: !!error
     })
+  })
+}
+
+export const requestPuzzle = (executePuzzleGenerator = generatePuzzle) => (dispatch) => {
+  dispatch({
+    type: RECEIVED_PUZZLE,
+    payload: {
+      puzzle: executePuzzleGenerator()
+    }
   })
 }
 

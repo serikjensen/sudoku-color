@@ -20,19 +20,19 @@ const StubbedBoard = React.forwardRef((props, ref) => (
 ))
 
 describe('<SudokuColorApp />', async () => {
-  it('should call requestPuzzle when mounted', async () => {
-    const requestPuzzle = spy()
+  it('should call loadPuzzle when mounted', async () => {
+    const loadPuzzle = spy()
 
     await mount(
       <SudokuColorApp
-        requestPuzzle={requestPuzzle}
+        loadPuzzle={loadPuzzle}
         board={StubbedBoard}
         appMenu={AppMenu}
         submitModal={SubmitModal}
       />
     )
 
-    expect(requestPuzzle).to.have.been.calledOnce()
+    expect(loadPuzzle).to.have.been.calledOnce()
   })
 
   it('should display loading while loading puzzle', async () => {

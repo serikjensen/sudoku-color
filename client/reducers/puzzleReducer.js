@@ -36,6 +36,7 @@ export default function reducer (state = defaultState, action = { type: null }) 
       if (!action.error) {
         return {
           ...state,
+          submittedPuzzle: false,
           requestingPuzzle: false,
           filledPuzzle: filledPuzzle(puzzle),
           puzzle
