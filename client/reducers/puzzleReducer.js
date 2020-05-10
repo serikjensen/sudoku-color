@@ -21,7 +21,7 @@ export const defaultState = {
   failedPuzzleRequest: null,
   validPuzzle: false,
   submittedPuzzle: false,
-  moves: [],
+  history: [],
   canUndo: false
 }
 
@@ -69,15 +69,15 @@ export default function reducer (state = defaultState, action = { type: null }) 
       const { i, j } = coords
       const prevValue = state.puzzle[i][j]
 
-      let moves = state.moves
+      let history = state.history
 
-      // Only add the move if it is different from the existing value
+      // Only add the move to history if it is different from the existing value
       if (prevValue !== puzzle[i][j]) {
-        moves = [
-          ...moves,
+        history = [
+          ...history,
           {
             coords,
-            prevValue
+            value: prevValue
           }
         ]
       }
@@ -87,25 +87,25 @@ export default function reducer (state = defaultState, action = { type: null }) 
         filledPuzzle: filledPuzzle(puzzle),
         validPuzzle: false,
         puzzle,
-        moves,
+        history,
         canUndo: true
       }
     }
     case UNDO_SET_TILE: {
       const { puzzle } = state
-      const moves = [...state.moves]
-      const move = moves.pop()
+      const history = [...state.history]
+      const move = history.pop()
 
       if (move) {
-        const { coords, prevValue } = move
+        const { coords, value } = move
         const newPuzzle = puzzle.map(row => row.slice())
-        newPuzzle[coords.i][coords.j] = prevValue
+        newPuzzle[coords.i][coords.j] = value
 
         return {
           ...state,
           puzzle: newPuzzle,
-          moves,
-          canUndo: moves.length > 0
+          history,
+          canUndo: history.length > 0
         }
       }
 

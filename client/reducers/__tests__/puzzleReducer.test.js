@@ -105,13 +105,13 @@ describe('puzzleReducer', () => {
     const puzzle = generateEmptyPuzzle()
 
     let state = defaultState
-    const moves = []
+    const history = []
 
     puzzle.forEach((row, i, newRow) => {
       row.forEach((value, j, newCol) => {
-        moves.push({
+        history.push({
           coords: { i, j },
-          prevValue: newCol[j]
+          value: newCol[j]
         })
 
         /* eslint-disable no-param-reassign */
@@ -132,7 +132,7 @@ describe('puzzleReducer', () => {
           filledPuzzle: (i === puzzle.length - 1 && j === row.length - 1),
           puzzle,
           canUndo: true,
-          moves
+          history
         })
       })
     })
@@ -143,20 +143,20 @@ describe('puzzleReducer', () => {
       ...defaultState,
       puzzle: generateEmptyPuzzle(),
       canUndo: true,
-      moves: [
+      history: [
         {
           coords: {
             i: 0,
             j: 0
           },
-          prevValue: 4
+          value: 4
         },
         {
           coords: {
             i: 0,
             j: 0
           },
-          prevValue: 8
+          value: 8
         }
       ]
     }, {
@@ -170,13 +170,13 @@ describe('puzzleReducer', () => {
       ...defaultState,
       puzzle: puzzleCompare1,
       canUndo: true,
-      moves: [
+      history: [
         {
           coords: {
             i: 0,
             j: 0
           },
-          prevValue: 4
+          value: 4
         }
       ]
     })
@@ -185,13 +185,13 @@ describe('puzzleReducer', () => {
       ...defaultState,
       puzzle: generateEmptyPuzzle(),
       canUndo: true,
-      moves: [
+      history: [
         {
           coords: {
             i: 0,
             j: 0
           },
-          prevValue: 4
+          value: 4
         }
       ]
     }, {
@@ -205,7 +205,7 @@ describe('puzzleReducer', () => {
       ...defaultState,
       puzzle: puzzleCompare2,
       canUndo: false,
-      moves: []
+      history: []
     })
   })
 

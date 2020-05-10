@@ -20,7 +20,7 @@ module.exports = (config) => {
       },
       resolve
     },
-    browsers: ['Chrome'],
+    browsers: config.mode === 'development' ? ['Chrome'] : ['CustomChromeHeadless'],
     browserDisconnectTimeout: 10000,
     browserDisconnectTolerance: 2,
     browserNoActivityTimeout: 30000,
@@ -28,6 +28,17 @@ module.exports = (config) => {
     autoWatch: true,
     webpackMiddleware: {
       stats: 'errors-only'
+    },
+    customLaunchers: {
+      CustomChromeHeadless: {
+        base: 'Chrome',
+        flags: [
+          '-incognito',
+          '--headless',
+          '--disable-gpu',
+          '--remote-debugging-port=9222'
+        ]
+      }
     }
   })
 }
