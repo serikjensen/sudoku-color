@@ -43,7 +43,8 @@ describe('puzzleReducer', () => {
       const state = reducer(defaultState, {
         type: RECEIVED_PUZZLE,
         payload: {
-          puzzle
+          puzzle,
+          history: []
         },
         error: false
       })

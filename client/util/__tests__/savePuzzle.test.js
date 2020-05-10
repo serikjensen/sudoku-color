@@ -12,9 +12,21 @@ describe('savePuzzle', () => {
       }
     }
 
-    savePuzzle({ puzzle: [[4, 5], [5, 4]] }, storage)
+    savePuzzle({
+      puzzle: [[4, 5], [5, 4]],
+      history: [{
+        coords: { i: 1, j: 1 },
+        value: 4
+      }]
+    }, storage)
 
-    expect(savedData[PUZZLE_KEY]).to.equal(JSON.stringify([[4, 5], [5, 4]]))
+    expect(savedData[PUZZLE_KEY]).to.equal(JSON.stringify({
+      puzzle: [[4, 5], [5, 4]],
+      history: [{
+        coords: { i: 1, j: 1 },
+        value: 4
+      }]
+    }))
   })
 
   it('should not save puzzle to storage when it has only null values', () => {

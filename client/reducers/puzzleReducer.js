@@ -34,7 +34,7 @@ export default function reducer (state = defaultState, action = { type: null }) 
       }
     }
     case RECEIVED_PUZZLE: {
-      const { puzzle } = action.payload
+      const { puzzle, history } = action.payload
 
       if (!action.error) {
         return {
@@ -42,13 +42,17 @@ export default function reducer (state = defaultState, action = { type: null }) 
           submittedPuzzle: false,
           requestingPuzzle: false,
           filledPuzzle: filledPuzzle(puzzle),
-          puzzle
+          puzzle,
+          history,
+          canUndo: history.length > 0
         }
       }
 
       return {
         ...state,
         requestingPuzzle: false,
+        history: [],
+        canUndo: false,
         failedPuzzleRequest: action.payload
       }
     }

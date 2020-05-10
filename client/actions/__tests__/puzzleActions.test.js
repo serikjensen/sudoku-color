@@ -36,13 +36,23 @@ describe('puzzleActions', () => {
       const receivedAction = {
         type: RECEIVED_PUZZLE,
         payload: {
-          puzzle: [[4, 5], [5, 4]]
+          puzzle: [[4, 5], [5, 4]],
+          history: {
+            coords: { i: 0, j: 0 },
+            value: 4
+          }
         },
         error: false
       }
 
       const onLoad = (load) => {
-        load([[4, 5], [5, 4]], null)
+        load({
+          puzzle: [[4, 5], [5, 4]],
+          history: {
+            coords: { i: 0, j: 0 },
+            value: 4
+          }
+        }, null)
       }
 
       loadPuzzle(onLoad)(store.dispatch)
@@ -65,7 +75,7 @@ describe('puzzleActions', () => {
       }
 
       const onLoad = (load) => {
-        load(undefined, error)
+        load({}, error)
       }
 
       loadPuzzle(onLoad)(store.dispatch)
@@ -78,7 +88,8 @@ describe('puzzleActions', () => {
       const receivedAction = {
         type: RECEIVED_PUZZLE,
         payload: {
-          puzzle: [[4, 5], [5, 4]]
+          puzzle: [[4, 5], [5, 4]],
+          history: []
         }
       }
 

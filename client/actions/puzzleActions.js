@@ -16,11 +16,12 @@ export const loadPuzzle = (onLoad = handleLoadPuzzle) => (dispatch) => {
     type: REQUEST_PUZZLE
   })
 
-  onLoad((puzzle, error) => {
+  onLoad(({ puzzle, history }, error) => {
     dispatch({
       type: RECEIVED_PUZZLE,
       payload: error || {
-        puzzle
+        puzzle,
+        history
       },
       error: !!error
     })
@@ -31,7 +32,8 @@ export const requestPuzzle = (executePuzzleGenerator = generatePuzzle) => (dispa
   dispatch({
     type: RECEIVED_PUZZLE,
     payload: {
-      puzzle: executePuzzleGenerator()
+      puzzle: executePuzzleGenerator(),
+      history: []
     }
   })
 }
