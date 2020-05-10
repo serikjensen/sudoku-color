@@ -26,7 +26,8 @@ class AppMenu extends PureComponent {
     resetPuzzle: PropTypes.func,
     onResetPuzzle: PropTypes.func,
     submittedPuzzle: PropTypes.bool,
-    filledPuzzle: PropTypes.bool
+    filledPuzzle: PropTypes.bool,
+    triggerRef: PropTypes.func
   }
 
   static defaultProps = {
@@ -35,7 +36,8 @@ class AppMenu extends PureComponent {
     resetPuzzle: () => { },
     onResetPuzzle: () => { },
     submittedPuzzle: false,
-    filledPuzzle: false
+    filledPuzzle: false,
+    triggerRef: () => {}
   }
 
   state = {
@@ -74,6 +76,7 @@ class AppMenu extends PureComponent {
   }
 
   handleTriggerRef = el => {
+    this.props.triggerRef(el)
     this._trigger = el
   }
 

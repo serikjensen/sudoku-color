@@ -4,12 +4,16 @@ import { connect } from 'react-redux'
 
 import '@instructure/canvas-theme'
 
+import { IconResetLine } from '@instructure/ui-icons'
+
 import AppThemeProvider from '../theming/AppThemeProvider'
 
 import ConnectedBoard from '../Board'
 import ConnectedAppMenu from '../AppMenu'
 import ConnectedSubmitModal from '../SubmitModal'
-import { loadPuzzle } from '../../actions/puzzleActions'
+import { loadPuzzle, undoSetTile } from '../../actions/puzzleActions'
+
+import IconButton from '../IconButton'
 
 import {
   AppContentStyles,
@@ -22,39 +26,60 @@ import baseTheme from '../../themes/base'
 class SudokuColorApp extends PureComponent {
   _board = null
 
+  _menuTrigger = null
+
   static propTypes = {
     requestingPuzzle: PropTypes.bool,
     loadPuzzle: PropTypes.func,
+    undoSetTile: PropTypes.func,
     board: PropTypes.elementType,
     appMenu: PropTypes.elementType,
-    submitModal: PropTypes.elementType
+    submitModal: PropTypes.elementType,
+    canUndo: PropTypes.bool
   }
 
   static defaultProps = {
     requestingPuzzle: true,
     loadPuzzle: () => {},
+    undoSetTile: () => {},
     board: ConnectedBoard,
     appMenu: ConnectedAppMenu,
-    submitModal: ConnectedSubmitModal
+    submitModal: ConnectedSubmitModal,
+    canUndo: false
   }
 
   componentDidMount () {
     this.props.loadPuzzle()
   }
 
+  componentDidUpdate (prevProps) {
+    if (prevProps.canUndo && !this.props.canUndo) {
+      this._menuTrigger && this._menuTrigger.focus()
+    }
+  }
+
   handleBoardRef = (el) => {
     this._board = el
+  }
+
+  handleMenuTriggerRef = (el) => {
+    this._menuTrigger = el
   }
 
   handleResetPuzzle = () => {
     this._board && this._board.reset()
   }
 
+  handleUndo = () => {
+    this.props.undoSetTile()
+  }
+
   render () {
     const {
       board: Board,
       appMenu: AppMenu,
-      submitModal: SubmitModal
+      submitModal: SubmitModal,
+      canUndo
     } = this.props
 
     return (
@@ -66,7 +91,16 @@ class SudokuColorApp extends PureComponent {
                 <AppMenu
                   onRequestPuzzle={this.handleResetPuzzle}
                   onResetPuzzle={this.handleResetPuzzle}
+                  triggerRef={this.handleMenuTriggerRef}
                 />
+                {canUndo && (
+                  <IconButton
+                    onClick={this.handleUndo}
+                    label="Undo"
+                    icon={() => <IconResetLine />}
+                    color="neutral"
+                  />
+                )}
               </AppHeaderStyles>
               <AppBodyStyles>
                 {!this.props.requestingPuzzle
@@ -90,4 +124,4 @@ class SudokuColorApp extends PureComponent {
 const mapStateToProps = state => state.puzzle
 
 export { SudokuColorApp }
-export default connect(mapStateToProps, { loadPuzzle })(SudokuColorApp)
+export default connect(mapStateToProps, { loadPuzzle, undoSetTile })(SudokuColorApp)

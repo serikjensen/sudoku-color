@@ -8,6 +8,7 @@ import {
   REQUEST_PUZZLE,
   RECEIVED_PUZZLE,
   SET_TILE,
+  UNDO_SET_TILE,
   SUBMIT_PUZZLE
 } from '../../constants/actionTypes'
 
@@ -104,9 +105,15 @@ describe('puzzleReducer', () => {
     const puzzle = generateEmptyPuzzle()
 
     let state = defaultState
+    const moves = []
 
     puzzle.forEach((row, i, newRow) => {
       row.forEach((value, j, newCol) => {
+        moves.push({
+          coords: { i, j },
+          prevValue: newCol[j]
+        })
+
         /* eslint-disable no-param-reassign */
         newCol[j] = 3
         newRow[i] = newCol
@@ -123,9 +130,82 @@ describe('puzzleReducer', () => {
         expect(state).to.deep.equal({
           ...defaultState,
           filledPuzzle: (i === puzzle.length - 1 && j === row.length - 1),
-          puzzle
+          puzzle,
+          canUndo: true,
+          moves
         })
       })
+    })
+  })
+
+  it('should handle UNDO_SET_TILE', () => {
+    let state = reducer({
+      ...defaultState,
+      puzzle: generateEmptyPuzzle(),
+      canUndo: true,
+      moves: [
+        {
+          coords: {
+            i: 0,
+            j: 0
+          },
+          prevValue: 4
+        },
+        {
+          coords: {
+            i: 0,
+            j: 0
+          },
+          prevValue: 8
+        }
+      ]
+    }, {
+      type: UNDO_SET_TILE
+    })
+
+    const puzzleCompare1 = generateEmptyPuzzle()
+    puzzleCompare1[0][0] = 8
+
+    expect(state).to.deep.equal({
+      ...defaultState,
+      puzzle: puzzleCompare1,
+      canUndo: true,
+      moves: [
+        {
+          coords: {
+            i: 0,
+            j: 0
+          },
+          prevValue: 4
+        }
+      ]
+    })
+
+    state = reducer({
+      ...defaultState,
+      puzzle: generateEmptyPuzzle(),
+      canUndo: true,
+      moves: [
+        {
+          coords: {
+            i: 0,
+            j: 0
+          },
+          prevValue: 4
+        }
+      ]
+    }, {
+      type: UNDO_SET_TILE
+    })
+
+    const puzzleCompare2 = generateEmptyPuzzle()
+    puzzleCompare2[0][0] = 4
+
+    expect(state).to.deep.equal({
+      ...defaultState,
+      puzzle: puzzleCompare2,
+      canUndo: false,
+      moves: []
     })
   })
 

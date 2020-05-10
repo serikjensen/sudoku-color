@@ -6,6 +6,8 @@ export const AppContentStyles = styled.div`
 `
 
 export const AppHeaderStyles = styled.div`
+  display: flex;
+  justify-content: space-between;
   margin: 1.5rem 0;
 `
 

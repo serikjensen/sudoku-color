@@ -4,6 +4,7 @@ import {
   REQUEST_PUZZLE,
   RESET_PUZZLE,
   SET_TILE,
+  UNDO_SET_TILE,
   SUBMIT_PUZZLE
 } from '../constants/actionTypes'
 
@@ -48,6 +49,12 @@ export const setTile = (coords, value) => (dispatch) => {
       coords,
       value
     }
+  })
+}
+
+export const undoSetTile = () => (dispatch) => {
+  dispatch({
+    type: UNDO_SET_TILE
   })
 }
 

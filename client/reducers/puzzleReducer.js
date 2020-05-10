@@ -10,6 +10,7 @@ import {
   REQUEST_PUZZLE,
   RESET_PUZZLE,
   SET_TILE,
+  UNDO_SET_TILE,
   SUBMIT_PUZZLE
 } from '../constants/actionTypes'
 
@@ -19,7 +20,9 @@ export const defaultState = {
   requestingPuzzle: false,
   failedPuzzleRequest: null,
   validPuzzle: false,
-  submittedPuzzle: false
+  submittedPuzzle: false,
+  moves: [],
+  canUndo: false
 }
 
 export default function reducer (state = defaultState, action = { type: null }) {
@@ -63,12 +66,50 @@ export default function reducer (state = defaultState, action = { type: null }) 
 
       const puzzle = setTile(state.puzzle, coords, value)
 
+      const { i, j } = coords
+      const prevValue = state.puzzle[i][j]
+
+      let moves = state.moves
+
+      // Only add the move if it is different from the existing value
+      if (prevValue !== puzzle[i][j]) {
+        moves = [
+          ...moves,
+          {
+            coords,
+            prevValue
+          }
+        ]
+      }
+
       return {
         ...state,
         filledPuzzle: filledPuzzle(puzzle),
         validPuzzle: false,
-        puzzle
+        puzzle,
+        moves,
+        canUndo: true
       }
+    }
+    case UNDO_SET_TILE: {
+      const { puzzle } = state
+      const moves = [...state.moves]
+      const move = moves.pop()
+
+      if (move) {
+        const { coords, prevValue } = move
+        const newPuzzle = puzzle.map(row => row.slice())
+        newPuzzle[coords.i][coords.j] = prevValue
+
+        return {
+          ...state,
+          puzzle: newPuzzle,
+          moves,
+          canUndo: moves.length > 0
+        }
+      }
+
+      return state
     }
     case SUBMIT_PUZZLE: {
       return {

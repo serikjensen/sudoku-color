@@ -60,4 +60,53 @@ describe('<SudokuColorApp />', async () => {
 
     expect(await find(':contains(Loading)', { expectEmpty: true })).to.not.exist()
   })
+
+  it('should not display an undo button when you cannot undo', async () => {
+    await mount(
+      <SudokuColorApp
+        requestingPuzzle={false}
+        board={StubbedBoard}
+        appMenu={AppMenu}
+        submitModal={SubmitModal}
+        canUndo={false}
+      />
+    )
+
+    expect(await find('button:contains(Undo)', { expectEmpty: true })).to.not.exist()
+  })
+
+  it('should display an undo button when you can undo', async () => {
+    await mount(
+      <SudokuColorApp
+        requestingPuzzle={false}
+        board={StubbedBoard}
+        appMenu={AppMenu}
+        submitModal={SubmitModal}
+        canUndo
+      />
+    )
+
+    expect(await find('button:contains(Undo)')).to.exist()
+  })
+
+  it('should call undoSetTile when undo button is clicked', async () => {
+    const undoSetTile = spy()
+
+    await mount(
+      <SudokuColorApp
+        requestingPuzzle={false}
+        board={StubbedBoard}
+        appMenu={AppMenu}
+        submitModal={SubmitModal}
+        undoSetTile={undoSetTile}
+        canUndo
+      />
+    )
+
+    const undoButton = await find('button:contains(Undo)')
+
+    await undoButton.click()
+
+    expect(undoSetTile).to.have.been.calledOnce()
+  })
 })
