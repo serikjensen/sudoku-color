@@ -1,9 +1,11 @@
 import { PUZZLE_KEY } from '../constants/storageTypes'
+import { REALLY_EASY } from '../constants/difficultyTypes'
 import generatePuzzle from './generatePuzzle'
 
 export default function loadPuzzle (onLoad, storage = localStorage, executePuzzleGenerator = generatePuzzle) {
   let puzzle
   let history = []
+  let difficulty = REALLY_EASY
 
   try {
     const savedPuzzleData = storage.getItem(PUZZLE_KEY)
@@ -13,13 +15,15 @@ export default function loadPuzzle (onLoad, storage = localStorage, executePuzzl
 
       puzzle = savedPuzzle.puzzle
       history = savedPuzzle.history
+      difficulty = savedPuzzle.difficulty
     }
   } catch (err) {
-    puzzle = executePuzzleGenerator()
+    puzzle = executePuzzleGenerator(difficulty)
   }
 
   onLoad({
-    puzzle: puzzle || executePuzzleGenerator(),
-    history
+    puzzle: puzzle || executePuzzleGenerator(difficulty),
+    history,
+    difficulty
   })
 }

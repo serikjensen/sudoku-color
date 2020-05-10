@@ -1,12 +1,13 @@
 import { PUZZLE_KEY } from '../constants/storageTypes'
 import isEmptyPuzzle from './isEmptyPuzzle'
 
-export default function savePuzzle ({ puzzle, history }, storage = localStorage) {
+export default function savePuzzle ({ puzzle, history, difficulty }, storage = localStorage) {
   try {
     if (!isEmptyPuzzle(puzzle)) {
       const puzzleData = JSON.stringify({
         puzzle,
-        history
+        history,
+        difficulty
       })
       storage.setItem(PUZZLE_KEY, puzzleData)
     }

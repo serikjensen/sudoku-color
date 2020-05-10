@@ -9,8 +9,11 @@ import {
   RECEIVED_PUZZLE,
   SET_TILE,
   UNDO_SET_TILE,
+  SET_DIFFICULTY,
   SUBMIT_PUZZLE
 } from '../../constants/actionTypes'
+
+import { REALLY_EASY, MEDIUM } from '../../constants/difficultyTypes'
 
 import { puzzle3, puzzle4 } from '../../util/__tests__/testPuzzles'
 
@@ -274,6 +277,23 @@ describe('puzzleReducer', () => {
         submittedPuzzle: false,
         validPuzzle: false
       })
+    })
+  })
+
+  it('should handle SET_DIFFICULTY', () => {
+    const state = reducer({
+      ...defaultState,
+      difficulty: REALLY_EASY
+    }, {
+      type: SET_DIFFICULTY,
+      payload: {
+        difficulty: MEDIUM
+      }
+    })
+
+    expect(state).to.deep.equal({
+      ...defaultState,
+      difficulty: MEDIUM
     })
   })
 })

@@ -24,3 +24,13 @@ const CloseButtonStyles = styled.div`
 `
 const ThemeableCloseButtonStyles = themeable(CloseButtonStyles, composeTheme)
 export { ThemeableCloseButtonStyles as CloseButtonStyles }
+
+const SettingsStyles = styled.h3`
+  font-size: ${({ theme }) => theme.settingsFontSize};
+  color: ${({ theme }) => theme.settingsColor};
+  border-bottom: 1px solid ${({ theme }) => theme.settingsRuleColor};
+  padding: 1rem 0;
+  margin-top: 2rem;
+`
+const ThemeableSettingsStyles = themeable(SettingsStyles, composeTheme)
+export { ThemeableSettingsStyles as SettingsStyles }

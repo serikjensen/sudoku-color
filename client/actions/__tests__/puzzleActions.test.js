@@ -7,8 +7,14 @@ import {
   REQUEST_PUZZLE,
   RESET_PUZZLE,
   SET_TILE,
+  UNDO_SET_TILE,
+  SET_DIFFICULTY,
   SUBMIT_PUZZLE
 } from '../../constants/actionTypes'
+
+import {
+  MEDIUM
+} from '../../constants/difficultyTypes'
 
 import {
   continuePuzzle,
@@ -16,6 +22,8 @@ import {
   requestPuzzle,
   resetPuzzle,
   setTile,
+  undoSetTile,
+  setDifficulty,
   submitPuzzle
 } from '../puzzleActions'
 
@@ -40,7 +48,8 @@ describe('puzzleActions', () => {
           history: {
             coords: { i: 0, j: 0 },
             value: 4
-          }
+          },
+          difficulty: MEDIUM
         },
         error: false
       }
@@ -51,7 +60,8 @@ describe('puzzleActions', () => {
           history: {
             coords: { i: 0, j: 0 },
             value: 4
-          }
+          },
+          difficulty: MEDIUM
         }, null)
       }
 
@@ -93,7 +103,7 @@ describe('puzzleActions', () => {
         }
       }
 
-      requestPuzzle(() => [[4, 5], [5, 4]])(store.dispatch)
+      requestPuzzle(MEDIUM, () => [[4, 5], [5, 4]])(store.dispatch)
       const actions = store.getActions()
       expect(actions[0]).to.deep.equal(receivedAction)
     })
@@ -142,6 +152,29 @@ describe('puzzleActions', () => {
     }
 
     continuePuzzle()(store.dispatch)
+    const actions = store.getActions()
+    expect(actions[0]).to.deep.equal(expectedAction)
+  })
+
+  it('should dispatch UNDO_SET_TILE', () => {
+    const expectedAction = {
+      type: UNDO_SET_TILE
+    }
+
+    undoSetTile()(store.dispatch)
+    const actions = store.getActions()
+    expect(actions[0]).to.deep.equal(expectedAction)
+  })
+
+  it('should dispatch SET_DIFFICULTY', () => {
+    const expectedAction = {
+      type: SET_DIFFICULTY,
+      payload: {
+        difficulty: MEDIUM
+      }
+    }
+
+    setDifficulty(MEDIUM)(store.dispatch)
     const actions = store.getActions()
     expect(actions[0]).to.deep.equal(expectedAction)
   })

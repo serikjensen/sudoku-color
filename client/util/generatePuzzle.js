@@ -1,12 +1,42 @@
 import {
-  getVeryEasySudoku
+  getVeryEasySudoku,
+  getEasySudoku,
+  getMediumSudoku,
+  getHardSudoku
 } from 'fake-sudoku-puzzle-generator'
+
+import {
+  REALLY_EASY,
+  EASY,
+  MEDIUM,
+  HARD
+} from '../constants/difficultyTypes'
 
 const PUZZLE_LENGTH = 81
 const PUZZLE_WIDTH = 9
 
-export default function generatePuzzle () {
-  const puzzleGenerator = getVeryEasySudoku
+function getPuzzleGenerator (difficulty) {
+  switch (difficulty) {
+    case REALLY_EASY: {
+      return getVeryEasySudoku
+    }
+    case EASY: {
+      return getEasySudoku
+    }
+    case MEDIUM: {
+      return getMediumSudoku
+    }
+    case HARD: {
+      return getHardSudoku
+    }
+    default: {
+      return getVeryEasySudoku
+    }
+  }
+}
+
+export default function generatePuzzle (difficulty) {
+  const puzzleGenerator = getPuzzleGenerator(difficulty)
   const puzzle = puzzleGenerator().reduce((result, row) => result.concat(row), [])
   const rawPuzzle = generateRawPuzzle(puzzle)
   /* TODO: error handling for malformed puzzle */

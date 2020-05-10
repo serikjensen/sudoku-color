@@ -1,6 +1,7 @@
 export default Object.freeze({
   colors: {
     lightest: '#FFFFFF',
+    light: '#dbdbdb',
     neutral: '#9B9B9B',
     dark: '#4A4A4A',
     primary: '#4990E2',

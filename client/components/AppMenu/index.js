@@ -4,17 +4,27 @@ import { connect } from 'react-redux'
 
 import { IconHamburgerLine, IconXLine } from '@instructure/ui-icons'
 
+import {
+  REALLY_EASY,
+  EASY,
+  MEDIUM,
+  HARD
+} from '../../constants/difficultyTypes'
+
 import Tray from '../util/Tray'
+import RadioInputGroup from '../util/RadioInputGroup'
+import RadioInput from '../util/RadioInput'
 import AppLogo from '../AppLogo'
 import Button from '../Button'
 import IconButton from '../IconButton'
 
-import { requestPuzzle, resetPuzzle } from '../../actions/puzzleActions'
+import { requestPuzzle, resetPuzzle, setDifficulty } from '../../actions/puzzleActions'
 
 import {
   TrayStyles,
   CloseButtonStyles,
-  HeaderStyles
+  HeaderStyles,
+  SettingsStyles
 } from './styles'
 
 class AppMenu extends PureComponent {
@@ -27,7 +37,14 @@ class AppMenu extends PureComponent {
     onResetPuzzle: PropTypes.func,
     submittedPuzzle: PropTypes.bool,
     filledPuzzle: PropTypes.bool,
-    triggerRef: PropTypes.func
+    triggerRef: PropTypes.func,
+    setDifficulty: PropTypes.func,
+    difficulty: PropTypes.oneOf([
+      REALLY_EASY,
+      EASY,
+      MEDIUM,
+      HARD
+    ])
   }
 
   static defaultProps = {
@@ -37,7 +54,9 @@ class AppMenu extends PureComponent {
     onResetPuzzle: () => { },
     submittedPuzzle: false,
     filledPuzzle: false,
-    triggerRef: () => {}
+    triggerRef: () => {},
+    setDifficulty: () => {},
+    difficulty: REALLY_EASY
   }
 
   state = {
@@ -64,7 +83,7 @@ class AppMenu extends PureComponent {
   }
 
   handleNewPuzzle = () => {
-    this.props.requestPuzzle()
+    this.props.requestPuzzle(this.props.difficulty)
     this.props.onRequestPuzzle()
     this.setTrayStatus(false)
   }
@@ -78,6 +97,26 @@ class AppMenu extends PureComponent {
   handleTriggerRef = el => {
     this.props.triggerRef(el)
     this._trigger = el
+  }
+
+  handleSetDifficulty = (event, value) => {
+    this.props.setDifficulty(value)
+  }
+
+  renderSelectDifficulty () {
+    return (
+      <RadioInputGroup
+        description="Puzzle Difficulty"
+        name="difficulty"
+        value={this.props.difficulty}
+        onChange={this.handleSetDifficulty}
+      >
+        <RadioInput value={REALLY_EASY} label="Really Easy" />
+        <RadioInput value={EASY} label="Easy" />
+        <RadioInput value={MEDIUM} label="Medium" />
+        <RadioInput value={HARD} label="Hard" />
+      </RadioInputGroup>
+    )
   }
 
   render () {
@@ -95,6 +134,7 @@ class AppMenu extends PureComponent {
           open={this.state.open}
           placement="start"
           onDismiss={this.handleTrayClose}
+          shouldCloseOnDocumentClick
         >
           <TrayStyles>
             <CloseButtonStyles>
@@ -123,6 +163,8 @@ class AppMenu extends PureComponent {
             >
               New Puzzle
             </Button>
+            <SettingsStyles>Settings</SettingsStyles>
+            {this.renderSelectDifficulty()}
           </TrayStyles>
         </Tray>
       </div>
@@ -133,4 +175,4 @@ class AppMenu extends PureComponent {
 const mapStateToProps = state => state.puzzle
 
 export { AppMenu }
-export default connect(mapStateToProps, { requestPuzzle, resetPuzzle })(AppMenu)
+export default connect(mapStateToProps, { requestPuzzle, resetPuzzle, setDifficulty })(AppMenu)

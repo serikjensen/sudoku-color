@@ -3,6 +3,8 @@ import React from 'react'
 import { expect, find, mount, spy, wait } from '@instructure/ui-test-utils'
 import TrayLocator from '@instructure/ui-tray/es/Tray/locator'
 
+import { MEDIUM, HARD } from '../../../constants/difficultyTypes'
+
 import { AppMenu } from '../index'
 
 describe('<AppMenu />', async () => {
@@ -104,5 +106,45 @@ describe('<AppMenu />', async () => {
 
     const trigger = await find('button:contains(Open menu)')
     expect(trigger.focused()).to.be.true()
+  })
+
+  it('should properly check the difficulty setting provided', async () => {
+    await mount(
+      <AppMenu difficulty={MEDIUM} />
+    )
+
+    const trigger = await find('button:contains(Open menu)')
+    await trigger.click()
+
+    const tray = await TrayLocator.find(':label(Menu)')
+
+    await wait(() => {
+      expect(tray.containsFocus()).to.be.true()
+    })
+
+    expect(await find(`input[type="radio"][value="${MEDIUM}"]:checked`)).to.exist()
+  })
+
+  it('should call setDifficulty when input changes', async () => {
+    const setDifficulty = spy()
+
+    await mount(
+      <AppMenu difficulty={MEDIUM} setDifficulty={setDifficulty} />
+    )
+
+    const trigger = await find('button:contains(Open menu)')
+    await trigger.click()
+
+    const tray = await TrayLocator.find(':label(Menu)')
+
+    await wait(() => {
+      expect(tray.containsFocus()).to.be.true()
+    })
+
+    const input = await find(`input[type="radio"][value="${HARD}"]`)
+    await input.click()
+
+    expect(setDifficulty).to.have.been.calledOnce()
+    expect(setDifficulty.lastCall.args[0]).to.equal(HARD)
   })
 })

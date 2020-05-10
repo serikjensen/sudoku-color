@@ -11,8 +11,13 @@ import {
   RESET_PUZZLE,
   SET_TILE,
   UNDO_SET_TILE,
+  SET_DIFFICULTY,
   SUBMIT_PUZZLE
 } from '../constants/actionTypes'
+
+import {
+  REALLY_EASY
+} from '../constants/difficultyTypes'
 
 export const defaultState = {
   puzzle: generateEmptyPuzzle(),
@@ -22,7 +27,8 @@ export const defaultState = {
   validPuzzle: false,
   submittedPuzzle: false,
   history: [],
-  canUndo: false
+  canUndo: false,
+  difficulty: REALLY_EASY
 }
 
 export default function reducer (state = defaultState, action = { type: null }) {
@@ -34,7 +40,7 @@ export default function reducer (state = defaultState, action = { type: null }) 
       }
     }
     case RECEIVED_PUZZLE: {
-      const { puzzle, history } = action.payload
+      const { puzzle, history, difficulty } = action.payload
 
       if (!action.error) {
         return {
@@ -44,7 +50,8 @@ export default function reducer (state = defaultState, action = { type: null }) 
           filledPuzzle: filledPuzzle(puzzle),
           puzzle,
           history,
-          canUndo: history.length > 0
+          canUndo: history.length > 0,
+          difficulty: difficulty || state.difficulty
         }
       }
 
@@ -114,6 +121,14 @@ export default function reducer (state = defaultState, action = { type: null }) 
       }
 
       return state
+    }
+    case SET_DIFFICULTY: {
+      const { difficulty } = action.payload
+
+      return {
+        ...state,
+        difficulty
+      }
     }
     case SUBMIT_PUZZLE: {
       return {
