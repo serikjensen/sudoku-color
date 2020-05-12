@@ -50,11 +50,26 @@ class SudokuColorApp extends PureComponent {
 
   componentDidMount () {
     this.props.loadPuzzle()
+
+    document.addEventListener('keydown', this.handleDocumentKeyDown)
   }
 
   componentDidUpdate (prevProps) {
     if (prevProps.canUndo && !this.props.canUndo) {
       this._menuTrigger && this._menuTrigger.focus()
+    }
+  }
+
+  componentWillUnmount () {
+    document.removeEventListener('keydown', this.handleDocumentKeyDown)
+  }
+
+  handleDocumentKeyDown = (event) => {
+    // Enable undo keyboard shortcut
+    const { keyCode, metaKey, ctrlKey } = event
+
+    if (keyCode === 90 && (metaKey || ctrlKey)) {
+      this.handleUndo()
     }
   }
 
@@ -97,7 +112,7 @@ class SudokuColorApp extends PureComponent {
                   <IconButton
                     onClick={this.handleUndo}
                     label="Undo"
-                    icon={() => <IconResetLine />}
+                    icon={() => <IconResetLine style={{ transform: 'rotate(-45deg) scale(-1,1)' }} />}
                     color="neutral"
                   />
                 )}
