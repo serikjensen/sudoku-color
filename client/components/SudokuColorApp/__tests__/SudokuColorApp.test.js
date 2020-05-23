@@ -38,6 +38,7 @@ describe('<SudokuColorApp />', async () => {
   it('should display loading while loading puzzle', async () => {
     await mount(
       <SudokuColorApp
+        isLoadingUserSettings={false}
         requestingPuzzle
         board={StubbedBoard}
         appMenu={AppMenu}
@@ -48,9 +49,24 @@ describe('<SudokuColorApp />', async () => {
     expect(await find(':contains(Loading)')).to.exist()
   })
 
-  it('should not display loading after puzzle is loaded', async () => {
+  it('should display loading while loading user settings', async () => {
     await mount(
       <SudokuColorApp
+        requestingPuzzle={false}
+        isLoadingUserSettings
+        board={StubbedBoard}
+        appMenu={AppMenu}
+        submitModal={SubmitModal}
+      />
+    )
+
+    expect(await find(':contains(Loading)')).to.exist()
+  })
+
+  it('should not display loading after puzzle and user settings are loaded', async () => {
+    await mount(
+      <SudokuColorApp
+        isLoadingUserSettings={false}
         requestingPuzzle={false}
         board={StubbedBoard}
         appMenu={AppMenu}

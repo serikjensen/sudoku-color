@@ -4,7 +4,6 @@ import {
   REQUEST_PUZZLE,
   RESET_PUZZLE,
   SET_TILE,
-  SET_DIFFICULTY,
   UNDO_SET_TILE,
   SUBMIT_PUZZLE
 } from '../constants/actionTypes'
@@ -35,7 +34,8 @@ export const requestPuzzle = (difficulty, executePuzzleGenerator = generatePuzzl
     type: RECEIVED_PUZZLE,
     payload: {
       puzzle: executePuzzleGenerator(difficulty),
-      history: []
+      history: [],
+      difficulty
     }
   })
 }
@@ -59,15 +59,6 @@ export const setTile = (coords, value) => (dispatch) => {
 export const undoSetTile = () => (dispatch) => {
   dispatch({
     type: UNDO_SET_TILE
-  })
-}
-
-export const setDifficulty = (difficulty) => (dispatch) => {
-  dispatch({
-    type: SET_DIFFICULTY,
-    payload: {
-      difficulty
-    }
   })
 }
 

@@ -8,13 +8,10 @@ import {
   RESET_PUZZLE,
   SET_TILE,
   UNDO_SET_TILE,
-  SET_DIFFICULTY,
   SUBMIT_PUZZLE
 } from '../../constants/actionTypes'
 
-import {
-  MEDIUM
-} from '../../constants/difficultyTypes'
+import { MEDIUM } from '../../constants/difficultyTypes'
 
 import {
   continuePuzzle,
@@ -23,7 +20,6 @@ import {
   resetPuzzle,
   setTile,
   undoSetTile,
-  setDifficulty,
   submitPuzzle
 } from '../puzzleActions'
 
@@ -99,7 +95,8 @@ describe('puzzleActions', () => {
         type: RECEIVED_PUZZLE,
         payload: {
           puzzle: [[4, 5], [5, 4]],
-          history: []
+          history: [],
+          difficulty: MEDIUM
         }
       }
 
@@ -162,19 +159,6 @@ describe('puzzleActions', () => {
     }
 
     undoSetTile()(store.dispatch)
-    const actions = store.getActions()
-    expect(actions[0]).to.deep.equal(expectedAction)
-  })
-
-  it('should dispatch SET_DIFFICULTY', () => {
-    const expectedAction = {
-      type: SET_DIFFICULTY,
-      payload: {
-        difficulty: MEDIUM
-      }
-    }
-
-    setDifficulty(MEDIUM)(store.dispatch)
     const actions = store.getActions()
     expect(actions[0]).to.deep.equal(expectedAction)
   })

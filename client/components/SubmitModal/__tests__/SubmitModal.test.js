@@ -4,6 +4,8 @@ import { expect, find, mount, spy } from '@instructure/ui-test-utils'
 import ModalLocator from '@instructure/ui-modal/es/Modal/locator'
 
 import { SubmitModal } from '../index'
+import { AwardHero } from '../../AwardHero'
+import { HARD } from '../../../constants/difficultyTypes'
 
 describe('<SubmitModal />', async () => {
   it('should only display submit puzzle button when puzzle is filled', async () => {
@@ -28,17 +30,17 @@ describe('<SubmitModal />', async () => {
   })
 
   it('should display a success message if puzzle is valid', async () => {
-    await mount(<SubmitModal submittedPuzzle validPuzzle />)
+    await mount(<SubmitModal awardHero={AwardHero} submittedPuzzle validPuzzle />)
 
     const modal = await ModalLocator.find()
-    expect(await modal.find(':contains(Puzzle is correct)')).to.exist()
+    expect(await modal.find(':contains(Congratulations!)')).to.exist()
   })
 
   it('should display an invalid puzzle message if puzzle is invalid', async () => {
     await mount(<SubmitModal submittedPuzzle validPuzzle={false} />)
 
     const modal = await ModalLocator.find()
-    expect(await modal.find(':contains(Puzzle is incorrect)')).to.exist()
+    expect(await modal.find(':contains(Whoops!)')).to.exist()
   })
 
   it('should call continue puzzle if the close button is selected', async () => {
@@ -46,7 +48,7 @@ describe('<SubmitModal />', async () => {
     await mount(<SubmitModal submittedPuzzle continuePuzzle={continuePuzzle} />)
 
     const modal = await ModalLocator.find()
-    const closeButton = await modal.find('button:contains(close)')
+    const closeButton = await modal.find('button:contains(Close)')
     await closeButton.click()
 
     expect(continuePuzzle).to.have.been.calledOnce()
@@ -79,6 +81,7 @@ describe('<SubmitModal />', async () => {
         submittedPuzzle
         requestPuzzle={requestPuzzle}
         onRequestPuzzle={onRequestPuzzle}
+        difficultyPreference={HARD}
       />
     )
 

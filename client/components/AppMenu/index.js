@@ -18,7 +18,8 @@ import AppLogo from '../AppLogo'
 import Button from '../Button'
 import IconButton from '../IconButton'
 
-import { requestPuzzle, resetPuzzle, setDifficulty } from '../../actions/puzzleActions'
+import { requestPuzzle, resetPuzzle } from '../../actions/puzzleActions'
+import { setDifficultyPreference } from '../../actions/userSettingsActions'
 
 import {
   TrayStyles,
@@ -38,8 +39,8 @@ class AppMenu extends PureComponent {
     submittedPuzzle: PropTypes.bool,
     filledPuzzle: PropTypes.bool,
     triggerRef: PropTypes.func,
-    setDifficulty: PropTypes.func,
-    difficulty: PropTypes.oneOf([
+    setDifficultyPreference: PropTypes.func,
+    difficultyPreference: PropTypes.oneOf([
       REALLY_EASY,
       EASY,
       MEDIUM,
@@ -55,8 +56,8 @@ class AppMenu extends PureComponent {
     submittedPuzzle: false,
     filledPuzzle: false,
     triggerRef: () => {},
-    setDifficulty: () => {},
-    difficulty: REALLY_EASY
+    setDifficultyPreference: () => {},
+    difficultyPreference: REALLY_EASY
   }
 
   state = {
@@ -83,7 +84,7 @@ class AppMenu extends PureComponent {
   }
 
   handleNewPuzzle = () => {
-    this.props.requestPuzzle(this.props.difficulty)
+    this.props.requestPuzzle(this.props.difficultyPreference)
     this.props.onRequestPuzzle()
     this.setTrayStatus(false)
   }
@@ -100,7 +101,7 @@ class AppMenu extends PureComponent {
   }
 
   handleSetDifficulty = (event, value) => {
-    this.props.setDifficulty(value)
+    this.props.setDifficultyPreference(value)
   }
 
   renderSelectDifficulty () {
@@ -108,7 +109,7 @@ class AppMenu extends PureComponent {
       <RadioInputGroup
         description="Puzzle Difficulty"
         name="difficulty"
-        value={this.props.difficulty}
+        value={this.props.difficultyPreference}
         onChange={this.handleSetDifficulty}
       >
         <RadioInput value={REALLY_EASY} label="Really Easy" />
@@ -172,7 +173,10 @@ class AppMenu extends PureComponent {
   }
 }
 
-const mapStateToProps = state => state.puzzle
+const mapStateToProps = state => ({
+  ...state.puzzle,
+  ...state.userSettings
+})
 
 export { AppMenu }
-export default connect(mapStateToProps, { requestPuzzle, resetPuzzle, setDifficulty })(AppMenu)
+export default connect(mapStateToProps, { requestPuzzle, resetPuzzle, setDifficultyPreference })(AppMenu)

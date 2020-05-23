@@ -110,7 +110,7 @@ describe('<AppMenu />', async () => {
 
   it('should properly check the difficulty setting provided', async () => {
     await mount(
-      <AppMenu difficulty={MEDIUM} />
+      <AppMenu difficultyPreference={MEDIUM} />
     )
 
     const trigger = await find('button:contains(Open menu)')
@@ -126,10 +126,10 @@ describe('<AppMenu />', async () => {
   })
 
   it('should call setDifficulty when input changes', async () => {
-    const setDifficulty = spy()
+    const setDifficultyPreference = spy()
 
     await mount(
-      <AppMenu difficulty={MEDIUM} setDifficulty={setDifficulty} />
+      <AppMenu difficultyPreference={MEDIUM} setDifficultyPreference={setDifficultyPreference} />
     )
 
     const trigger = await find('button:contains(Open menu)')
@@ -144,7 +144,7 @@ describe('<AppMenu />', async () => {
     const input = await find(`input[type="radio"][value="${HARD}"]`)
     await input.click()
 
-    expect(setDifficulty).to.have.been.calledOnce()
-    expect(setDifficulty.lastCall.args[0]).to.equal(HARD)
+    expect(setDifficultyPreference).to.have.been.calledOnce()
+    expect(setDifficultyPreference.lastCall.args[0]).to.equal(HARD)
   })
 })

@@ -11,7 +11,6 @@ import {
   RESET_PUZZLE,
   SET_TILE,
   UNDO_SET_TILE,
-  SET_DIFFICULTY,
   SUBMIT_PUZZLE
 } from '../constants/actionTypes'
 
@@ -121,14 +120,6 @@ export default function reducer (state = defaultState, action = { type: null }) 
       }
 
       return state
-    }
-    case SET_DIFFICULTY: {
-      const { difficulty } = action.payload
-
-      return {
-        ...state,
-        difficulty
-      }
     }
     case SUBMIT_PUZZLE: {
       return {

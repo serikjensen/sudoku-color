@@ -76,7 +76,6 @@
     "@babel/plugin-proposal-optional-chaining": "^7",
     "@babel/plugin-proposal-pipeline-operator": "^7",
     "@babel/plugin-transform-object-assign": "^7",
-    "@babel/plugin-transform-react-jsx": "^7",
     "@babel/preset-env": "^7",
     "@babel/preset-react": "^7",
     "@emotion/babel-preset-css-prop": "^10.0.27",

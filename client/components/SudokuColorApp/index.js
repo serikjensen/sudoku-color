@@ -12,6 +12,7 @@ import ConnectedBoard from '../Board'
 import ConnectedAppMenu from '../AppMenu'
 import ConnectedSubmitModal from '../SubmitModal'
 import { loadPuzzle, undoSetTile } from '../../actions/puzzleActions'
+import { loadUserSettings } from '../../actions/userSettingsActions'
 
 import IconButton from '../IconButton'
 
@@ -30,7 +31,9 @@ class SudokuColorApp extends PureComponent {
 
   static propTypes = {
     requestingPuzzle: PropTypes.bool,
+    isLoadingUserSettings: PropTypes.bool,
     loadPuzzle: PropTypes.func,
+    loadUserSettings: PropTypes.func,
     undoSetTile: PropTypes.func,
     board: PropTypes.elementType,
     appMenu: PropTypes.elementType,
@@ -40,7 +43,9 @@ class SudokuColorApp extends PureComponent {
 
   static defaultProps = {
     requestingPuzzle: true,
+    isLoadingUserSettings: true,
     loadPuzzle: () => {},
+    loadUserSettings: () => {},
     undoSetTile: () => {},
     board: ConnectedBoard,
     appMenu: ConnectedAppMenu,
@@ -50,6 +55,7 @@ class SudokuColorApp extends PureComponent {
 
   componentDidMount () {
     this.props.loadPuzzle()
+    this.props.loadUserSettings()
 
     document.addEventListener('keydown', this.handleDocumentKeyDown)
   }
@@ -118,7 +124,7 @@ class SudokuColorApp extends PureComponent {
                 )}
               </AppHeaderStyles>
               <AppBodyStyles>
-                {!this.props.requestingPuzzle
+                {!this.props.requestingPuzzle && !this.props.isLoadingUserSettings
                   ? <Board ref={this.handleBoardRef} />
                   : 'Loading'
                 }
@@ -136,7 +142,10 @@ class SudokuColorApp extends PureComponent {
   }
 }
 
-const mapStateToProps = state => state.puzzle
+const mapStateToProps = state => ({
+  ...state.puzzle,
+  ...state.userSettings
+})
 
 export { SudokuColorApp }
-export default connect(mapStateToProps, { loadPuzzle, undoSetTile })(SudokuColorApp)
+export default connect(mapStateToProps, { loadUserSettings, loadPuzzle, undoSetTile })(SudokuColorApp)

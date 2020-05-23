@@ -1,9 +1,14 @@
 import React, { PureComponent } from 'react'
 import PropTypes from 'prop-types'
 import { connect } from 'react-redux'
+import { IconXLine } from '@instructure/ui-icons'
+import { css } from '@emotion/core'
 
 import Modal from '../util/Modal'
 import Button from '../Button'
+import IconButton from '../IconButton'
+import ConnectedAwardHero from '../AwardHero'
+import IncorrectHero from '../IncorrectHero'
 
 import {
   requestPuzzle,
@@ -11,6 +16,24 @@ import {
   submitPuzzle,
   continuePuzzle
 } from '../../actions/puzzleActions'
+
+import {
+  REALLY_EASY,
+  EASY,
+  MEDIUM,
+  HARD
+} from '../../constants/difficultyTypes'
+
+const closeStyles = css`
+  position: absolute;
+  top: 1rem;
+  right: 0.75rem;
+`
+
+const heroStyles = css`
+  margin-top: 2rem;
+  max-width: 20rem;
+`
 
 class SubmitModal extends PureComponent {
   static propTypes = {
@@ -22,7 +45,14 @@ class SubmitModal extends PureComponent {
     requestPuzzle: PropTypes.func,
     onRequestPuzzle: PropTypes.func,
     resetPuzzle: PropTypes.func,
-    onResetPuzzle: PropTypes.func
+    onResetPuzzle: PropTypes.func,
+    difficultyPreference: PropTypes.oneOf([
+      REALLY_EASY,
+      EASY,
+      MEDIUM,
+      HARD
+    ]),
+    awardHero: PropTypes.elementType
   }
 
   static defaultProps = {
@@ -34,7 +64,9 @@ class SubmitModal extends PureComponent {
     requestPuzzle: () => {},
     onRequestPuzzle: () => {},
     resetPuzzle: () => {},
-    onResetPuzzle: () => {}
+    onResetPuzzle: () => {},
+    difficultyPreference: REALLY_EASY,
+    awardHero: ConnectedAwardHero
   }
 
   handleSubmitPuzzle = () => {
@@ -42,7 +74,7 @@ class SubmitModal extends PureComponent {
   }
 
   handleNewPuzzle = () => {
-    this.props.requestPuzzle()
+    this.props.requestPuzzle(this.props.difficultyPreference)
     this.props.onRequestPuzzle()
   }
 
@@ -56,9 +88,15 @@ class SubmitModal extends PureComponent {
   }
 
   render () {
+    const {
+      filledPuzzle,
+      submittedPuzzle,
+      validPuzzle,
+      awardHero: AwardHero
+    } = this.props
     return (
       <span>
-        {this.props.filledPuzzle && (
+        {filledPuzzle && (
           <Button
             display="block"
             color="secondary"
@@ -69,22 +107,34 @@ class SubmitModal extends PureComponent {
           </Button>
         )}
         <Modal
-          open={this.props.submittedPuzzle}
+          open={submittedPuzzle}
           onDismiss={this.handleModalDismiss}
           label="Submitted puzzle"
           shouldCloseOnDocumentClick
         >
-          {this.props.validPuzzle ? <div>Puzzle is correct</div> : <div>Puzzle is incorrect</div>}
-          <button type="button" onClick={this.handleModalDismiss}>close</button>
-          <Button onClick={this.handleResetPuzzle}>Reset</Button>
-          <Button color="secondary" onClick={this.handleNewPuzzle}>New Puzzle</Button>
+          <div css={closeStyles}>
+            <IconButton
+              onClick={this.handleModalDismiss}
+              label="Close"
+              color="neutral"
+              icon={() => <IconXLine />}
+            />
+          </div>
+          <div css={heroStyles}>
+            {validPuzzle ? <AwardHero /> : <IncorrectHero />}
+          </div>
+          <Button margin="0 0 0.25rem 0" display="block" onClick={this.handleResetPuzzle}>Reset</Button>
+          <Button display="block" color="secondary" onClick={this.handleNewPuzzle}>New Puzzle</Button>
         </Modal>
       </span>
     )
   }
 }
 
-const mapStateToProps = state => state.puzzle
+const mapStateToProps = state => ({
+  ...state.puzzle,
+  ...state.userSettings
+})
 
 export { SubmitModal }
 export default connect(mapStateToProps, { requestPuzzle, resetPuzzle, submitPuzzle, continuePuzzle })(SubmitModal)
