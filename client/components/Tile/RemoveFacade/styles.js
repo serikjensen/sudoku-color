@@ -12,6 +12,7 @@ export const RemoveFacadeStyles = styled.div`
   display: flex;
   align-items: center;
   justify-content: center;
+  box-sizing: border-box;
 
   &:focus {
     border-color: transparent;
