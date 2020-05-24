@@ -1,5 +1,7 @@
 import React from 'react'
+import PropTypes from 'prop-types'
 import { css } from '@emotion/core'
+import { ScreenReaderContent } from '@instructure/ui-a11y-content'
 
 import Logo from '../Logo'
 
@@ -18,13 +20,34 @@ const loadingStyles = css`
   font-weight: bold;
 `
 
-export default () => (
+const renderLoadingText = ({ withVisibleLoadingText }) => {
+  let loadingText = <div css={loadingStyles}>Loading...</div>
+
+  if (!withVisibleLoadingText) {
+    loadingText = <ScreenReaderContent>{loadingText}</ScreenReaderContent>
+  }
+
+  return loadingText
+}
+
+const Loading = ({ withVisibleLoadingText }) => (
   <div css={rootStyles}>
     <div>
       <div css={logoStyles}>
         <Logo shouldAnimate />
       </div>
-      <div css={loadingStyles}>Loading...</div>
+      {renderLoadingText({ withVisibleLoadingText })}
     </div>
   </div>
 )
+
+Loading.propTypes = {
+  withVisibleLoadingText: PropTypes.bool
+}
+
+Loading.defaultProps = {
+  withVisibleLoadingText: true
+}
+
+
+export default Loading

@@ -4,7 +4,6 @@ import { expect, find, mount, spy } from '@instructure/ui-test-utils'
 import ModalLocator from '@instructure/ui-modal/es/Modal/locator'
 
 import { SubmitModal } from '../index'
-import { AwardHero } from '../../AwardHero'
 import { HARD } from '../../../constants/difficultyTypes'
 
 describe('<SubmitModal />', async () => {
@@ -30,7 +29,7 @@ describe('<SubmitModal />', async () => {
   })
 
   it('should display a success message if puzzle is valid', async () => {
-    await mount(<SubmitModal awardHero={AwardHero} submittedPuzzle validPuzzle />)
+    await mount(<SubmitModal awardHero={() => <div>Congratulations!</div>} submittedPuzzle validPuzzle />)
 
     const modal = await ModalLocator.find()
     expect(await modal.find(':contains(Congratulations!)')).to.exist()

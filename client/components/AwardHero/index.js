@@ -1,7 +1,8 @@
-import React from 'react'
+import React, { useState } from 'react'
 import PropTypes from 'prop-types'
 import { css } from '@emotion/core'
 import { connect } from 'react-redux'
+import Loading from '../Loading'
 
 import {
   REALLY_EASY,
@@ -10,17 +11,17 @@ import {
   HARD
 } from '../../constants/difficultyTypes'
 
-const heading = css`
+const headingStyles = css`
   text-align: center;
 `
 
-const image = css`
+const imageContainerStyles = css`
   display: flex;
   justify-content: center;
-  max-height: 14rem;
+  height: 10rem;
 `
 
-const description = css`
+const descriptionStyles = css`
   text-align: center;
   margin: 1.5rem 0.25rem;
 `
@@ -70,20 +71,35 @@ const getAltText = (difficulty) => {
   return altTexts[difficulty]
 }
 
-const AwardHero = ({ difficulty }) => (
-  <>
-    <h2 css={heading}>Congratulations!</h2>
-    <div css={image}>
-      <img
-        src={getSource(difficulty)}
-        alt={getAltText(difficulty)}
-      />
-    </div>
-    <p css={description}>
-      {getMessage(difficulty)}
-    </p>
-  </>
-)
+const AwardHero = ({ difficulty }) => {
+  const [isImageLoaded, setImageLoaded] = useState(false)
+
+  const handleImageLoaded = () => {
+    setImageLoaded(true)
+  }
+
+  const imageStyles = css`
+    display: ${isImageLoaded ? 'initial' : 'none'};
+  `
+
+  return (
+    <>
+      <h2 css={headingStyles}>Congratulations!</h2>
+      <div css={imageContainerStyles}>
+        <img
+          src={getSource(REALLY_EASY)}
+          alt={getAltText(difficulty)}
+          onLoad={handleImageLoaded}
+          css={imageStyles}
+        />
+        {!isImageLoaded && <Loading withVisibleLoadingText={false} />}
+      </div>
+      <p css={descriptionStyles}>
+        {getMessage(difficulty)}
+      </p>
+    </>
+  )
+}
 
 AwardHero.propTypes = {
   difficulty: PropTypes.oneOf([
