@@ -15,6 +15,7 @@ import { loadPuzzle, undoSetTile } from '../../actions/puzzleActions'
 import { loadUserSettings } from '../../actions/userSettingsActions'
 
 import IconButton from '../IconButton'
+import Loading from '../Loading'
 
 import {
   AppContentStyles,
@@ -38,7 +39,8 @@ class SudokuColorApp extends PureComponent {
     board: PropTypes.elementType,
     appMenu: PropTypes.elementType,
     submitModal: PropTypes.elementType,
-    canUndo: PropTypes.bool
+    canUndo: PropTypes.bool,
+    loadingIndicator: PropTypes.elementType
   }
 
   static defaultProps = {
@@ -50,7 +52,8 @@ class SudokuColorApp extends PureComponent {
     board: ConnectedBoard,
     appMenu: ConnectedAppMenu,
     submitModal: ConnectedSubmitModal,
-    canUndo: false
+    canUndo: false,
+    loadingIndicator: Loading
   }
 
   componentDidMount () {
@@ -100,6 +103,7 @@ class SudokuColorApp extends PureComponent {
       board: Board,
       appMenu: AppMenu,
       submitModal: SubmitModal,
+      loadingIndicator: LoadingIndicator,
       canUndo
     } = this.props
 
@@ -107,34 +111,33 @@ class SudokuColorApp extends PureComponent {
       <div>
         <AppThemeProvider theme={baseTheme}>
           <AppContentStyles>
-            <div>
-              <AppHeaderStyles>
-                <AppMenu
+            {!this.props.requestingPuzzle && !this.props.isLoadingUserSettings ? (
+              <div>
+                <AppHeaderStyles>
+                  <AppMenu
+                    onRequestPuzzle={this.handleResetPuzzle}
+                    onResetPuzzle={this.handleResetPuzzle}
+                    triggerRef={this.handleMenuTriggerRef}
+                  />
+                  {canUndo && (
+                    <IconButton
+                      onClick={this.handleUndo}
+                      label="Undo"
+                      icon={() => <IconResetLine style={{ transform: 'rotate(-45deg) scale(-1,1)' }} />}
+                      color="neutral"
+                    />
+                  )}
+                </AppHeaderStyles>
+                <AppBodyStyles>
+                  <Board ref={this.handleBoardRef} />
+                </AppBodyStyles>
+                <SubmitModal
                   onRequestPuzzle={this.handleResetPuzzle}
                   onResetPuzzle={this.handleResetPuzzle}
-                  triggerRef={this.handleMenuTriggerRef}
+                  onModalClose={this.handleModalClose}
                 />
-                {canUndo && (
-                  <IconButton
-                    onClick={this.handleUndo}
-                    label="Undo"
-                    icon={() => <IconResetLine style={{ transform: 'rotate(-45deg) scale(-1,1)' }} />}
-                    color="neutral"
-                  />
-                )}
-              </AppHeaderStyles>
-              <AppBodyStyles>
-                {!this.props.requestingPuzzle && !this.props.isLoadingUserSettings
-                  ? <Board ref={this.handleBoardRef} />
-                  : 'Loading'
-                }
-              </AppBodyStyles>
-              <SubmitModal
-                onRequestPuzzle={this.handleResetPuzzle}
-                onResetPuzzle={this.handleResetPuzzle}
-                onModalClose={this.handleModalClose}
-              />
-            </div>
+              </div>
+            ) : <LoadingIndicator />}
           </AppContentStyles>
         </AppThemeProvider>
       </div>

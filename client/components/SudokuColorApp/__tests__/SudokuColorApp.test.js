@@ -22,6 +22,7 @@ const StubbedBoard = React.forwardRef((props, ref) => (
 describe('<SudokuColorApp />', async () => {
   it('should call loadPuzzle when mounted', async () => {
     const loadPuzzle = spy()
+    const loadingIndicator = () => <div>Loading</div>
 
     await mount(
       <SudokuColorApp
@@ -29,6 +30,7 @@ describe('<SudokuColorApp />', async () => {
         board={StubbedBoard}
         appMenu={AppMenu}
         submitModal={SubmitModal}
+        loadingIndicator={loadingIndicator}
       />
     )
 
@@ -36,6 +38,8 @@ describe('<SudokuColorApp />', async () => {
   })
 
   it('should display loading while loading puzzle', async () => {
+    const loadingIndicator = () => <div>Loading</div>
+
     await mount(
       <SudokuColorApp
         isLoadingUserSettings={false}
@@ -43,6 +47,7 @@ describe('<SudokuColorApp />', async () => {
         board={StubbedBoard}
         appMenu={AppMenu}
         submitModal={SubmitModal}
+        loadingIndicator={loadingIndicator}
       />
     )
 
@@ -50,6 +55,8 @@ describe('<SudokuColorApp />', async () => {
   })
 
   it('should display loading while loading user settings', async () => {
+    const loadingIndicator = () => <div>Loading</div>
+
     await mount(
       <SudokuColorApp
         requestingPuzzle={false}
@@ -57,6 +64,7 @@ describe('<SudokuColorApp />', async () => {
         board={StubbedBoard}
         appMenu={AppMenu}
         submitModal={SubmitModal}
+        loadingIndicator={loadingIndicator}
       />
     )
 
@@ -64,6 +72,8 @@ describe('<SudokuColorApp />', async () => {
   })
 
   it('should not display loading after puzzle and user settings are loaded', async () => {
+    const loadingIndicator = () => <div>Loading</div>
+
     await mount(
       <SudokuColorApp
         isLoadingUserSettings={false}
@@ -71,6 +81,7 @@ describe('<SudokuColorApp />', async () => {
         board={StubbedBoard}
         appMenu={AppMenu}
         submitModal={SubmitModal}
+        loadingIndicator={loadingIndicator}
       />
     )
 
@@ -81,6 +92,7 @@ describe('<SudokuColorApp />', async () => {
     await mount(
       <SudokuColorApp
         requestingPuzzle={false}
+        isLoadingUserSettings={false}
         board={StubbedBoard}
         appMenu={AppMenu}
         submitModal={SubmitModal}
@@ -95,6 +107,7 @@ describe('<SudokuColorApp />', async () => {
     await mount(
       <SudokuColorApp
         requestingPuzzle={false}
+        isLoadingUserSettings={false}
         board={StubbedBoard}
         appMenu={AppMenu}
         submitModal={SubmitModal}
@@ -111,6 +124,7 @@ describe('<SudokuColorApp />', async () => {
     await mount(
       <SudokuColorApp
         requestingPuzzle={false}
+        isLoadingUserSettings={false}
         board={StubbedBoard}
         appMenu={AppMenu}
         submitModal={SubmitModal}
