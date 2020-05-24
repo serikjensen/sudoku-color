@@ -3,8 +3,9 @@ import styled from '@emotion/styled'
 /* eslint-disable import/prefer-default-export */
 export const CellStyles = styled.span`
   position: relative;
-  background: white;
+  background: ${({ theme, ...props }) => (props.value < 0 ? theme.backgroundPresentation : theme.background)};
   box-sizing: content-box;
+  box-shadow: ${({ theme, ...props }) => (props.value < 0 ? theme.shadow : 'none')};
   display: flex;
   align-items: center;
   justify-content: center;

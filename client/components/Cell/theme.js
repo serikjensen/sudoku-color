@@ -1,4 +1,4 @@
-export default ({ spacing, borders, colors }) => ({
+export default ({ spacing, borders, colors, shadows }) => ({
   widthLarge: spacing.cellSizeLarge,
   heightLarge: spacing.cellSizeLarge,
   widthMedium: spacing.cellSizeMedium,
@@ -8,5 +8,8 @@ export default ({ spacing, borders, colors }) => ({
   borderWidthSmall: borders.width.small,
   borderWidthMedium: borders.width.medium,
   borderStyle: borders.style.default,
-  borderColor: colors.neutral
+  borderColor: colors.neutral,
+  background: colors.lightest,
+  backgroundPresentation: colors.lightest,
+  shadow: shadows.inner
 })

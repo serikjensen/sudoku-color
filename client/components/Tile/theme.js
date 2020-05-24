@@ -6,6 +6,7 @@ export default ({ spacing, colors, typography }) => ({
   widthSmall: calculateSmallCellSize(spacing),
   heightSmall: calculateSmallCellSize(spacing),
   background: colors.lightest,
+  backgroundPresentation: colors.lightest,
   swatches: colors.swatches,
   fontSize: typography.fontSize.medium,
   fontSizeSmall: typography.fontSize.small,

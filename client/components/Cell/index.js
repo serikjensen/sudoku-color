@@ -169,6 +169,7 @@ class Cell extends Component {
     const children = (
       <CellStyles
         coords={coords}
+        value={value}
         onMouseEnter={this.handleMouseEnter}
         onMouseLeave={this.handleMouseLeave}
       >

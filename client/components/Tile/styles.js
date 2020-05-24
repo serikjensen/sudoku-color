@@ -11,6 +11,7 @@ export const TileStyles = styled.button`
   padding: 0;
   line-height: 0;
   border: none;
+  background: ${({ theme, ...props }) => (props.value < 0 ? theme.backgroundPresentation : theme.background)};
 
   &:focus {
     outline: none;

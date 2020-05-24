@@ -84,6 +84,6 @@ export default Object.freeze({
     resting: '0 0 0.5rem 0.025rem #9B9B9B',
     above: '0 0 1rem 0.025rem #9B9B9B',
     topmost: '0 0 1.5rem 0.025rem #9B9B9B',
-    inner: 'inset 0 0 0.25rem #9B9B9B'
+    inner: 'inset 0 0 0.25rem 0.0125rem #9B9B9B'
   }
 })
