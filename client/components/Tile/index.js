@@ -120,6 +120,7 @@ class Tile extends Component {
     const tileProps = {
       tabIndex,
       facade,
+      value,
       ref: this.handleElementRef,
       onKeyDown: this.handleKeyDown,
       onClick: this.handleClick,
@@ -135,7 +136,7 @@ class Tile extends Component {
     ) : null
 
     const renderTile = ({ getFocusableProps, focused }) => (
-      <TileStyles value={value} {...getFocusableProps(tileProps)}>
+      <TileStyles {...getFocusableProps(tileProps)}>
         <Facade
           label={label}
           value={value}

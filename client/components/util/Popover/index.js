@@ -8,6 +8,8 @@ import { View } from '@instructure/ui-view'
 import AppThemeProvider from '../../theming/AppThemeProvider'
 import AppThemeContext from '../../theming/AppThemeContext'
 
+import { getLiveRegionElement } from '../../../util/getElements'
+
 class Popover extends PureComponent {
   static propTypes = {
     trigger: PropTypes.node,
@@ -41,6 +43,7 @@ class Popover extends PureComponent {
       >
         <InstUIPopover
           {...props}
+          liveRegion={() => getLiveRegionElement()}
           renderTrigger={trigger}
         >
           <AppThemeProvider theme={appTheme}>

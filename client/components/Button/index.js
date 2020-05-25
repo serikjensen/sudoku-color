@@ -16,7 +16,8 @@ class Button extends PureComponent {
     color: PropTypes.oneOf(['primary', 'secondary', 'neutral']),
     shape: PropTypes.oneOf(['circular', 'rectangular']),
     display: PropTypes.oneOf(['inline', 'block']),
-    margin: PropTypes.oneOfType([PropTypes.string, PropTypes.number])
+    margin: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
+    size: PropTypes.oneOf(['small', 'medium'])
   }
 
   static defaultProps = {
@@ -24,7 +25,8 @@ class Button extends PureComponent {
     color: 'primary',
     shape: 'circular',
     display: 'inline',
-    margin: 0
+    margin: 0,
+    size: 'medium'
   }
 
   handleButtonRef = (el) => {
@@ -39,11 +41,13 @@ class Button extends PureComponent {
     const {
       shape,
       children,
+      size,
       ...props
     } = this.props
 
     const buttonProps = {
       shape,
+      size,
       type: 'button',
       ref: this.handleButtonRef,
       ...props

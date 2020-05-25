@@ -129,7 +129,11 @@ describe('<AppMenu />', async () => {
     const setDifficultyPreference = spy()
 
     await mount(
-      <AppMenu difficultyPreference={MEDIUM} setDifficultyPreference={setDifficultyPreference} />
+      <>
+        <div id="flash-messages" role="alert" />
+        <AppMenu difficultyPreference={MEDIUM} setDifficultyPreference={setDifficultyPreference} />
+        <div id="visible-alerts" />
+      </>
     )
 
     const trigger = await find('button:contains(Open menu)')

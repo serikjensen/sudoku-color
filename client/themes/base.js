@@ -4,7 +4,7 @@ export default Object.freeze({
     light: '#dbdbdb',
     neutral: '#9B9B9B',
     dark: '#4A4A4A',
-    primary: '#4990E2',
+    primary: '#2174D4',
     secondary: '#1DCC4A',
     focus: '#50E3C2',
 
@@ -81,7 +81,7 @@ export default Object.freeze({
   },
 
   shadows: {
-    resting: '0 0 0.5rem 0.025rem #9B9B9B',
+    resting: '0 0 0.5rem 0.025rem #dbdbdb',
     above: '0 0 1rem 0.025rem #9B9B9B',
     topmost: '0 0 1.5rem 0.025rem #9B9B9B',
     inner: 'inset 0 0 0.25rem 0.0125rem #9B9B9B'

@@ -87,7 +87,7 @@ const AwardHero = ({ difficulty }) => {
       <h2 css={headingStyles}>Congratulations!</h2>
       <div css={imageContainerStyles}>
         <img
-          src={getSource(REALLY_EASY)}
+          src={getSource(difficulty)}
           alt={getAltText(difficulty)}
           onLoad={handleImageLoaded}
           css={imageStyles}

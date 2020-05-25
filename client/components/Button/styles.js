@@ -13,7 +13,7 @@ export const ButtonStyles = styled.button`
   color: ${({ theme, color }) => theme[color].color};
   background: ${({ theme, color }) => theme[color].background};
 
-  font-size: ${({ theme }) => theme.fontSize};
+  font-size: ${({ theme, size }) => (size === 'medium' ? theme.fontSize : theme.fontSizeSmall)};
   font-weight: ${({ theme }) => theme.fontWeight};
   line-height: ${({ theme }) => theme.lineHeight};
 
@@ -22,7 +22,7 @@ export const ButtonStyles = styled.button`
   border-color: ${({ theme, color }) => theme[color].borderColor};
   border-radius: ${(props) => generateBorderRadius(props)};
 
-  height: ${({ theme }) => theme.height};
+  height: ${({ theme, size }) => (size === 'medium' ? theme.height : theme.heightSmall)};
   width: ${({ theme, display }) => (display === 'block' ? '100%' : theme.width)};
 
   transition: background ${({ theme }) => theme.transitionDuration};

@@ -6,6 +6,8 @@ import { Tray as InstUITray } from '@instructure/ui-tray'
 import AppThemeProvider from '../../theming/AppThemeProvider'
 import AppThemeContext from '../../theming/AppThemeContext'
 
+import { getLiveRegionElement } from '../../../util/getElements'
+
 class Tray extends PureComponent {
   static propTypes = {
     children: PropTypes.node
@@ -28,7 +30,7 @@ class Tray extends PureComponent {
     // Rendering within the Popover is somehow interfering with the context. We recreate the
     // app theme context within the Popover content
     return (
-      <InstUITray {...props}>
+      <InstUITray liveRegion={() => getLiveRegionElement()} {...props}>
         <AppThemeProvider theme={appTheme}>
           {children}
         </AppThemeProvider>

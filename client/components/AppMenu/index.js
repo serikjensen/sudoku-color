@@ -28,8 +28,12 @@ import {
   SettingsStyles
 } from './styles'
 
+import alert from '../../util/alert'
+
 class AppMenu extends PureComponent {
   _trigger = null
+
+  _clearAlert = null
 
   static propTypes = {
     requestPuzzle: PropTypes.func,
@@ -102,6 +106,18 @@ class AppMenu extends PureComponent {
 
   handleSetDifficulty = (event, value) => {
     this.props.setDifficultyPreference(value)
+
+    if (typeof this._clearAlert === 'function') {
+      this._clearAlert()
+    }
+
+    this._clearAlert = alert({
+      children: [
+        'Updated your difficulty setting! The next time you start a new puzzle',
+        `it will be set to ${value.toLowerCase().replace('_', ' ')}.`
+      ].join(' '),
+      duration: 6000
+    })
   }
 
   renderSelectDifficulty () {
@@ -135,7 +151,6 @@ class AppMenu extends PureComponent {
           open={this.state.open}
           placement="start"
           onDismiss={this.handleTrayClose}
-          shouldCloseOnDocumentClick
         >
           <TrayStyles>
             <CloseButtonStyles>

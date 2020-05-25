@@ -41,7 +41,7 @@ export default ({ spacing, colors, typography, borders, shadows, transitions }) 
   },
 
   neutral: {
-    color: colors.neutral,
+    color: colors.dark,
     borderColor: colors.neutral,
     background: colors.lightest,
 

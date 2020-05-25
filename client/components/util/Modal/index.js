@@ -6,6 +6,8 @@ import { Modal as InstUIModal } from '@instructure/ui-modal'
 import AppThemeProvider from '../../theming/AppThemeProvider'
 import AppThemeContext from '../../theming/AppThemeContext'
 
+import { getLiveRegionElement } from '../../../util/getElements'
+
 class Modal extends PureComponent {
   static propTypes = {
     children: PropTypes.node
@@ -28,7 +30,7 @@ class Modal extends PureComponent {
     // Rendering within the Popover is somehow interfering with the context. We recreate the
     // app theme context within the Popover content
     return (
-      <InstUIModal {...props}>
+      <InstUIModal liveRegion={() => getLiveRegionElement()} {...props}>
         <InstUIModal.Body>
           <AppThemeProvider theme={appTheme}>
             {children}

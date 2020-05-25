@@ -18,14 +18,16 @@ class IconButton extends PureComponent {
     icon: PropTypes.oneOfType([PropTypes.func, PropTypes.node]),
     label: PropTypes.node,
     margin: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
-    color: PropTypes.oneOf(['primary', 'secondary', 'neutral'])
+    color: PropTypes.oneOf(['primary', 'secondary', 'neutral']),
+    size: PropTypes.oneOf(['small', 'medium'])
   }
 
   static defaultProps = {
     icon: () => null,
     label: null,
     margin: 0,
-    color: 'primary'
+    color: 'primary',
+    size: 'medium'
   }
 
   handleButtonRef = (el) => {
@@ -40,12 +42,14 @@ class IconButton extends PureComponent {
     const {
       label,
       icon,
+      size,
       Icon = icon, // eslint-disable-line react/prop-types
       ...props
     } = this.props
 
     const buttonProps = {
       shape: 'rectangular',
+      size,
       ref: this.handleButtonRef,
       ...props
     }
