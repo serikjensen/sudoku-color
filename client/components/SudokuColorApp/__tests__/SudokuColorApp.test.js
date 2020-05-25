@@ -1,6 +1,6 @@
 import React from 'react'
 
-import { expect, find, mount, spy } from '@instructure/ui-test-utils'
+import { expect, find, mount, spy, wait } from '@instructure/ui-test-utils'
 
 import { SudokuColorApp } from '../index'
 import { puzzle1 } from '../../../util/__tests__/testPuzzles'
@@ -33,8 +33,9 @@ describe('<SudokuColorApp />', async () => {
         loadingIndicator={loadingIndicator}
       />
     )
-
-    expect(loadPuzzle).to.have.been.calledOnce()
+    await wait(() => {
+      expect(loadPuzzle).to.have.been.calledOnce()
+    })
   })
 
   it('should display loading while loading puzzle', async () => {

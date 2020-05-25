@@ -65,7 +65,7 @@ const tileCoords = [
   }
 ]
 
-const Logo = ({ shouldAnimate }) => {
+const BoardLogo = ({ shouldAnimate }) => {
   const { swatches, borderColor } = useTheme()
   const [animatedTiles, setAnimatedTiles] = useState([0, 1, 2])
 
@@ -113,12 +113,12 @@ const Logo = ({ shouldAnimate }) => {
   )
 }
 
-Logo.propTypes = {
+BoardLogo.propTypes = {
   shouldAnimate: PropTypes.bool
 }
 
-Logo.defaultProps = {
+BoardLogo.defaultProps = {
   shouldAnimate: false
 }
 
-export default themeable(Logo, composeTheme)
+export default themeable(BoardLogo, composeTheme)

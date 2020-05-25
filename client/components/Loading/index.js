@@ -3,7 +3,7 @@ import PropTypes from 'prop-types'
 import { css } from '@emotion/core'
 import { ScreenReaderContent } from '@instructure/ui-a11y-content'
 
-import Logo from '../Logo'
+import BoardLogo from '../BoardLogo'
 
 const rootStyles = css`
   display: flex;
@@ -34,7 +34,7 @@ const Loading = ({ withVisibleLoadingText }) => (
   <div css={rootStyles}>
     <div>
       <div css={logoStyles}>
-        <Logo shouldAnimate />
+        <BoardLogo shouldAnimate />
       </div>
       {renderLoadingText({ withVisibleLoadingText })}
     </div>

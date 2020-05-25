@@ -30,6 +30,8 @@ class SudokuColorApp extends PureComponent {
 
   _menuTrigger = null
 
+  _timeout = null
+
   static propTypes = {
     requestingPuzzle: PropTypes.bool,
     isLoadingUserSettings: PropTypes.bool,
@@ -57,8 +59,13 @@ class SudokuColorApp extends PureComponent {
   }
 
   componentDidMount () {
-    this.props.loadPuzzle()
-    this.props.loadUserSettings()
+    // I spent a lot of time on that damn loading animation, but the puzzles
+    // load too fast to see it :) So give people a glimpse of my hard work
+    // by setting a timeout
+    this._timeout = setTimeout(() => {
+      this.props.loadPuzzle()
+      this.props.loadUserSettings()
+    }, 1000)
 
     document.addEventListener('keydown', this.handleDocumentKeyDown)
   }
@@ -70,6 +77,8 @@ class SudokuColorApp extends PureComponent {
   }
 
   componentWillUnmount () {
+    clearTimeout(this._timeout)
+
     document.removeEventListener('keydown', this.handleDocumentKeyDown)
   }
 
