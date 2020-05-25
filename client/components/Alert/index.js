@@ -65,6 +65,7 @@ const Alert = ({
             label="Close"
             color="neutral"
             icon={() => <IconXLine />}
+            data-sudoku-alert-close="true"
           />
         </div>
       </div>
