@@ -1,6 +1,7 @@
 import React from 'react'
 import ReactDOM from 'react-dom'
 
+import { Dialog } from '@instructure/ui-dialog'
 import { ScreenReaderContent } from '@instructure/ui-a11y-content'
 
 import { getLiveRegionElement, getVisibleAlertsElement } from './getElements'
@@ -27,7 +28,7 @@ export default function ({ children, duration, politeness }) {
   }
 
   // politeness one of either 'polite' or 'assertive'
-  liveRegionElement.setAttribute('aria-live', politeness || 'assertive')
+  liveRegionElement.setAttribute('aria-live', politeness || 'polite')
   liveRegionElement.setAttribute('aria-relevant', 'additions text')
   liveRegionElement.setAttribute('aria-atomic', false)
 
@@ -35,14 +36,22 @@ export default function ({ children, duration, politeness }) {
   screenReaderAlertElement.setAttribute('id', screenReaderId)
 
   const visibleAlert = (
-    <Alert
-      shouldTransition
-      exitTransitionTimeout={duration}
+    <Dialog
+      shouldFocusOnOpen={false}
+      shouldCloseOnDocumentClick
+      liveRegion={() => liveRegionElement}
       onDismiss={handleCleanup}
-      onFinishedExitTransition={handleCleanup}
+      open
     >
-      {children}
-    </Alert>
+      <Alert
+        shouldTransition
+        exitTransitionTimeout={duration}
+        onDismiss={handleCleanup}
+        onFinishedExitTransition={handleCleanup}
+      >
+        {children}
+      </Alert>
+    </Dialog>
   )
 
   ReactDOM.render(

@@ -21,8 +21,6 @@ import IconButton from '../IconButton'
 import { requestPuzzle, resetPuzzle } from '../../actions/puzzleActions'
 import { setDifficultyPreference } from '../../actions/userSettingsActions'
 
-import { getVisibleAlertsElement } from '../../util/getElements'
-
 import {
   TrayStyles,
   CloseButtonStyles,
@@ -85,23 +83,7 @@ class AppMenu extends PureComponent {
     this.setTrayStatus(true)
   }
 
-  handleTrayClose = (event) => {
-    // TODO: Remove this hack when tray can add elements to ignore for document click
-    // If anything is clicked outside of the tray it will dismiss. This code prevents
-    // it from doing when the target of the event is the alert or the alert close button
-    // as it is annoying UX to dismiss the tray when you are actually just trying to
-    // dismiss the alert
-    if (event && event.target) {
-      const visibleAlertsElement = getVisibleAlertsElement()
-
-      if (
-        (visibleAlertsElement && visibleAlertsElement.contains(event.target))
-        || event.target.getAttribute('data-sudoku-alert-close') === 'true'
-      ) {
-        return
-      }
-    }
-
+  handleTrayClose = () => {
     this.setTrayStatus(false)
   }
 
