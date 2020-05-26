@@ -66,7 +66,7 @@ const tileCoords = [
 ]
 
 const BoardLogo = ({ shouldAnimate }) => {
-  const { swatches, borderColor } = useTheme()
+  const { swatches, borderColor, background } = useTheme()
   const [animatedTiles, setAnimatedTiles] = useState([0, 1, 2])
 
   if (shouldAnimate) {
@@ -83,8 +83,13 @@ const BoardLogo = ({ shouldAnimate }) => {
 
   return (
     <PresentationContent>
-      <svg width="100%" viewBox="0 0 175 175" fill="none" xmlns="http://www.w3.org/2000/svg">
-        <rect width="175" height="175" fill="white" />
+      <svg
+        width="100%"
+        viewBox="0 0 175 175"
+        fill="none"
+        xmlns="http://www.w3.org/2000/svg"
+      >
+        <rect width="175" height="175" fill={background} />
         <path d="M0 115H175V120H0V115Z" fill={borderColor} />
         <path d="M115 0H120V175H115V0Z" fill={borderColor} />
         <path d="M0 55H175V60H0V55Z" fill={borderColor} />

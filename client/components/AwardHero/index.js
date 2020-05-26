@@ -1,8 +1,9 @@
 import React, { useState } from 'react'
 import PropTypes from 'prop-types'
-import { css } from '@emotion/core'
+import { useTheme } from 'emotion-theming'
 import { connect } from 'react-redux'
 import Loading from '../Loading'
+import themeable from '../theming/themeable'
 
 import {
   REALLY_EASY,
@@ -11,20 +12,8 @@ import {
   HARD
 } from '../../constants/difficultyTypes'
 
-const headingStyles = css`
-  text-align: center;
-`
-
-const imageContainerStyles = css`
-  display: flex;
-  justify-content: center;
-  height: 10rem;
-`
-
-const descriptionStyles = css`
-  text-align: center;
-  margin: 1.5rem 0.25rem;
-`
+import composeTheme from './theme'
+import composeStyles from './styles'
 
 const getMessage = (difficulty) => {
   const messages = {
@@ -74,27 +63,26 @@ const getAltText = (difficulty) => {
 const AwardHero = ({ difficulty }) => {
   const [isImageLoaded, setImageLoaded] = useState(false)
 
+  const theme = useTheme()
+  const styles = composeStyles(theme, { isImageLoaded })
+
   const handleImageLoaded = () => {
     setImageLoaded(true)
   }
 
-  const imageStyles = css`
-    display: ${isImageLoaded ? 'initial' : 'none'};
-  `
-
   return (
     <>
-      <h2 css={headingStyles}>Congratulations!</h2>
-      <div css={imageContainerStyles}>
+      <h2 css={styles.heading}>Congratulations!</h2>
+      <div css={styles.imageContainer}>
         <img
           src={getSource(difficulty)}
           alt={getAltText(difficulty)}
           onLoad={handleImageLoaded}
-          css={imageStyles}
+          css={styles.image}
         />
         {!isImageLoaded && <Loading withVisibleLoadingText={false} />}
       </div>
-      <p css={descriptionStyles}>
+      <p css={styles.description}>
         {getMessage(difficulty)}
       </p>
     </>
@@ -116,5 +104,7 @@ AwardHero.defaultProps = {
 
 const mapStateToProps = (state) => state.puzzle
 
-export { AwardHero }
-export default connect(mapStateToProps)(AwardHero)
+const ThemedAwardHero = themeable(AwardHero, composeTheme)
+
+export { AwardHero as ThemedAwardHero }
+export default connect(mapStateToProps)(ThemedAwardHero)

@@ -7,9 +7,11 @@ import { MEDIUM, HARD } from '../../../constants/difficultyTypes'
 
 import { AppMenu } from '../index'
 
+const ThemePicker = () => <div>theme picker</div>
+
 describe('<AppMenu />', async () => {
   it('should open menu on trigger click', async () => {
-    await mount(<AppMenu />)
+    await mount(<AppMenu themePicker={ThemePicker} />)
 
     const trigger = await find('button:contains(Open menu)')
     await trigger.click()
@@ -22,7 +24,7 @@ describe('<AppMenu />', async () => {
   })
 
   it('should close menu on close button click', async () => {
-    await mount(<AppMenu />)
+    await mount(<AppMenu themePicker={ThemePicker} />)
 
     const trigger = await find('button:contains(Open menu)')
     await trigger.click()
@@ -51,6 +53,7 @@ describe('<AppMenu />', async () => {
       <AppMenu
         requestPuzzle={requestPuzzle}
         onRequestPuzzle={onRequestPuzzle}
+        themePicker={ThemePicker}
       />
     )
     const trigger = await find('button:contains(Open menu)')
@@ -78,6 +81,7 @@ describe('<AppMenu />', async () => {
       <AppMenu
         resetPuzzle={resetPuzzle}
         onResetPuzzle={onResetPuzzle}
+        themePicker={ThemePicker}
       />
     )
     const trigger = await find('button:contains(Open menu)')
@@ -99,7 +103,7 @@ describe('<AppMenu />', async () => {
 
   it('should focus trigger after submitting a puzzle', async () => {
     const subject = await mount(
-      <AppMenu submittedPuzzle />
+      <AppMenu submittedPuzzle themePicker={ThemePicker} />
     )
 
     await subject.setProps({ submittedPuzzle: false })
@@ -110,7 +114,7 @@ describe('<AppMenu />', async () => {
 
   it('should properly check the difficulty setting provided', async () => {
     await mount(
-      <AppMenu difficultyPreference={MEDIUM} />
+      <AppMenu difficultyPreference={MEDIUM} themePicker={ThemePicker} />
     )
 
     const trigger = await find('button:contains(Open menu)')
@@ -131,7 +135,11 @@ describe('<AppMenu />', async () => {
     await mount(
       <>
         <div id="flash-messages" role="alert" />
-        <AppMenu difficultyPreference={MEDIUM} setDifficultyPreference={setDifficultyPreference} />
+        <AppMenu
+          difficultyPreference={MEDIUM}
+          setDifficultyPreference={setDifficultyPreference}
+          themePicker={ThemePicker}
+        />
         <div id="visible-alerts" />
       </>
     )

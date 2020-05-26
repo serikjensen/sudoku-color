@@ -36,7 +36,7 @@ describe('<SubmitModal />', async () => {
   })
 
   it('should display an invalid puzzle message if puzzle is invalid', async () => {
-    await mount(<SubmitModal submittedPuzzle validPuzzle={false} />)
+    await mount(<SubmitModal submittedPuzzle validPuzzle={false} incorrectHero={() => 'Whoops!'} />)
 
     const modal = await ModalLocator.find()
     expect(await modal.find(':contains(Whoops!)')).to.exist()
@@ -44,7 +44,7 @@ describe('<SubmitModal />', async () => {
 
   it('should call continue puzzle if the close button is selected', async () => {
     const continuePuzzle = spy()
-    await mount(<SubmitModal submittedPuzzle continuePuzzle={continuePuzzle} />)
+    await mount(<SubmitModal submittedPuzzle continuePuzzle={continuePuzzle} incorrectHero={() => 'Whoops!'} />)
 
     const modal = await ModalLocator.find()
     const closeButton = await modal.find('button:contains(Close)')
@@ -61,6 +61,7 @@ describe('<SubmitModal />', async () => {
         submittedPuzzle
         resetPuzzle={resetPuzzle}
         onResetPuzzle={onResetPuzzle}
+        incorrectHero={() => 'Whoops!'}
       />
     )
 
@@ -81,6 +82,7 @@ describe('<SubmitModal />', async () => {
         requestPuzzle={requestPuzzle}
         onRequestPuzzle={onRequestPuzzle}
         difficultyPreference={HARD}
+        incorrectHero={() => 'Whoops!'}
       />
     )
 

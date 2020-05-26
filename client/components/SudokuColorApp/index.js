@@ -16,14 +16,14 @@ import { loadUserSettings } from '../../actions/userSettingsActions'
 
 import IconButton from '../IconButton'
 import Loading from '../Loading'
+import AppContent from '../AppContent'
 
 import {
-  AppContentStyles,
   AppHeaderStyles,
   AppBodyStyles
 } from './styles'
 
-import baseTheme from '../../themes/base'
+import themes from '../../themes'
 
 class SudokuColorApp extends PureComponent {
   _board = null
@@ -42,7 +42,8 @@ class SudokuColorApp extends PureComponent {
     appMenu: PropTypes.elementType,
     submitModal: PropTypes.elementType,
     canUndo: PropTypes.bool,
-    loadingIndicator: PropTypes.elementType
+    loadingIndicator: PropTypes.elementType,
+    themeKey: PropTypes.string
   }
 
   static defaultProps = {
@@ -55,7 +56,8 @@ class SudokuColorApp extends PureComponent {
     appMenu: ConnectedAppMenu,
     submitModal: ConnectedSubmitModal,
     canUndo: false,
-    loadingIndicator: Loading
+    loadingIndicator: Loading,
+    themeKey: null
   }
 
   componentDidMount () {
@@ -113,13 +115,14 @@ class SudokuColorApp extends PureComponent {
       appMenu: AppMenu,
       submitModal: SubmitModal,
       loadingIndicator: LoadingIndicator,
-      canUndo
+      canUndo,
+      themeKey
     } = this.props
 
     return (
       <div>
-        <AppThemeProvider theme={baseTheme}>
-          <AppContentStyles>
+        <AppThemeProvider theme={themes[themeKey]}>
+          <AppContent>
             {!this.props.requestingPuzzle && !this.props.isLoadingUserSettings ? (
               <div>
                 <AppHeaderStyles>
@@ -147,8 +150,9 @@ class SudokuColorApp extends PureComponent {
                 />
               </div>
             ) : <LoadingIndicator />}
-          </AppContentStyles>
+          </AppContent>
         </AppThemeProvider>
+        <div id="visible-alerts" />
       </div>
     )
   }

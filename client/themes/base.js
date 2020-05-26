@@ -1,4 +1,4 @@
-export default Object.freeze({
+export default {
   colors: {
     lightest: '#FFFFFF',
     light: '#dbdbdb',
@@ -7,6 +7,7 @@ export default Object.freeze({
     primary: '#2174D4',
     secondary: '#1DCC4A',
     focus: '#50E3C2',
+    overlay: 'rgba(255, 255, 255, 0.75)',
 
     swatches: {
       1: '#BD0000',
@@ -86,4 +87,4 @@ export default Object.freeze({
     topmost: '0 0 1.5rem 0.025rem #9B9B9B',
     inner: 'inset 0 0 0.25rem 0.0125rem #9B9B9B'
   }
-})
+}

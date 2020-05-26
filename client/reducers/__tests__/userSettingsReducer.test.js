@@ -7,7 +7,8 @@ import { MEDIUM, REALLY_EASY } from '../../constants/difficultyTypes'
 import {
   LOAD_USER_SETTINGS,
   RECEIVED_USER_SETTINGS,
-  SET_DIFFICULTY_PREFERENCE
+  SET_DIFFICULTY_PREFERENCE,
+  SET_THEME
 } from '../../constants/actionTypes'
 
 describe('userSettingsReducer', () => {
@@ -32,7 +33,8 @@ describe('userSettingsReducer', () => {
       const state = reducer(defaultState, {
         type: RECEIVED_USER_SETTINGS,
         payload: {
-          difficultyPreference: MEDIUM
+          difficultyPreference: MEDIUM,
+          themeKey: 'inverse'
         },
         error: false
       })
@@ -40,7 +42,8 @@ describe('userSettingsReducer', () => {
       expect(state).to.deep.equal({
         ...defaultState,
         isLoadingUserSettings: false,
-        difficultyPreference: MEDIUM
+        difficultyPreference: MEDIUM,
+        themeKey: 'inverse'
       })
     })
 
@@ -72,6 +75,20 @@ describe('userSettingsReducer', () => {
     expect(state).to.deep.equal({
       ...defaultState,
       difficultyPreference: MEDIUM
+    })
+  })
+
+  it('should handle SET_THEME', () => {
+    const state = reducer(defaultState, {
+      type: SET_THEME,
+      payload: {
+        themeKey: 'inverse'
+      }
+    })
+
+    expect(state).to.deep.equal({
+      ...defaultState,
+      themeKey: 'inverse'
     })
   })
 })

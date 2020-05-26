@@ -5,6 +5,8 @@ import themeable from '../theming/themeable'
 const TrayStyles = styled.div`
   position: relative;
   padding: ${({ theme }) => theme.borderPadding};
+  background: ${({ theme }) => theme.background};
+  border-right: ${({ theme }) => theme.borderWidth} solid ${({ theme }) => theme.borderColor};
 `
 const ThemeableTrayStyles = themeable(TrayStyles, composeTheme)
 export { ThemeableTrayStyles as TrayStyles }
@@ -32,5 +34,10 @@ const SettingsStyles = styled.h3`
   padding: 1rem 0;
   margin-top: 2rem;
 `
+
 const ThemeableSettingsStyles = themeable(SettingsStyles, composeTheme)
 export { ThemeableSettingsStyles as SettingsStyles }
+
+export const SettingsFieldStyles = styled.div`
+  margin-bottom: 2.5rem;
+`

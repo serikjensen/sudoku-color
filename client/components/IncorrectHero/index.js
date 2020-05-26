@@ -1,18 +1,23 @@
 import React from 'react'
-import { css } from '@emotion/core'
+import { useTheme } from 'emotion-theming'
 
-const heading = css`
-  text-align: center;
-`
+import themeable from '../theming/themeable'
 
-const description = css`
-  text-align: center;
-  margin: 1.5rem 0.25rem;
-`
+import composeTheme from './theme'
+import composeStyles from './styles'
 
-export default () => (
-  <>
-    <h2 css={heading}>Whoops!</h2>
-    <p css={description}>Looks like this puzzle isn&apos;t quite correct.</p>
-  </>
-)
+const IncorrectHero = () => {
+  const theme = useTheme()
+  const styles = composeStyles(theme)
+
+  return (
+    <>
+      <h2 css={styles.heading}>Whoops!</h2>
+      <p css={styles.description}>Looks like this puzzle isn&apos;t quite correct.</p>
+    </>
+  )
+}
+
+const ThemedIncorrectHero = themeable(IncorrectHero, composeTheme)
+
+export default ThemedIncorrectHero

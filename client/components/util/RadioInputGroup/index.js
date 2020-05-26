@@ -17,7 +17,8 @@ const RadioInputGroup = ({ theme, ...props }) => (
       labelColor: theme.labelColor,
       focusBorderColor: theme.focusColor,
       borderColor: theme.labelColor,
-      hoverBorderColor: theme.inputColor
+      hoverBorderColor: theme.inputColor,
+      background: theme.background
     }
   }}
   >

@@ -34,6 +34,7 @@
     "@instructure/ui-form-field": "^6.26.0",
     "@instructure/ui-icons": "^6.26.0",
     "@instructure/ui-modal": "^6.26.0",
+    "@instructure/ui-overlays": "^6.26.0",
     "@instructure/ui-popover": "^6.26.0",
     "@instructure/ui-radio-input": "^6.26.0",
     "@instructure/ui-react-utils": "^6.26.0",

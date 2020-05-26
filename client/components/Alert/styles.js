@@ -48,6 +48,7 @@ export default (theme, props, state) => ({
     align-items: center;
     color: ${theme.color};
     margin: 0.75rem 0;
+    background: ${theme.background};
   `,
   alertOpacity: css`
     opacity: ${state.shouldStartExitTransition ? 0 : 1};

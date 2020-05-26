@@ -17,6 +17,7 @@ import RadioInput from '../util/RadioInput'
 import AppLogo from '../AppLogo'
 import Button from '../Button'
 import IconButton from '../IconButton'
+import ConnectedThemePicker from '../ThemePicker'
 
 import { requestPuzzle, resetPuzzle } from '../../actions/puzzleActions'
 import { setDifficultyPreference } from '../../actions/userSettingsActions'
@@ -25,7 +26,8 @@ import {
   TrayStyles,
   CloseButtonStyles,
   HeaderStyles,
-  SettingsStyles
+  SettingsStyles,
+  SettingsFieldStyles
 } from './styles'
 
 import alert from '../../util/alert'
@@ -49,7 +51,9 @@ class AppMenu extends PureComponent {
       EASY,
       MEDIUM,
       HARD
-    ])
+    ]),
+    themePicker: PropTypes.elementType,
+    themeKey: PropTypes.string
   }
 
   static defaultProps = {
@@ -61,7 +65,9 @@ class AppMenu extends PureComponent {
     filledPuzzle: false,
     triggerRef: () => {},
     setDifficultyPreference: () => {},
-    difficultyPreference: REALLY_EASY
+    difficultyPreference: REALLY_EASY,
+    themePicker: ConnectedThemePicker,
+    themeKey: 'base'
   }
 
   state = {
@@ -116,14 +122,15 @@ class AppMenu extends PureComponent {
         'Updated your difficulty setting! The next time you start a new puzzle',
         `it will be set to ${value.toLowerCase().replace('_', ' ')}.`
       ].join(' '),
-      duration: 6000
+      duration: 6000,
+      themeKey: this.props.themeKey
     })
   }
 
   renderSelectDifficulty () {
     return (
       <RadioInputGroup
-        description="Puzzle Difficulty"
+        description="Set Puzzle Difficulty"
         name="difficulty"
         value={this.props.difficultyPreference}
         onChange={this.handleSetDifficulty}
@@ -133,6 +140,14 @@ class AppMenu extends PureComponent {
         <RadioInput value={MEDIUM} label="Medium" />
         <RadioInput value={HARD} label="Hard" />
       </RadioInputGroup>
+    )
+  }
+
+  renderSelectTheme () {
+    const { themePicker: ThemePicker } = this.props
+
+    return (
+      <ThemePicker />
     )
   }
 
@@ -181,7 +196,12 @@ class AppMenu extends PureComponent {
               New Puzzle
             </Button>
             <SettingsStyles>Settings</SettingsStyles>
-            {this.renderSelectDifficulty()}
+            <SettingsFieldStyles>
+              {this.renderSelectDifficulty()}
+            </SettingsFieldStyles>
+            <SettingsFieldStyles>
+              {this.renderSelectTheme()}
+            </SettingsFieldStyles>
           </TrayStyles>
         </Tray>
       </div>

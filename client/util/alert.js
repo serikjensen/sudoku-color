@@ -6,8 +6,10 @@ import { ScreenReaderContent } from '@instructure/ui-a11y-content'
 
 import { getLiveRegionElement, getVisibleAlertsElement } from './getElements'
 import Alert from '../components/Alert'
+import themes from '../themes'
+import AppThemeProvider from '../components/theming/AppThemeProvider'
 
-export default function ({ children, duration, politeness }) {
+export default function ({ children, duration, politeness, themeKey = 'base' } = {}) {
   const liveRegionElement = getLiveRegionElement()
   const visibleAlertsElement = getVisibleAlertsElement()
 
@@ -36,22 +38,24 @@ export default function ({ children, duration, politeness }) {
   screenReaderAlertElement.setAttribute('id', screenReaderId)
 
   const visibleAlert = (
-    <Dialog
-      shouldFocusOnOpen={false}
-      shouldCloseOnDocumentClick
-      liveRegion={() => liveRegionElement}
-      onDismiss={handleCleanup}
-      open
-    >
-      <Alert
-        shouldTransition
-        exitTransitionTimeout={duration}
+    <AppThemeProvider theme={themes[themeKey]}>
+      <Dialog
+        shouldFocusOnOpen={false}
+        shouldCloseOnDocumentClick
+        liveRegion={() => liveRegionElement}
         onDismiss={handleCleanup}
-        onFinishedExitTransition={handleCleanup}
+        open
       >
-        {children}
-      </Alert>
-    </Dialog>
+        <Alert
+          shouldTransition
+          exitTransitionTimeout={duration}
+          onDismiss={handleCleanup}
+          onFinishedExitTransition={handleCleanup}
+        >
+          {children}
+        </Alert>
+      </Dialog>
+    </AppThemeProvider>
   )
 
   ReactDOM.render(

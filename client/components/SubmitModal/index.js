@@ -8,7 +8,7 @@ import Modal from '../util/Modal'
 import Button from '../Button'
 import IconButton from '../IconButton'
 import ConnectedAwardHero from '../AwardHero'
-import IncorrectHero from '../IncorrectHero'
+import ConnectedIncorrectHero from '../IncorrectHero'
 
 import {
   requestPuzzle,
@@ -52,7 +52,8 @@ class SubmitModal extends PureComponent {
       MEDIUM,
       HARD
     ]),
-    awardHero: PropTypes.elementType
+    awardHero: PropTypes.elementType,
+    incorrectHero: PropTypes.elementType
   }
 
   static defaultProps = {
@@ -66,7 +67,8 @@ class SubmitModal extends PureComponent {
     resetPuzzle: () => {},
     onResetPuzzle: () => {},
     difficultyPreference: REALLY_EASY,
-    awardHero: ConnectedAwardHero
+    awardHero: ConnectedAwardHero,
+    incorrectHero: ConnectedIncorrectHero
   }
 
   handleSubmitPuzzle = () => {
@@ -92,8 +94,10 @@ class SubmitModal extends PureComponent {
       filledPuzzle,
       submittedPuzzle,
       validPuzzle,
-      awardHero: AwardHero
+      awardHero: AwardHero,
+      incorrectHero: IncorrectHero
     } = this.props
+
     return (
       <span>
         {filledPuzzle && (

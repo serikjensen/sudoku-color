@@ -1,7 +1,8 @@
 import {
   LOAD_USER_SETTINGS,
   RECEIVED_USER_SETTINGS,
-  SET_DIFFICULTY_PREFERENCE
+  SET_DIFFICULTY_PREFERENCE,
+  SET_THEME
 } from '../constants/actionTypes'
 
 import {
@@ -10,6 +11,7 @@ import {
 
 export const defaultState = {
   difficultyPreference: REALLY_EASY,
+  themeKey: null,
   isLoadingUserSettings: true
 }
 
@@ -23,11 +25,12 @@ export default function reducer (state = defaultState, action = { type: null }) 
     }
     case RECEIVED_USER_SETTINGS: {
       if (!action.error) {
-        const { difficultyPreference } = action.payload
+        const { difficultyPreference, themeKey } = action.payload
 
         return {
           ...state,
           difficultyPreference,
+          themeKey,
           isLoadingUserSettings: false
         }
       }
@@ -44,6 +47,14 @@ export default function reducer (state = defaultState, action = { type: null }) 
       return {
         ...state,
         difficultyPreference
+      }
+    }
+    case SET_THEME: {
+      const { themeKey } = action.payload
+
+      return {
+        ...state,
+        themeKey
       }
     }
     default: {
