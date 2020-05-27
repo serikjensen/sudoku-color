@@ -5,19 +5,19 @@ export default {
     neutral: '#9B9B9B',
     dark: '#4A4A4A',
     primary: '#2174D4',
-    secondary: '#1DCC4A',
-    focus: '#50E3C2',
+    secondary: '#801EAE',
+    focus: '#32817D',
     overlay: 'rgba(255, 255, 255, 0.75)',
 
     swatches: {
       1: '#BD0000',
-      2: '#FF8100',
-      3: '#72D27B',
+      2: '#EF4404',
+      3: '#1A9E97',
       4: '#0E9F1B',
       5: '#840CC4',
       6: '#E35094',
-      7: '#D19DFF',
-      8: '#80B5F4',
+      7: '#BF6EE0',
+      8: '#3498DB',
       9: '#2F65EB'
     }
   },

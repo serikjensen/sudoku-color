@@ -21,7 +21,7 @@ export { ThemeableHeaderStyles as HeaderStyles }
 
 const CloseButtonStyles = styled.div`
   position: absolute;
-  top: ${({ theme }) => theme.borderPadding};
+  top: 1.5rem;
   right: ${({ theme }) => theme.borderPadding};
 `
 const ThemeableCloseButtonStyles = themeable(CloseButtonStyles, composeTheme)

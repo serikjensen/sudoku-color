@@ -4,7 +4,7 @@ export default ({ colors, spacing, typography, borders }) => ({
   borderColor: colors.light,
   borderPadding: spacing.medium,
   headerMarginTop: spacing.xxLarge,
-  headerPaddingBottom: spacing.large,
+  headerPaddingBottom: spacing.medium,
   headerMarginBottom: spacing.xLarge,
   settingsFontSize: typography.fontSize.large,
   settingsColor: colors.dark,

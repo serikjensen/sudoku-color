@@ -1,27 +1,16 @@
 import React from 'react'
 import PropTypes from 'prop-types'
-import { css } from '@emotion/core'
 import { ScreenReaderContent } from '@instructure/ui-a11y-content'
+import { useTheme } from 'emotion-theming'
+import themeable from '../theming/themeable'
 
 import BoardLogo from '../BoardLogo'
 
-const rootStyles = css`
-  display: flex;
-  align-items: center;
-`
+import composeTheme from './theme'
+import composeStyles from './styles'
 
-const logoStyles = css`
-  width: 4rem;
-  margin-bottom: 0.25rem;
-`
-
-const loadingStyles = css`
-  text-align: center;
-  font-weight: bold;
-`
-
-const renderLoadingText = ({ withVisibleLoadingText }) => {
-  let loadingText = <div css={loadingStyles}>Loading...</div>
+const renderLoadingText = ({ withVisibleLoadingText, styles }) => {
+  let loadingText = <div css={styles.loading}>Loading...</div>
 
   if (!withVisibleLoadingText) {
     loadingText = <ScreenReaderContent>{loadingText}</ScreenReaderContent>
@@ -30,16 +19,21 @@ const renderLoadingText = ({ withVisibleLoadingText }) => {
   return loadingText
 }
 
-const Loading = ({ withVisibleLoadingText }) => (
-  <div css={rootStyles}>
-    <div>
-      <div css={logoStyles}>
-        <BoardLogo shouldAnimate />
+const Loading = ({ withVisibleLoadingText }) => {
+  const theme = useTheme()
+  const styles = composeStyles(theme)
+
+  return (
+    <div css={styles.root}>
+      <div>
+        <div css={styles.logo}>
+          <BoardLogo shouldAnimate />
+        </div>
+        {renderLoadingText({ withVisibleLoadingText, styles })}
       </div>
-      {renderLoadingText({ withVisibleLoadingText })}
     </div>
-  </div>
-)
+  )
+}
 
 Loading.propTypes = {
   withVisibleLoadingText: PropTypes.bool
@@ -49,5 +43,4 @@ Loading.defaultProps = {
   withVisibleLoadingText: true
 }
 
-
-export default Loading
+export default themeable(Loading, composeTheme)

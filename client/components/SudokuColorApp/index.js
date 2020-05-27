@@ -14,6 +14,8 @@ import ConnectedSubmitModal from '../SubmitModal'
 import { loadPuzzle, undoSetTile } from '../../actions/puzzleActions'
 import { loadUserSettings } from '../../actions/userSettingsActions'
 
+import { USER_SETTINGS_KEY } from '../../constants/storageTypes'
+
 import IconButton from '../IconButton'
 import Loading from '../Loading'
 import AppContent from '../AppContent'
@@ -93,6 +95,24 @@ class SudokuColorApp extends PureComponent {
     }
   }
 
+  getLoadingThemeKey = () => {
+    // Load the theme from local storage if one exists
+    let themeKey = 'base'
+
+    try {
+      const savedUserSettingsData = localStorage.getItem(USER_SETTINGS_KEY)
+
+      if (savedUserSettingsData) {
+        const savedUserSettings = JSON.parse(savedUserSettingsData)
+        themeKey = (savedUserSettings || {}).themeKey
+      }
+    } catch (err) {
+      themeKey = 'base'
+    }
+
+    return themeKey
+  }
+
   handleBoardRef = (el) => {
     this._board = el
   }
@@ -121,7 +141,7 @@ class SudokuColorApp extends PureComponent {
 
     return (
       <div>
-        <AppThemeProvider theme={themes[themeKey]}>
+        <AppThemeProvider theme={themes[themeKey || this.getLoadingThemeKey()]}>
           <AppContent>
             {!this.props.requestingPuzzle && !this.props.isLoadingUserSettings ? (
               <div>

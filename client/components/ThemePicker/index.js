@@ -16,8 +16,8 @@ const ThemePicker = ({ themeKey, setTheme: handleSetTheme }) => {
     handleSetTheme(value)
   }
 
-  const renderLabel = (label) => (
-    <AppThemeProvider theme={themes[label.toLowerCase()]}>
+  const renderLabel = (key, label) => (
+    <AppThemeProvider theme={themes[key]}>
       <Label label={label} />
     </AppThemeProvider>
   )
@@ -29,8 +29,9 @@ const ThemePicker = ({ themeKey, setTheme: handleSetTheme }) => {
       value={themeKey}
       onChange={handleChange}
     >
-      <RadioInput value="base" label={renderLabel('Base')} />
-      <RadioInput value="inverse" label={renderLabel('Inverse')} />
+      <RadioInput value="base" label={renderLabel('base', 'Classic')} />
+      <RadioInput value="inverse" label={renderLabel('inverse', 'Dark')} />
+      <RadioInput value="blackAndWhite" label={renderLabel('blackAndWhite', 'Grayscale')} />
     </RadioInputGroup>
   )
 }

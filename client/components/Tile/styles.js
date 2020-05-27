@@ -5,6 +5,7 @@ export const TileStyles = styled.button`
   width: ${({ theme }) => theme.widthLarge};
   height: ${({ theme }) => theme.heightLarge};
   font-size: ${({ theme }) => theme.fontSize};
+  font-weight: bold;
   font-family: ${({ theme }) => theme.fontFamily};
   background: ${({ theme }) => theme.background};
   cursor: ${({ facade }) => (facade === 'presentation' ? 'default' : 'pointer')};

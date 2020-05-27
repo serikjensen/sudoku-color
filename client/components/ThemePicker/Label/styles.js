@@ -11,6 +11,7 @@ export default (theme) => ({
     justify-content: center;
     padding: 1rem;
     width: 12rem;
+    cursor: pointer;
   `,
 
   logo: css`
