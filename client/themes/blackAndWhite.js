@@ -2,7 +2,7 @@ import base from './base'
 
 const { colors, shadows, ...properties } = base
 
-const inverse = {
+const blackAndWhite = {
   ...properties,
   colors: {
     lightest: '#313131',
@@ -35,4 +35,4 @@ const inverse = {
   }
 }
 
-export default inverse
+export default blackAndWhite

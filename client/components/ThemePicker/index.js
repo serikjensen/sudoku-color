@@ -31,6 +31,8 @@ const ThemePicker = ({ themeKey, setTheme: handleSetTheme }) => {
     >
       <RadioInput value="base" label={renderLabel('base', 'Classic')} />
       <RadioInput value="inverse" label={renderLabel('inverse', 'Dark')} />
+      <RadioInput value="retro" label={renderLabel('retro', 'Retro')} />
+      <RadioInput value="purpley" label={renderLabel('purpley', 'Purpley')} />
       <RadioInput value="blackAndWhite" label={renderLabel('blackAndWhite', 'Grayscale')} />
     </RadioInputGroup>
   )

@@ -30,7 +30,13 @@ class Tray extends PureComponent {
     // Rendering within the Popover is somehow interfering with the context. We recreate the
     // app theme context within the Popover content
     return (
-      <InstUITray liveRegion={() => getLiveRegionElement()} {...props}>
+      <InstUITray
+        liveRegion={() => getLiveRegionElement()}
+        theme={{
+          boxShadow: (appTheme.shadows || {}).resting
+        }}
+        {...props}
+      >
         <AppThemeProvider theme={appTheme}>
           {children}
         </AppThemeProvider>
