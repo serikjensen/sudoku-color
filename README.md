@@ -1,6 +1,6 @@
 # Sudoku Color
 
-An accessible, colorized React sudoku application. See it live at [colorfulpuzzles.com[(https://colorfulpuzzles.com/).
+An accessible, colorized React sudoku application. See it live at [colorfulpuzzles.com](https://colorfulpuzzles.com/).
 
 Inspired by the board game [colorku](https://www.colorku.com/).
 
