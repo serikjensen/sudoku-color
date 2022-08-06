@@ -14,6 +14,11 @@ All color schemes meet (at a minimum) WCAG 2.1 AA compliance for contrast and ev
 
 ![Accessibility](https://user-images.githubusercontent.com/19558405/183266951-22f511e5-d970-44d7-b86d-82867af512f1.gif)
 
+## Responsive
+Playable on any size of desktop or any mobile device.
+
+![Responsive](https://user-images.githubusercontent.com/19558405/183267146-24627ce7-ecc9-4346-94d7-9cd4592d0c79.gif)
+
 ## Win Prizes
 If you like admiring hastily thrown together vector art, you should play with some extra determination.
 
